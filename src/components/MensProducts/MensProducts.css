@@ -1,0 +1,70 @@
+.card{
+   border: none;
+   width: fit-content;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  height: 100%; 
+  position: relative;
+}
+
+.card img {
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  width: fit-content;
+  margin: auto;
+}
+
+.card:hover img {
+  transform: translateY(-20px);
+  
+}
+
+
+
+.offer {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background-color: hsl(0, 0%, 100%);
+  color: black;
+  padding: 5px 10px;
+  border-radius: 50px;
+  font-size: 12px;
+  font-weight: bold;
+  z-index: 10;
+}
+.trash {
+  position: absolute;
+  top: 70px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: hsl(0, 0%, 90%);
+  color: black;
+  font-size: 14px;
+  z-index: 10;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.heart {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: hsl(0, 0%, 90%);
+  color: black;
+  font-size: 18px;
+  z-index: 10;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}.heart:hover{
+  color: red;
+  background-color: hsl(0, 0%, 90%);
+}

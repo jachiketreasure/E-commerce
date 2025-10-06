@@ -1,0 +1,126 @@
+.Nav .drop-1 {
+  background-color: #0D47A1;
+  padding: 0.5rem 2rem;
+}
+
+.sticky-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  background-color: white;
+  z-index: 1000;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+}
+
+.show-navbar {
+  opacity: 1;
+}
+
+
+/* drop down Shop ---------------------------------------------------*/
+.Nav .custom-dropdown .custom-dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  border: 1px solid #ddd;
+  min-width: 200px;
+  z-index: 1000;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.Nav .custom-dropdown:hover .custom-dropdown-menu {
+  display: block;
+}
+
+.Nav .custom-dropdown-menu .dropdown-item {
+  padding: 10px 20px;
+  color: #333;
+  text-decoration: none;
+  transition: background-color 0.2s;
+}
+
+.Nav .custom-dropdown-menu .dropdown-item:hover {
+  background-color: #f8f9fa;
+}
+
+/* ------------------------------------------------------------------------- */
+
+
+.login-link {
+  display: inline-block;
+  padding: 6px 18px;
+  font-size: 15px;
+  font-weight: 600;
+  border: 2px solid #0D47A1;
+  border-radius: 25px;
+  color: #0D47A1;
+  background: transparent;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.login-link:hover {
+  background: #0D47A1;
+  color: white;
+}
+
+
+.register-link {
+  display: inline-block;
+  padding: 6px 18px;
+  font-size: 15px;
+  font-weight: 600;
+  border: 2px solid blue;
+  border-radius: 25px;
+  color: white;
+  background: blue;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.register-link:hover {
+  background: lightblue;
+  border-color: lightblue;
+}
+
+
+
+/* .Nav .login-register .login-link,
+.Nav .login-register .register-link {
+  color: black;
+  text-decoration: underline;
+  font-size: 15px;
+} */
+
+.iconss {
+  display: flex;
+  gap: 10px;
+  flex-shrink: 1;
+  max-width: 100%;
+  overflow-x: visible;
+}
+
+.iconss i {
+  font-size: 20px;
+  margin: auto;
+}
+
+
+
+@media (max-width: 1250px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .navbar-icons {
+    justify-content: flex-start;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+}

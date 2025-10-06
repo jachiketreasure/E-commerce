@@ -1,0 +1,154 @@
+/* .navbar{
+background-color: beige;
+} */
+/* Horizontal scrolling is prevented on the entire page. */
+body {
+    overflow-x: hidden;
+}
+
+.Login {
+    border-bottom: 1px solid black;
+    margin:auto
+}
+
+.Login .imagee {
+    background-color: beige;
+    text-align: center;
+}
+
+.Login .text-image {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+    padding-left: 10%;
+    padding-top: 3%;
+}
+
+.Login .formm {
+
+    margin: auto;
+    margin-top: 10%;
+    width: 70%;
+    border: 2px solid black;
+    border-radius: 30px;
+}
+
+.Login .formm .head {
+    text-align: center;
+    margin-top: 7%;
+}
+
+.Login .formm .head p {
+    font-size: 1rem;
+    width: 100%;
+    max-width: 600px;
+    white-space: normal;
+    word-wrap: break-word;
+}
+
+.Login .formm .box-group .groupp .input input {
+    width: 100%;
+    padding: 4%;
+    border-radius: 10px;
+    border: 1px solid black;
+    margin-top: 2%;
+}
+
+.Login .formm .check {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 5%;
+}
+
+.Login .formm .buttons {
+    margin: auto;
+    text-align: center;
+    margin: 5% 0;
+}
+
+.Login .formm .buttons button {
+    
+    width: fit-content;
+    padding: 2% 7%;
+    border-radius: 10px;
+    margin: 3%;
+    
+}
+
+.Login .formm .buttons .btn-one {
+    
+    text-align: center;
+    color: white;
+    background-color: black;
+    border: 1px solid black;
+}
+
+.Login .formm .buttons .btn-two {
+    text-align: center;
+    border: 1px solid black;
+    color: black !important;
+}
+
+
+/* responsive--------------------------------------------------------------- */
+
+/* @media (max-width: 1200px){
+    .Login .formm {
+        width: 70%;
+    }
+} */
+
+@media (max-width: 992px) {
+
+    .Login {
+        padding: 0;
+        margin: 0;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .Login {
+        width: 100%;
+        background-color: beige;
+        text-align: center;
+        padding-bottom: 5%;
+    }
+
+    .Login .formm {
+        width: 100%;
+    }
+
+    .Login .text-image {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        padding: 5% 0;
+    }
+
+    .Login .formm .buttons button {
+        width: 50%;
+        padding: 2% 7%;
+        border-radius: 10px;
+        margin: 3%;
+    }
+
+    .Login .box-group .groupp label {
+        display: flex;
+        justify-content: flex-start;
+        align-self: flex-start;
+    }
+}
+
+/* @media (max-width: 768px) {
+    .Login {
+        overflow-x: hidden;
+    }
+
+    .Login .formm .check {
+        display: flex;
+        flex-direction: column;
+    }
+} */

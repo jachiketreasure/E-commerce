@@ -1,0 +1,190 @@
+/* .navbar{
+background-color: beige;
+} */
+
+body {
+    overflow-x: hidden;
+}
+
+.Register {
+    border-bottom: 1px solid black;
+    margin: auto
+}
+
+.Register .imagee {
+    background-color: beige;
+    text-align: center;
+    height: 100%;
+}
+
+.Register .text-image {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+    padding-left: 10%;
+    padding-top: 3%;
+}
+
+.Register .formm {
+
+    margin: auto;
+    margin-top: 10%;
+    width: 70%;
+    border: 2px solid black;
+    border-radius: 30px;
+}
+
+.Register .formm .head {
+    text-align: center;
+    margin-top: 7%;
+}
+
+.Register .formm .head p {
+    font-size: 1rem;
+    width: 100%;
+    max-width: 600px;
+    white-space: normal;
+    word-wrap: break-word;
+}
+
+.Register .formm .box-group .Name {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Register .formm .box-group .Name .groupp {
+    width: 40%;
+}
+
+.Register .formm .box-group .Name .groupp .input-f-name {
+    margin-right: 5%;
+}
+
+.Register .formm .box-group .Name .groupp .input-l-name {
+    margin-left: 5%;
+}
+
+.Register .formm .box-group .groupp .input input {
+    width: 100%;
+    padding: 2%;
+    border-radius: 10px;
+    border: 1px solid black;
+    margin-top: 2%;
+}
+
+.Register .formm .box-group .Name .groupp .input-f-name input,
+.Register .formm .box-group .Name .groupp .input-l-name input {
+    padding: 4%;
+}
+
+.Register .formm .box-group .gender {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 2% 0;
+}
+
+
+.Register .formm .buttons {
+    margin: auto;
+    text-align: center;
+    margin: 5% 0;
+}
+
+.Register .formm .buttons button {
+
+    width: 50%;
+    padding: 2% 7%;
+    border-radius: 10px;
+}
+
+.Register .formm .buttons .btn-one {
+
+    text-align: center;
+    color: white;
+    background-color: black;
+    border: 1px solid black;
+}
+
+
+
+
+/* responsive--------------------------------------------------------------- */
+
+@media (max-width: 1200px) {
+    .Register .formm {
+        width: 70%;
+    }
+}
+
+@media (max-width: 992px) {
+    .Register {
+        padding: 0;
+        margin: 0;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .Register {
+        width: 100%;
+        background-color: beige;
+        text-align: center;
+        padding-bottom: 5%;
+    }
+
+    .Register .formm {
+        width: 100%;
+    }
+
+    .Register .text-image {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        padding: 5% 0;
+    }
+
+    .Register .formm .buttons button {
+        width: 50%;
+        padding: 2% 7%;
+        border-radius: 10px;
+        margin: 3%;
+    }
+
+    .Register .box-group .groupp label {
+        display: flex;
+        justify-content: flex-start;
+        align-self: flex-start;
+    }
+}
+
+@media (max-width: 768px) {
+    .Register .formm {
+        width: 100%;
+    }
+
+    .Register .formm .box-group .Name {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .Register .formm .box-group .Name .groupp {
+        width: 100%;
+    }
+
+    .Register .formm .box-group .Name .groupp .input-f-name input,
+    .Register .formm .box-group .Name .groupp .input-l-name input {
+        padding: 2%;
+    }
+
+    .Register .formm .box-group .Name .groupp .input-f-name,
+    .Register .formm .box-group .Name .groupp .input-l-name {
+        margin: 0 10%;
+    }
+
+    .Register .formm .check {
+        display: flex;
+        flex-direction: column;
+    }
+}

@@ -1,0 +1,200 @@
+/* .cart-container {
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.cart-item {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 15px;
+  align-items: center;
+}
+
+.cart-item img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.item-info h4 {
+  margin: 0 0 5px;
+}
+
+.cart-summary {
+  margin-top: 30px;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  font-size: 18px;
+} */
+
+
+
+.card {
+  border: none;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  height: 100%;
+  /* Important to control */
+  position: relative;
+}
+
+.card img {
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  width: fit-content;
+  margin: auto;
+}
+
+.card:hover img {
+  transform: translateY(-20px);
+
+}
+
+
+
+.offer {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background-color: hsl(0, 0%, 100%);
+  color: black;
+  padding: 5px 10px;
+  border-radius: 50px;
+  font-size: 12px;
+  font-weight: bold;
+  z-index: 10;
+}
+
+.trash {
+  position: absolute;
+  top: 70px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: hsl(0, 0%, 90%);
+  color: black;
+  font-size: 14px;
+  z-index: 10;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.heart {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: hsl(0, 0%, 90%);
+  color: black;
+  font-size: 18px;
+  z-index: 10;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.heart:hover {
+  color: red;
+  background-color: hsl(0, 0%, 90%);
+}
+
+
+
+
+
+
+.buy-btn {
+  opacity: 1;
+  transform: translateY(100px);
+  transition: all 0.3s ease;
+  display: block;
+  width: 50%;
+  background-color: #000;
+  color: white;
+  border: none;
+  padding: 8px;
+  border-radius: 5px;
+  margin: auto;
+}
+
+.buy-btn:hover {
+  background-color: hsl(0, 0%, 50%);
+}
+
+.card:hover .buy-btn {
+  opacity: 1;
+  transform: translateY(0px);
+}
+
+
+
+
+.modall {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Transparent background */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  /* So that it appears above everything.*/
+}
+
+/* .image-modall {
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+} */
+
+.btn-close {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+
+}
+
+i {
+  cursor: pointer;
+}
+
+.btn-1-modall:hover,
+.btn-sec:hover {
+  background: white !important;
+  color: black !important;
+}
+
+.btn-2-modall:hover {
+  background: black !important;
+  color: white !important;
+}
+
+
+
+@media (max-width: 800px) {
+  .card-img-top {
+    height: auto !important;
+  }
+}
+@media (max-width: 768px) {
+  .image-modall {
+    flex-direction: column !important;
+    width: 90% !important;
+    height: auto !important;
+  }
+}

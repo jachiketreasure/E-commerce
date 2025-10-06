@@ -1,0 +1,86 @@
+.category {
+  background-color: #0D47A1;
+  border-radius: 3rem;
+}
+
+.images {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 8% 5%;
+
+}
+
+.images img {
+  width: 25%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 10px 50px;
+  border: 5px solid white;
+}
+
+.images .pic1 {
+  border-radius: 3rem 3rem 8rem 3rem;
+  width: 35%;
+}
+
+.images .pic2 {
+  border-radius: 3rem 3rem 3rem 8rem;
+  width: 24%;
+}
+
+.images .pic3 {
+  border-radius: 3rem 3rem 3rem 8rem;
+  width: 35%;
+}
+
+.images .pic4 {
+  border-radius: 8rem 3rem 3rem 3rem;
+  width: 29%;
+}
+
+.images .pic5 {
+  border-radius: 8rem 3rem 3rem 3rem;
+  width: 40%;
+}
+
+.images .pic6 {
+  border-radius: 10rem 3rem 3rem 3rem;
+  width: 20%;
+}
+
+
+@media screen and (max-width: 1200px) {
+  .images img {
+    width: 48%;
+  }
+}
+
+@media screen and (max-width: 992px) {
+
+  .images img,
+  .images .pic1,
+  .images .pic2,
+  .images .pic3,
+  .images .pic4,
+  .images .pic5,
+  .images .pic6 {
+    width: 48% !important;
+  }
+}
+
+
+
+@media screen and (max-width: 769px) {
+
+  .images img,
+  .images .pic1,
+  .images .pic2,
+  .images .pic3,
+  .images .pic4,
+  .images .pic5,
+  .images .pic6 {
+    width: 100% !important;
+  }
+}

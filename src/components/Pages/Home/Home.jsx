@@ -1,7 +1,7 @@
 import AutoSwiper from '../../../components/Slider';
 import Cart from '../../Cart/Cart';
 import Category from '../../Category/Category';
-import HeroSection from '../../Herosection/Hero';
+import HeroSection from '../../HeroSection/Hero';
 import { useAuth } from "../../../context/AuthContext";
 import Navbar from '../../Nav/Nav';
 import UpNav from '../../UpNav/UpNav';

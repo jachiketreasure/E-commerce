@@ -3,16 +3,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
-
-
-
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
-
 import Nav from './components/Nav/Nav';
-
 import Home from './components/Pages/Home/Home';
 import Shop from './components/Pages/Shop/Shop';
 import Login from './components/Pages/Login/Login';
@@ -24,13 +19,14 @@ import AllProducts from './components/AllProducts/AllProducts';
 import MensProducts from './components/MensProducts/MensProducts';
 import WomensProducts from './components/WomenProducts/WomenProducts';
 import CartPage from './components/Pages/CartPage/CartPage';
-import ProtectedRoute from './components/Pages/CartPage/CartPage';
+import ProtectedRoute from './components/ProtectedRoute';
+import { useAuth } from './context/AuthContext';
 
 function App() {
+  const { isAuthenticated } = useAuth();
+  
   return (
     <>
-
-      
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/Shop" element={<ProtectedRoute><Shop /></ProtectedRoute>}/>
@@ -41,8 +37,10 @@ function App() {
         <Route path="/MensProducts" element={<ProtectedRoute><MensProducts /></ProtectedRoute>}/>
         <Route path="/WomensProducts" element={<ProtectedRoute><WomensProducts /></ProtectedRoute>}/>
         <Route path="/cart" element={<ProtectedRoute><CartPage /></ProtectedRoute>}/>
+        {/* Catch-all route for SPA routing */}
+        <Route path="*" element={<Home />} />
       </Routes> 
-      <Footer/>
+      {isAuthenticated && <Footer/>}
     </>
   );
 }

@@ -20,6 +20,8 @@ const PORT = process.env.PORT || 8000;
 
 
 app.use(express.json());
+
+// Enhanced CORS configuration
 app.use(cors({
   origin: [
     "http://localhost:5173", 
@@ -27,10 +29,37 @@ app.use(cors({
     "https://e-commerce-w645.onrender.com",
     "https://ecommerce-backend-bwha.onrender.com" 
   ],
-  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
   credentials: true,
-  allowedHeaders: ["Content-Type", "Authorization"]
+  allowedHeaders: ["Content-Type", "Authorization", "Origin", "X-Requested-With", "Accept"],
+  exposedHeaders: ["Content-Length", "X-Foo", "X-Bar"]
 }));
+
+// Manual CORS headers for additional safety
+app.use((req, res, next) => {
+  const allowedOrigins = [
+    "http://localhost:5173", 
+    "http://localhost:8000",
+    "https://e-commerce-w645.onrender.com",
+    "https://ecommerce-backend-bwha.onrender.com"
+  ];
+  
+  const origin = req.headers.origin;
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  }
+  
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, Origin, X-Requested-With, Accept');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  
+  if (req.method === 'OPTIONS') {
+    res.status(200).end();
+    return;
+  }
+  
+  next();
+});
 
 
 mongoose.connect(process.env.MONGO_URI, {

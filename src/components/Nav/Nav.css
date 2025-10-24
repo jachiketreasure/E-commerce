@@ -88,6 +88,33 @@
   border-color: lightblue;
 }
 
+.logout-link {
+  display: inline-block;
+  padding: 6px 18px;
+  font-size: 15px;
+  font-weight: 600;
+  border: 2px solid #dc3545;
+  border-radius: 25px;
+  color: white;
+  background: #dc3545;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.logout-link:hover {
+  background: #c82333;
+  border-color: #c82333;
+  color: white;
+}
+
+.user-welcome {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  margin-right: 8px;
+}
+
 
 
 /* .Nav .login-register .login-link,

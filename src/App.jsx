@@ -19,6 +19,8 @@ import AllProducts from './components/AllProducts/AllProducts';
 import MensProducts from './components/MensProducts/MensProducts';
 import WomensProducts from './components/WomenProducts/WomenProducts';
 import CartPage from './components/Pages/CartPage/CartPage';
+import Checkout from './components/Pages/Checkout/Checkout';
+import OrderSuccess from './components/Pages/OrderSuccess/OrderSuccess';
 import ProtectedRoute from './components/ProtectedRoute';
 import { useAuth } from './context/AuthContext';
 
@@ -37,6 +39,8 @@ function App() {
         <Route path="/MensProducts" element={<ProtectedRoute><MensProducts /></ProtectedRoute>}/>
         <Route path="/WomensProducts" element={<ProtectedRoute><WomensProducts /></ProtectedRoute>}/>
         <Route path="/cart" element={<ProtectedRoute><CartPage /></ProtectedRoute>}/>
+        <Route path="/checkout" element={<ProtectedRoute><Checkout /></ProtectedRoute>}/>
+        <Route path="/order-success/:orderId" element={<ProtectedRoute><OrderSuccess /></ProtectedRoute>}/>
         {/* Catch-all route for SPA routing */}
         <Route path="*" element={<Home />} />
       </Routes> 

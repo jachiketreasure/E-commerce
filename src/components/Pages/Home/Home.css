@@ -89,6 +89,7 @@
   gap: 1rem;
   justify-content: center;
   flex-wrap: wrap;
+  margin-top: 2rem;
 }
 
 .welcome-btn {
@@ -102,6 +103,9 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+  position: relative;
+  z-index: 10;
 }
 
 .welcome-btn.btn-primary {
@@ -118,17 +122,33 @@
 }
 
 .welcome-btn.btn-outline-light {
-  background: rgba(255, 255, 255, 0.1);
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  color: white;
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid #667eea;
+  color: #667eea;
   backdrop-filter: blur(10px);
+  font-weight: 600;
+  text-shadow: none;
 }
 
-.welcome-btn.btn-outline-light:hover {
-  background: rgba(255, 255, 255, 0.2);
-  border-color: rgba(255, 255, 255, 0.5);
+/* Ensure Register button is visible */
+.welcome-actions .btn-outline-light {
+  background: rgba(255, 255, 255, 0.9) !important;
+  border: 2px solid #667eea !important;
+  color: #667eea !important;
+  backdrop-filter: blur(10px);
+  font-weight: 600;
+  text-shadow: none;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: inline-flex !important;
+}
+
+.welcome-actions .btn-outline-light:hover {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  border-color: #667eea !important;
   transform: translateY(-2px);
-  color: white;
+  color: white !important;
+  text-shadow: none;
 }
 
 .welcome-features {

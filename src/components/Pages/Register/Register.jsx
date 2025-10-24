@@ -108,7 +108,6 @@ export default function Register() {
                                   <div className="imagee">
                                       <div className='text-image'>
                                           <h1 className='fw-bold mb-3'>Register</h1>
-                                          <h6><Link to="/" style={{ color: 'black' }}>Home</Link> &gt; Register</h6>
                                       </div>
                                       <img src={registerpng} alt="image" style={{ width: '100%', maxWidth: '550px', height: 'auto' }} />
               

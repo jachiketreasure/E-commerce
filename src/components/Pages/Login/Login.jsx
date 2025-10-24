@@ -74,9 +74,6 @@ export default function Login() {
                     <div className="imagee">
                         <div className='text-image'>
                             <h1 className='fw-bold mb-3'>Login</h1>
-                            <h6>
-                                <Link to="/" style={{ color: 'black' }}>Home</Link> &gt; Login
-                            </h6>
                         </div>
                         <img 
                             src={loginpng} 

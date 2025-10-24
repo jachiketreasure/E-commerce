@@ -2,11 +2,12 @@ import { useCart } from '../../../CartContext/CartContext';
 import Navbar from '../../Nav/Nav';
 import './CartPage.css';
 import cartPageImage from '../../images/CartPage.avif';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 export default function CartPage() {
   const { cartItems, updateQuantity, removeFromCart } = useCart();
+  const navigate = useNavigate();
 
   const totalPrice = cartItems.reduce(
     (total, item) => total + item.price * item.quantity,
@@ -128,6 +129,23 @@ export default function CartPage() {
                 <div className="col text-end">
                   <div><h4 className='fw-bold fs-2'>Total Price</h4></div>
                   <div><h5 className='fw-bold fs-3 '>${totalPrice.toFixed(2)}</h5></div>
+                  <div className="mt-3">
+                    <button 
+                      className="btn btn-primary btn-lg"
+                      onClick={() => navigate('/checkout')}
+                      style={{
+                        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                        border: 'none',
+                        borderRadius: '50px',
+                        padding: '12px 30px',
+                        fontWeight: '600',
+                        boxShadow: '0 8px 20px rgba(102, 126, 234, 0.3)'
+                      }}
+                    >
+                      <i className="fas fa-shopping-cart me-2"></i>
+                      Proceed to Checkout
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

@@ -37,9 +37,12 @@ export default function Login() {
             }
         } catch (error) {
             console.error('Login error:', error);
+            console.log("Full error object:", error);
             
             if (error.response && error.response.data && error.response.data.message) {
                 setError(error.response.data.message);
+            } else if (error.response && error.response.status === 401) {
+                setError("Invalid email or password. Please try again.");
             } else if (error.code === 'ECONNREFUSED' || error.message.includes('Network Error')) {
                 setError('Unable to connect to server. Please check your internet connection and try again.');
             } else if (error.message.includes('CORS')) {

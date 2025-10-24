@@ -1,0 +1,11 @@
+# Vercel-style redirects for SPA routing
+# This ensures all routes are handled by index.html
+
+{
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}

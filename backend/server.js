@@ -23,7 +23,7 @@ app.use(express.json());
 app.use(cors({
   origin: [
     "http://localhost:5173", 
-    "http://localhost:3000",
+    "http://localhost:8000",
     "https://e-commerce-w645.onrender.com",
     "https://ecommerce-backend-bwha.onrender.com" 
   ],

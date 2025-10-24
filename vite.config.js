@@ -10,6 +10,10 @@ export default defineConfig({
   build: {
     outDir: 'dist',
   },
-  
+  // Ensure proper SPA routing
+  base: '/',
+  preview: {
+    port: 4173,
+  }
 })
 

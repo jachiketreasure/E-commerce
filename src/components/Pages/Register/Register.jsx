@@ -70,9 +70,12 @@ export default function Register() {
             }
         } catch (error) {
             console.error("Registration error:", error);
+            console.log("Full error object:", error);
             
             if (error.response && error.response.data && error.response.data.message) {
                 setError(error.response.data.message);
+            } else if (error.response && error.response.status === 400) {
+                setError("Invalid registration data. Please check all fields.");
             } else if (error.code === 'ECONNREFUSED' || error.message.includes('Network Error')) {
                 setError('Unable to connect to server. Please check your internet connection and try again.');
             } else if (error.message.includes('CORS')) {

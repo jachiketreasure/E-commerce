@@ -1,0 +1,22 @@
+# Static site configuration for Render.com
+# This ensures all routes are handled by index.html for React Router
+
+# Build settings
+build_command: npm run build
+publish_directory: dist
+
+# Environment variables
+env_vars:
+  - key: VITE_API_BASE_URL
+    value: https://ecommerce-backend-bwha.onrender.com
+
+# Headers for SPA routing
+headers:
+  - path: /*
+    headers:
+      - name: X-Frame-Options
+        value: DENY
+      - name: X-Content-Type-Options
+        value: nosniff
+      - name: Referrer-Policy
+        value: strict-origin-when-cross-origin

@@ -7,8 +7,24 @@ body {
 }
 
 .Login {
-    border-bottom: 1px solid black;
-    margin:auto
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    margin: auto;
+    position: relative;
+    overflow: hidden;
+}
+
+.Login::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><radialGradient id="a" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(255,255,255,0.1)"/><stop offset="100%" stop-color="rgba(255,255,255,0)"/></radialGradient></defs><circle cx="200" cy="200" r="100" fill="url(%23a)"/><circle cx="800" cy="300" r="150" fill="url(%23a)"/><circle cx="400" cy="700" r="120" fill="url(%23a)"/><circle cx="900" cy="800" r="80" fill="url(%23a)"/></svg>') no-repeat center center;
+    background-size: cover;
+    opacity: 0.3;
+    z-index: 1;
 }
 
 .Login .imagee {
@@ -26,12 +42,16 @@ body {
 }
 
 .Login .formm {
-
     margin: auto;
     margin-top: 10%;
     width: 70%;
-    border: 2px solid black;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 30px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 2;
 }
 
 .Login .formm .head {
@@ -78,77 +98,203 @@ body {
 }
 
 .Login .formm .buttons .btn-one {
-    
     text-align: center;
     color: white;
-    background-color: black;
-    border: 1px solid black;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: 2px solid #667eea;
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+    transition: all 0.3s ease;
+}
+
+.Login .formm .buttons .btn-one:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 25px rgba(102, 126, 234, 0.4);
 }
 
 .Login .formm .buttons .btn-two {
     text-align: center;
-    border: 1px solid black;
-    color: black !important;
+    border: 2px solid #667eea;
+    color: #667eea !important;
+    background: transparent;
+    transition: all 0.3s ease;
+}
+
+.Login .formm .buttons .btn-two:hover {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white !important;
+    border-color: #667eea;
 }
 
 
-/* responsive--------------------------------------------------------------- */
+/* Responsive Design - Mobile First Approach */
 
-/* @media (max-width: 1200px){
+/* Large Desktop (1200px and up) */
+@media (min-width: 1200px) {
+    .Login .formm {
+        width: 60%;
+        max-width: 500px;
+    }
+}
+
+/* Desktop (992px to 1199px) */
+@media (max-width: 1199px) and (min-width: 992px) {
     .Login .formm {
         width: 70%;
+        max-width: 450px;
     }
-} */
+}
 
-@media (max-width: 992px) {
-
+/* Tablet (768px to 991px) */
+@media (max-width: 991px) {
     .Login {
         padding: 0;
         margin: 0;
         flex-direction: column;
         align-items: center;
         text-align: center;
+        min-height: 100vh;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     }
 
-    .Login {
-        width: 100%;
-        background-color: beige;
+    .Login .formm {
+        width: 90%;
+        max-width: 400px;
+        margin: 2rem auto;
+        padding: 1.5rem;
+    }
+
+    .Login .text-image {
+        padding: 2rem 1rem;
         text-align: center;
-        padding-bottom: 5%;
+    }
+
+    .Login .formm .buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        align-items: center;
+    }
+
+    .Login .formm .buttons button {
+        width: 100%;
+        max-width: 300px;
+        padding: 12px 20px;
+        margin: 0;
+    }
+
+    .Login .formm .check {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: center;
+    }
+}
+
+/* Mobile (576px to 767px) */
+@media (max-width: 767px) {
+    .Login {
+        padding: 1rem;
+        min-height: 100vh;
     }
 
     .Login .formm {
         width: 100%;
+        margin: 1rem 0;
+        padding: 1.5rem;
+        border-radius: 20px;
     }
 
-    .Login .text-image {
-        display: flex;
-        justify-content: flex-start;
-        align-items: flex-start;
-        padding: 5% 0;
+    .Login .formm .head {
+        margin-top: 1rem;
+    }
+
+    .Login .formm .head h2 {
+        font-size: 1.5rem;
+    }
+
+    .Login .formm .head p {
+        font-size: 0.9rem;
+        margin: 0.5rem 0;
+    }
+
+    .Login .formm .box-group .groupp .input input {
+        padding: 12px;
+        font-size: 16px; /* Prevents zoom on iOS */
+        border-radius: 8px;
     }
 
     .Login .formm .buttons button {
-        width: 50%;
-        padding: 2% 7%;
-        border-radius: 10px;
-        margin: 3%;
-    }
-
-    .Login .box-group .groupp label {
-        display: flex;
-        justify-content: flex-start;
-        align-self: flex-start;
-    }
-}
-
-/* @media (max-width: 768px) {
-    .Login {
-        overflow-x: hidden;
+        width: 100%;
+        padding: 14px 20px;
+        font-size: 16px;
+        border-radius: 8px;
     }
 
     .Login .formm .check {
-        display: flex;
         flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
     }
-} */
+
+    .Login .formm .check label {
+        font-size: 0.9rem;
+    }
+}
+
+/* Small Mobile (up to 575px) */
+@media (max-width: 575px) {
+    .Login {
+        padding: 0.5rem;
+    }
+
+    .Login .formm {
+        padding: 1rem;
+        margin: 0.5rem 0;
+        border-radius: 15px;
+    }
+
+    .Login .formm .head h2 {
+        font-size: 1.3rem;
+    }
+
+    .Login .formm .head p {
+        font-size: 0.85rem;
+    }
+
+    .Login .formm .box-group .groupp .input input {
+        padding: 10px;
+        font-size: 16px;
+    }
+
+    .Login .formm .buttons button {
+        padding: 12px 16px;
+        font-size: 15px;
+    }
+
+    .Login .text-image {
+        padding: 1rem 0.5rem;
+    }
+}
+
+/* Error message styling */
+.Login .formm .error-message {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px 0;
+    border: 1px solid #f5c6cb;
+    font-size: 0.9rem;
+}
+
+/* Loading state */
+.Login .formm .buttons button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Focus states for better accessibility */
+.Login .formm .box-group .groupp .input input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}

@@ -1,6 +1,7 @@
 .Nav .drop-1 {
-  background-color: #0D47A1;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   padding: 0.5rem 2rem;
+  box-shadow: 0 4px 6px rgba(102, 126, 234, 0.2);
 }
 
 .sticky-navbar {
@@ -56,17 +57,18 @@
   padding: 6px 18px;
   font-size: 15px;
   font-weight: 600;
-  border: 2px solid #0D47A1;
+  border: 2px solid #667eea;
   border-radius: 25px;
-  color: #0D47A1;
+  color: #667eea;
   background: transparent;
   text-decoration: none;
   transition: all 0.3s ease;
 }
 
 .login-link:hover {
-  background: #0D47A1;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
+  border-color: #667eea;
 }
 
 
@@ -75,17 +77,19 @@
   padding: 6px 18px;
   font-size: 15px;
   font-weight: 600;
-  border: 2px solid blue;
+  border: 2px solid #667eea;
   border-radius: 25px;
   color: white;
-  background: blue;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   text-decoration: none;
   transition: all 0.3s ease;
 }
 
 .register-link:hover {
-  background: lightblue;
-  border-color: lightblue;
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+  border-color: #764ba2;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
 }
 
 .logout-link {

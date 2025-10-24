@@ -7,8 +7,24 @@ body {
 }
 
 .Register {
-    border-bottom: 1px solid black;
-    margin: auto
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    margin: auto;
+    position: relative;
+    overflow: hidden;
+}
+
+.Register::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><radialGradient id="a" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(255,255,255,0.1)"/><stop offset="100%" stop-color="rgba(255,255,255,0)"/></radialGradient></defs><circle cx="200" cy="200" r="100" fill="url(%23a)"/><circle cx="800" cy="300" r="150" fill="url(%23a)"/><circle cx="400" cy="700" r="120" fill="url(%23a)"/><circle cx="900" cy="800" r="80" fill="url(%23a)"/></svg>') no-repeat center center;
+    background-size: cover;
+    opacity: 0.3;
+    z-index: 1;
 }
 
 .Register .imagee {
@@ -27,12 +43,16 @@ body {
 }
 
 .Register .formm {
-
     margin: auto;
     margin-top: 10%;
     width: 70%;
-    border: 2px solid black;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 30px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 2;
 }
 
 .Register .formm .head {
@@ -100,91 +120,238 @@ body {
 }
 
 .Register .formm .buttons .btn-one {
-
     text-align: center;
     color: white;
-    background-color: black;
-    border: 1px solid black;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: 2px solid #667eea;
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+    transition: all 0.3s ease;
+}
+
+.Register .formm .buttons .btn-one:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 25px rgba(102, 126, 234, 0.4);
 }
 
 
 
 
-/* responsive--------------------------------------------------------------- */
+/* Responsive Design - Mobile First Approach */
 
-@media (max-width: 1200px) {
+/* Large Desktop (1200px and up) */
+@media (min-width: 1200px) {
     .Register .formm {
-        width: 70%;
+        width: 60%;
+        max-width: 600px;
     }
 }
 
-@media (max-width: 992px) {
+/* Desktop (992px to 1199px) */
+@media (max-width: 1199px) and (min-width: 992px) {
+    .Register .formm {
+        width: 70%;
+        max-width: 550px;
+    }
+}
+
+/* Tablet (768px to 991px) */
+@media (max-width: 991px) {
     .Register {
         padding: 0;
         margin: 0;
         flex-direction: column;
         align-items: center;
         text-align: center;
-    }
-
-    .Register {
-        width: 100%;
-        background-color: beige;
-        text-align: center;
-        padding-bottom: 5%;
+        min-height: 100vh;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     }
 
     .Register .formm {
-        width: 100%;
+        width: 90%;
+        max-width: 500px;
+        margin: 2rem auto;
+        padding: 1.5rem;
     }
 
     .Register .text-image {
-        display: flex;
-        justify-content: flex-start;
-        align-items: flex-start;
-        padding: 5% 0;
-    }
-
-    .Register .formm .buttons button {
-        width: 50%;
-        padding: 2% 7%;
-        border-radius: 10px;
-        margin: 3%;
-    }
-
-    .Register .box-group .groupp label {
-        display: flex;
-        justify-content: flex-start;
-        align-self: flex-start;
-    }
-}
-
-@media (max-width: 768px) {
-    .Register .formm {
-        width: 100%;
+        padding: 2rem 1rem;
+        text-align: center;
     }
 
     .Register .formm .box-group .Name {
-        display: flex;
         flex-direction: column;
+        gap: 1rem;
     }
 
     .Register .formm .box-group .Name .groupp {
         width: 100%;
     }
 
-    .Register .formm .box-group .Name .groupp .input-f-name input,
-    .Register .formm .box-group .Name .groupp .input-l-name input {
-        padding: 2%;
-    }
-
     .Register .formm .box-group .Name .groupp .input-f-name,
     .Register .formm .box-group .Name .groupp .input-l-name {
-        margin: 0 10%;
+        margin: 0;
     }
 
-    .Register .formm .check {
+    .Register .formm .buttons {
         display: flex;
         flex-direction: column;
+        gap: 1rem;
+        align-items: center;
     }
+
+    .Register .formm .buttons button {
+        width: 100%;
+        max-width: 300px;
+        padding: 12px 20px;
+        margin: 0;
+    }
+
+    .Register .formm .box-group .gender {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: center;
+    }
+}
+
+/* Mobile (576px to 767px) */
+@media (max-width: 767px) {
+    .Register {
+        padding: 1rem;
+        min-height: 100vh;
+    }
+
+    .Register .formm {
+        width: 100%;
+        margin: 1rem 0;
+        padding: 1.5rem;
+        border-radius: 20px;
+    }
+
+    .Register .formm .head {
+        margin-top: 1rem;
+    }
+
+    .Register .formm .head h2 {
+        font-size: 1.5rem;
+    }
+
+    .Register .formm .head p {
+        font-size: 0.9rem;
+        margin: 0.5rem 0;
+    }
+
+    .Register .formm .box-group .groupp .input input {
+        padding: 12px;
+        font-size: 16px; /* Prevents zoom on iOS */
+        border-radius: 8px;
+    }
+
+    .Register .formm .box-group .Name .groupp .input-f-name input,
+    .Register .formm .box-group .Name .groupp .input-l-name input {
+        padding: 12px;
+        font-size: 16px;
+    }
+
+    .Register .formm .buttons button {
+        width: 100%;
+        padding: 14px 20px;
+        font-size: 16px;
+        border-radius: 8px;
+    }
+
+    .Register .formm .box-group .gender {
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
+    }
+
+    .Register .formm .box-group .gender label {
+        font-size: 0.9rem;
+    }
+}
+
+/* Small Mobile (up to 575px) */
+@media (max-width: 575px) {
+    .Register {
+        padding: 0.5rem;
+    }
+
+    .Register .formm {
+        padding: 1rem;
+        margin: 0.5rem 0;
+        border-radius: 15px;
+    }
+
+    .Register .formm .head h2 {
+        font-size: 1.3rem;
+    }
+
+    .Register .formm .head p {
+        font-size: 0.85rem;
+    }
+
+    .Register .formm .box-group .groupp .input input {
+        padding: 10px;
+        font-size: 16px;
+    }
+
+    .Register .formm .box-group .Name .groupp .input-f-name input,
+    .Register .formm .box-group .Name .groupp .input-l-name input {
+        padding: 10px;
+        font-size: 16px;
+    }
+
+    .Register .formm .buttons button {
+        padding: 12px 16px;
+        font-size: 15px;
+    }
+
+    .Register .text-image {
+        padding: 1rem 0.5rem;
+    }
+}
+
+/* Error message styling */
+.Register .formm .error-message {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px 0;
+    border: 1px solid #f5c6cb;
+    font-size: 0.9rem;
+}
+
+/* Loading state */
+.Register .formm .buttons button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Focus states for better accessibility */
+.Register .formm .box-group .groupp .input input:focus,
+.Register .formm .box-group .Name .groupp .input-f-name input:focus,
+.Register .formm .box-group .Name .groupp .input-l-name input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+/* Gender radio buttons styling */
+.Register .formm .box-group .gender input[type="radio"] {
+    margin-right: 8px;
+    transform: scale(1.2);
+}
+
+.Register .formm .box-group .gender label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: background-color 0.2s;
+}
+
+.Register .formm .box-group .gender label:hover {
+    background-color: #f8f9fa;
 }

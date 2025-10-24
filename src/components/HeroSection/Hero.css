@@ -80,14 +80,28 @@
 
 /* Button colors */
 .button .btn1 {
-  background-color: black;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   margin-right: 2rem;
   border: none;
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+}
+
+.button .btn1:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 25px rgba(102, 126, 234, 0.4);
 }
 
 .button .btn2 {
-  border: 1px solid black;
+  border: 2px solid #667eea;
+  color: #667eea;
+  background: transparent;
+}
+
+.button .btn2:hover {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-color: #667eea;
 }
 
 /* الشريحة الزجاجية */
@@ -116,15 +130,15 @@
 .floating1-button{
   left: 1rem;
   bottom: 5rem;
-  background: linear-gradient(to bottom right, #00c6ff, #0072ff); /* أو: #00d2ff إلى #3a7bd5 */
-
-
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
 }
+
 .floating2-button{
   left: 1rem;
   bottom: 1rem;
-  background: linear-gradient(to bottom right, #a8e063, #56ab2f);
-
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+  box-shadow: 0 8px 20px rgba(118, 75, 162, 0.3);
 }
 
 

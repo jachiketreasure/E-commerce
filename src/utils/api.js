@@ -1,22 +1,38 @@
-const BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000/";
+import axios from "axios";
+
+const BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
 
 function stripTrailingSlash(url) {
   return url.endsWith("/") ? url.slice(0, -1) : url;
 }
 const BASE_URL = stripTrailingSlash(BASE); 
 
-export async function apiFetch(path, options = {}) {
-  const token = localStorage.getItem("token");
-  const headers = {
+const api = axios.create({
+  baseURL: BASE_URL,
+  headers: {
     "Content-Type": "application/json",
-    ...(options.headers || {}),
-  };
-  if (token) headers["Authorization"] = `Bearer ${token}`;
+  },
+});
 
-  const res = await fetch(`${BASE_URL}${path}`, {
-    ...options,
-    headers,
-  });
-  // handle global 401/403 here
-  return res;
-}
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response && (error.response.status === 401 || error.response.status === 403)) {
+      console.error("Unauthorized or Forbidden - please login again...");
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      window.location.href = "/login";
+    }
+    return Promise.reject(error);
+  }
+);
+
+export default api;

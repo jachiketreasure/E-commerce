@@ -2,41 +2,55 @@ import { useState } from "react";
 import './Login.css';
 import loginpng from '../../images/login.png';
 import { Link, useNavigate } from "react-router-dom";
-import '../../Nav/Nav';
 import Navbar from '../../Nav/Nav';
 import { useAuth } from "../../../context/AuthContext";
+import axios from "axios";
+
+const BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
 
 export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
     const auth = useAuth();
     const navigate = useNavigate();
-    const BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000/";
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
+        setError('');
+        
         try {
-           const response = await fetch("http://localhost:8000/api/auth/login", {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email, password }),
-            });
-            const data = await response.json();
-            if (response.ok) {
-                auth.login(data.token, data.user);
+            // Basic validation
+            if (!email || !password) {
+                setError('Please fill in all fields');
+                return;
+            }
+
+            console.log('Attempting login to:', `${BASE}/api/auth/login`);
+            const response = await axios.post(`${BASE}/api/auth/login`, { email, password });
+
+            if (response.status === 200) {
+                auth.login(response.data.token, response.data.user);
                 navigate("/shop");
-            } else {
-             alert(data.message || "Login failed");
             }
         } catch (error) {
-            console.error('Error during login:', error);
-            alert("An error occured. Please try again.");
+            console.error('Login error:', error);
+            
+            if (error.response && error.response.data && error.response.data.message) {
+                setError(error.response.data.message);
+            } else if (error.code === 'ECONNREFUSED' || error.message.includes('Network Error')) {
+                setError('Unable to connect to server. Please check your internet connection and try again.');
+            } else if (error.message.includes('CORS')) {
+                setError('Server configuration error. Please contact support.');
+            } else {
+                setError('An error occurred. Please try again.');
+            }
+        } finally {
+            setLoading(false);
         }
     };
-    
-
     return (
         <>
             <Navbar />
@@ -77,6 +91,12 @@ export default function Login() {
                             <p style={{ color: 'gray' }}>Welcome, Please login to your account</p>
                         </div>
 
+                        {error && (
+                            <div className="alert alert-danger" role="alert" style={{ margin: '10px', padding: '10px', borderRadius: '5px', backgroundColor: '#f8d7da', color: '#721c24', border: '1px solid #f5c6cb' }}>
+                                {error}
+                            </div>
+                        )}
+                        
                         <form onSubmit={handleSubmit}>
                             <div className="box-group">
                                 
@@ -88,6 +108,7 @@ export default function Login() {
                                             placeholder="Email Address" 
                                             value={email}
                                             onChange={(e) => setEmail(e.target.value)}
+                                            disabled={loading}
                                             required
                                         />
                                     </div>
@@ -102,6 +123,7 @@ export default function Login() {
                                             placeholder="Password" 
                                             value={password}
                                             onChange={(e) => setPassword(e.target.value)}
+                                            disabled={loading}
                                             required
                                         />
                                     </div>
@@ -120,13 +142,20 @@ export default function Login() {
 
                             
                             <div className="buttons fw-medium mt-3">
-                                <button type="submit" className="btn-two" style={{ width: '200px', padding: '8px 0' }}>SIGN IN</button>
+                                <button 
+                                    type="submit" 
+                                    className="btn-two" 
+                                    style={{ width: '200px', padding: '8px 0' }}
+                                    disabled={loading}
+                                >
+                                    {loading ? 'SIGNING IN...' : 'SIGN IN'}
+                                </button>
                             </div>
                         </form>
 
                         
                         <div className="text-center mt-3">
-                            <p style={{ color: 'gray', marginBottom: '8px' }}>Don't have an account?</p>
+                            <p style={{ color: 'gray', marginBottom: '8px' }}>Don't have an account? <Link to="/Register" style={{ color: 'red' }}>Register</Link></p>
                             <div className="buttons fw-medium">
                                 <Link to="/Register">
                                     <button className="btn-two" style={{ width: '120px', padding: '8px 0' }}>REGISTER</button>

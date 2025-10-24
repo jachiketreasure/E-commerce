@@ -7,16 +7,20 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start": "node backend/server.js"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^7.0.0",
+    "axios": "^1.12.2",
     "bcryptjs": "^3.0.2",
     "bootstrap": "^5.3.7",
     "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.20.0",
     "mongoose": "^8.18.2",
+    "nodemon": "^3.1.10",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-router-dom": "^7.7.1",

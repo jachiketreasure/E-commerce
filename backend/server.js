@@ -1,25 +1,35 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import authRoutes from "./routes/auth.js";
-import orderRoutes from "./routes/orders.js";
 import cors from "cors";
 import path from "path";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+
+import authRoutes from "./routes/auth.js";
+import orderRoutes from "./routes/orders.js";
+
 
 dotenv.config();
-
-const __filename= fileURLToPath(import.meta.url);
-const __dirname= path.dirname(__filename);
-
+console.log(" Mongo URI:", process.env.MONGO_URI);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const app = express();
+const PORT = process.env.PORT || 8000;
 
 
 app.use(express.json());
 app.use(cors({
-origin: "http://localhost:5173",
-methods: ["GET", "POST", "PUT", "DELETE"],
-credentials: true
+  origin: [
+    "http://localhost:5173", 
+    "http://localhost:3000",
+    "https://e-commerce-w645.onrender.com",
+    "https://ecommerce-backend-bwha.onrender.com" 
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+  credentials: true,
+  allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
 
@@ -27,8 +37,11 @@ mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
-.then(() => console.log("✅ MongoDB Connected"))
-.catch(err => console.error("❌ MongoDB Error:", err));
+.then(() => console.log("✅ MongoDB Connected successfully"))
+.catch(err => {
+  console.error("❌ MongoDB Connection Error:", err.message);
+  console.log("💡 Make sure MongoDB is running on your system");
+});
 
 // Routes
 app.use("/api/auth", authRoutes);
@@ -36,10 +49,11 @@ app.use("/api/orders", orderRoutes);
 
 
 const productSchema = new mongoose.Schema({
-  name: String,
-  price: Number,
-  description: String
+  name: { type: String, required: true },
+  price: { type: Number, required: true },
+  description: { type: String }
 });
+
 const Product = mongoose.model("Product", productSchema);
 
 app.post("/api/products", async (req, res) => {
@@ -68,9 +82,9 @@ app.get("/", (req, res) => {
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+app.get(/.*/, (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
-const PORT = process.env.PORT || 8000;
+
 app.listen(PORT, () => console.log(`Server running at http://localhost:${PORT}`));

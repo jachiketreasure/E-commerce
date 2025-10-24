@@ -1,6 +1,7 @@
 // backend/models/User.js
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
+import dotenv from "dotenv";
 
 const userSchema = new mongoose.Schema({
   firstName: { type: String, required: true },

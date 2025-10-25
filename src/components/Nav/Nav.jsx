@@ -88,7 +88,12 @@ export default function Navbar() {
             </>
           ) : (
             <div className="d-flex align-items-center gap-2">
-              <span className="user-welcome">Welcome, {user?.firstName || 'User'}!</span>
+              <div className="user-welcome-container">
+                <span className="user-welcome">
+                  <i className="fas fa-user-circle me-2"></i>
+                  Welcome, {user?.firstName || 'User'}!
+                </span>
+              </div>
               <button className="logout-link mx-1" onClick={handleLogout}>Logout</button>
             </div>
           )}

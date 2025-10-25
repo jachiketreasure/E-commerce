@@ -33,7 +33,7 @@ export default function Login() {
 
             if (response.status === 200) {
                 auth.login(response.data.token, response.data.user);
-                navigate("/shop");
+                navigate("/");
             }
         } catch (error) {
             console.error('Login error:', error);

@@ -6,9 +6,32 @@ body {
 }
 
 
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 0;
+  transition: all 0.3s ease;
+}
+
+.main-logo {
+  height: 80px;
+  width: auto;
+  max-width: 200px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+  transition: all 0.3s ease;
+}
+
+.logo-container:hover .main-logo {
+  transform: scale(1.05);
+  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.15));
+}
+
 .upnav {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   box-shadow: 0 4px 6px rgba(102, 126, 234, 0.2);
+  padding: 1rem 0;
 }
 
 .upnav .search-group {
@@ -66,6 +89,15 @@ border: none;
 /* responsive -------------------------------------------------------------------------------------------*/
 
 @media (max-width: 992px) {
+  .main-logo {
+    height: 70px;
+    max-width: 180px;
+  }
+  
+  .logo-container {
+    padding: 0.3rem 0;
+  }
+  
   .search-group {
     width: 100%;
     flex-direction: column;
@@ -100,6 +132,28 @@ border: none;
 
   form.search-group.d-flex {
     flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-logo {
+    height: 60px;
+    max-width: 150px;
+  }
+  
+  .logo-container {
+    padding: 0.2rem 0;
+  }
+}
+
+@media (max-width: 576px) {
+  .main-logo {
+    height: 50px;
+    max-width: 120px;
+  }
+  
+  .logo-container {
+    padding: 0.1rem 0;
   }
 }
 

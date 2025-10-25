@@ -112,11 +112,70 @@
   color: white;
 }
 
+.user-welcome-container {
+  position: relative;
+  display: inline-block;
+}
+
 .user-welcome {
-  font-size: 14px;
-  font-weight: 500;
-  color: #333;
-  margin-right: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-right: 12px;
+  padding: 10px 18px;
+  border-radius: 25px;
+  background-color: rgba(102, 126, 234, 0.1);
+  border: 2px solid rgba(102, 126, 234, 0.2);
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
+  cursor: default;
+}
+
+.user-welcome i {
+  color: #667eea;
+  font-size: 18px;
+}
+
+.user-welcome::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.6s ease;
+}
+
+.user-welcome:hover::before {
+  left: 100%;
+}
+
+.user-welcome:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 25px rgba(102, 126, 234, 0.4);
+  border-color: rgba(102, 126, 234, 0.5);
+}
+
+.user-welcome::after {
+  content: '✨';
+  font-size: 12px;
+  margin-left: 6px;
+  animation: sparkle 2s ease-in-out infinite;
+}
+
+@keyframes sparkle {
+  0%, 100% { opacity: 0.7; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.2); }
 }
 
 
@@ -153,5 +212,31 @@
     justify-content: flex-start;
     width: 100%;
     flex-wrap: wrap;
+  }
+  
+  .user-welcome {
+    font-size: 14px;
+    padding: 8px 14px;
+  }
+  
+  .user-welcome i {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .user-welcome {
+    font-size: 13px;
+    padding: 6px 12px;
+    margin-right: 8px;
+  }
+  
+  .user-welcome i {
+    font-size: 14px;
+  }
+  
+  .user-welcome::after {
+    font-size: 10px;
+    margin-left: 4px;
   }
 }

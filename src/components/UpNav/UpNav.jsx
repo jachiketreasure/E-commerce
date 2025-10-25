@@ -9,7 +9,7 @@ export default function UpNav() {
         <>
             <nav className="navbar upnav navbar-slide">
                 <div className="container-fluid container">
-                    <a className="navbar-brand"><img src={logo} alt="Logo" style={{ height: "62px" }} /></a>
+                    <a className="navbar-brand logo-container"><img src={logo} alt="Logo" className="main-logo" /></a>
 
                     {isAuthenticated && (
                         <form className="search-group d-flex" role="search">

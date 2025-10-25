@@ -136,7 +136,6 @@ export default function Checkout() {
 
       // Create order data
       const orderData = {
-        userId: user?.id,
         items: cartItems.map(item => ({
           productId: item.id,
           productName: item.title,
@@ -197,7 +196,20 @@ export default function Checkout() {
 
     } catch (error) {
       console.error('Payment error:', error);
-      setError('Payment failed. Please try again.');
+      console.error('Error response:', error.response?.data);
+      console.error('Error status:', error.response?.status);
+      
+      if (error.response?.data?.message) {
+        setError(error.response.data.message);
+      } else if (error.response?.status === 401) {
+        setError('Authentication failed. Please log in again.');
+      } else if (error.response?.status === 400) {
+        setError('Invalid order data. Please check your information.');
+      } else if (error.code === 'ECONNREFUSED' || error.message.includes('Network Error')) {
+        setError('Unable to connect to server. Please check your internet connection.');
+      } else {
+        setError('Payment failed. Please try again.');
+      }
     } finally {
       setLoading(false);
     }

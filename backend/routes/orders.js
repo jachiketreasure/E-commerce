@@ -7,13 +7,21 @@ const router = express.Router();
 // Create a new order
 router.post("/", authenticateToken, async (req, res) => {
   try {
+    console.log("Order creation request received");
+    console.log("User:", req.user);
+    console.log("Request body:", req.body);
+    
     const orderData = {
       ...req.body,
       userId: req.user._id
     };
 
+    console.log("Order data to save:", orderData);
+
     const order = new Order(orderData);
     await order.save();
+
+    console.log("Order saved successfully:", order._id);
 
     res.status(201).json({
       message: "Order created successfully",
@@ -23,6 +31,8 @@ router.post("/", authenticateToken, async (req, res) => {
     });
   } catch (err) {
     console.error("Order creation error:", err);
+    console.error("Error details:", err.message);
+    console.error("Error stack:", err.stack);
     res.status(500).json({ 
       message: "Failed to create order",
       error: err.message 

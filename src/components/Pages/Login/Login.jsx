@@ -6,7 +6,7 @@ import Navbar from '../../Nav/Nav';
 import { useAuth } from "../../../context/AuthContext";
 import axios from "axios";
 
-const BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
+const BASE = import.meta.env.VITE_API_BASE_URL || "https://ecommerce-backend-bwha.onrender.com";
 
 export default function Login() {
     const [email, setEmail] = useState('');

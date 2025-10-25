@@ -6,7 +6,7 @@ import Navbar from '../../Nav/Nav';
 import './Checkout.css';
 import axios from 'axios';
 
-const BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
+const BASE = import.meta.env.VITE_API_BASE_URL || "https://ecommerce-backend-bwha.onrender.com";
 
 export default function Checkout() {
   const { cartItems, clearCart } = useCart();
@@ -173,6 +173,19 @@ export default function Checkout() {
       };
 
       console.log('Creating order:', orderData);
+      
+      // Validate order data before sending
+      if (!orderData.items || orderData.items.length === 0) {
+        setError('No items in cart. Please add items before checking out.');
+        setLoading(false);
+        return;
+      }
+      
+      if (!orderData.shippingInfo.fullName || !orderData.billingInfo.fullName) {
+        setError('Missing required shipping or billing information.');
+        setLoading(false);
+        return;
+      }
 
       // For demo purposes, we'll simulate a successful payment
       // In a real app, you'd integrate with Stripe, PayPal, etc.
@@ -198,17 +211,29 @@ export default function Checkout() {
       console.error('Payment error:', error);
       console.error('Error response:', error.response?.data);
       console.error('Error status:', error.response?.status);
+      console.error('Error headers:', error.response?.headers);
+      console.error('Request URL:', error.config?.url);
+      console.error('Request method:', error.config?.method);
+      console.error('Request data:', error.config?.data);
       
       if (error.response?.data?.message) {
         setError(error.response.data.message);
+      } else if (error.response?.data?.error) {
+        setError(`Order creation failed: ${error.response.data.error}`);
       } else if (error.response?.status === 401) {
         setError('Authentication failed. Please log in again.');
       } else if (error.response?.status === 400) {
         setError('Invalid order data. Please check your information.');
+      } else if (error.response?.status === 422) {
+        setError('Validation error. Please check all required fields.');
+      } else if (error.response?.status === 500) {
+        setError('Server error. Please try again later or contact support.');
       } else if (error.code === 'ECONNREFUSED' || error.message.includes('Network Error')) {
         setError('Unable to connect to server. Please check your internet connection.');
+      } else if (error.message.includes('timeout')) {
+        setError('Request timeout. Please try again.');
       } else {
-        setError('Payment failed. Please try again.');
+        setError(`Order creation failed: ${error.message || 'Unknown error occurred'}`);
       }
     } finally {
       setLoading(false);

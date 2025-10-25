@@ -5,7 +5,7 @@ import registerpng from '../../images/login.png'
 import './Register.css'
 import axios from "axios";
 
-const BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000"; 
+const BASE = import.meta.env.VITE_API_BASE_URL || "https://ecommerce-backend-bwha.onrender.com"; 
 
 export default function Register() {
     const navigate = useNavigate();

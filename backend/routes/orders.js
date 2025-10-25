@@ -33,6 +33,33 @@ router.post("/", authenticateToken, async (req, res) => {
     console.error("Order creation error:", err);
     console.error("Error details:", err.message);
     console.error("Error stack:", err.stack);
+    console.error("Error name:", err.name);
+    console.error("Error code:", err.code);
+    
+    // Handle specific MongoDB errors
+    if (err.name === 'ValidationError') {
+      const validationErrors = Object.values(err.errors).map(e => e.message).join(', ');
+      return res.status(400).json({ 
+        message: "Validation error",
+        error: validationErrors,
+        details: err.errors
+      });
+    }
+    
+    if (err.name === 'MongoServerError' && err.code === 11000) {
+      return res.status(400).json({ 
+        message: "Duplicate order number",
+        error: "Order number already exists"
+      });
+    }
+    
+    if (err.name === 'CastError') {
+      return res.status(400).json({ 
+        message: "Invalid data format",
+        error: err.message
+      });
+    }
+    
     res.status(500).json({ 
       message: "Failed to create order",
       error: err.message 

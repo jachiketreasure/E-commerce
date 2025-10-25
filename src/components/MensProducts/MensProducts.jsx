@@ -3,12 +3,15 @@ import { fetchMenProducts } from '../../api/products';
 import UpNav from '../UpNav/UpNav';
 import Navbar from '../Nav/Nav';
 import { useCart } from '../../CartContext/CartContext';
+import CommentModal from '../CommentModal/CommentModal';
 
 export default function MensProducts() {
     const { addToCart } = useCart();
     const [likedProducts, setLikedProducts] = useState([]);
     const [productsMen, setProductsMen] = useState([]);
     const [selectedProduct, setSelectedProduct] = useState(null);
+    const [isCommentModalOpen, setIsCommentModalOpen] = useState(false);
+    const [selectedProductForComment, setSelectedProductForComment] = useState(null);
     const cardColors = [
         'linear-gradient(135deg, #FAD6A5, #FFB6B9)',
         'linear-gradient(135deg, #A0CED9, #C8E4DC)',
@@ -24,6 +27,16 @@ export default function MensProducts() {
                 ? prev.filter(pid => pid !== id)
                 : [...prev, id]
         );
+    };
+
+    const handleCommentClick = (product) => {
+        setSelectedProductForComment(product);
+        setIsCommentModalOpen(true);
+    };
+
+    const handleCloseCommentModal = () => {
+        setIsCommentModalOpen(false);
+        setSelectedProductForComment(null);
     };
 
     useEffect(() => {
@@ -55,7 +68,6 @@ export default function MensProducts() {
                     {productsMen.map((item, index) => (
                         <div key={item.id} className="p-2 col-12 col-sm-6 col-md-4 col-lg-3 position-relative">
                             <p className='offer'>GET 20% OFF</p>
-                            <i className='trash fas fa-trash-can'></i>
                             <i
                                 className={`heart fas fa-heart ${likedProducts.includes(item.id) ? 'text-danger' : ''}`}
                                 onClick={() => toggleLike(item.id)}
@@ -120,6 +132,14 @@ export default function MensProducts() {
                                             setSelectedProduct(null); // Close the modal
                                         }}
                                             style={{ backgroundColor: 'black', color: 'white', borderRadius: '10px', fontSize: '15px' }}>ADD TO CART</button>
+                                        <button
+                                            className="m-1 px-2 py-1 btn-comment-modall"
+                                            type="button"
+                                            onClick={() => handleCommentClick(selectedProduct)}
+                                            style={{ backgroundColor: '#667eea', color: 'white', borderRadius: '10px', fontSize: '15px' }}
+                                        >
+                                            <i className="fas fa-comments"></i> Comments
+                                        </button>
                                         <button className="m-1 px-2 py-1 btn-2-modall" type="button" style={{ backgroundColor: 'white', color: 'black', borderRadius: '10px', fontSize: '15px' }}>Details</button>
                                     </div>
                                 </div>
@@ -127,6 +147,15 @@ export default function MensProducts() {
                         </div>
                     </>
                 )}
+
+                {/* Comment Modal */}
+                <CommentModal
+                    isOpen={isCommentModalOpen}
+                    onClose={handleCloseCommentModal}
+                    productId={selectedProductForComment?.id}
+                    productTitle={selectedProductForComment?.title}
+                />
+
             </div>
 
         </>

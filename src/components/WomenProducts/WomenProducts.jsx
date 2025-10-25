@@ -3,6 +3,7 @@ import { fetchWomenProducts, fetchWomenShoesProducts } from '../../api/products'
 import UpNav from '../UpNav/UpNav';
 import Navbar from '../Nav/Nav';
 import { useCart } from '../../CartContext/CartContext';
+import CommentModal from '../CommentModal/CommentModal';
 
 export default function WomensProducts() {
     const { addToCart } = useCart();
@@ -10,6 +11,8 @@ export default function WomensProducts() {
     const [productsShoesWomen, setProductsShoesWomen] = useState([]);
     const [likedProducts, setLikedProducts] = useState([]);
     const [selectedProduct, setSelectedProduct] = useState(null);
+    const [isCommentModalOpen, setIsCommentModalOpen] = useState(false);
+    const [selectedProductForComment, setSelectedProductForComment] = useState(null);
 
     const cardColors = [
         'linear-gradient(135deg, #FAD6A5, #FFB6B9)',
@@ -25,6 +28,16 @@ export default function WomensProducts() {
         setLikedProducts((prev) =>
             prev.includes(id) ? prev.filter((pid) => pid !== id) : [...prev, id]
         );
+    };
+
+    const handleCommentClick = (product) => {
+        setSelectedProductForComment(product);
+        setIsCommentModalOpen(true);
+    };
+
+    const handleCloseCommentModal = () => {
+        setIsCommentModalOpen(false);
+        setSelectedProductForComment(null);
     };
 
     useEffect(() => {
@@ -54,7 +67,6 @@ export default function WomensProducts() {
                             className="p-2 col-12 col-sm-6 col-md-4 col-lg-3 position-relative"
                         >
                             <p className="offer">GET 20% OFF</p>
-                            <i className="trash fas fa-trash-can"></i>
                             <i
                                 className={`heart fas fa-heart ${
                                     likedProducts.includes(item.id)
@@ -121,7 +133,6 @@ export default function WomensProducts() {
                             className="p-2 col-12 col-sm-6 col-md-4 col-lg-3 position-relative"
                         >
                             <p className="offer">GET 20% OFF</p>
-                            <i className="trash fas fa-trash-can"></i>
                             <i
                                 className={`heart fas fa-heart ${
                                     likedProducts.includes(item.id)
@@ -270,6 +281,19 @@ export default function WomensProducts() {
                                             ADD TO CART
                                         </button>
                                         <button
+                                            className="m-1 px-2 py-1 btn-comment-modall"
+                                            type="button"
+                                            onClick={() => handleCommentClick(selectedProduct)}
+                                            style={{
+                                                backgroundColor: '#667eea',
+                                                color: 'white',
+                                                borderRadius: '10px',
+                                                fontSize: '15px',
+                                            }}
+                                        >
+                                            <i className="fas fa-comments"></i> Comments
+                                        </button>
+                                        <button
                                             className="m-1 px-2 py-1 btn-2-modall"
                                             type="button"
                                             style={{
@@ -287,6 +311,15 @@ export default function WomensProducts() {
                         </div>
                     </>
                 )}
+
+                {/* Comment Modal */}
+                <CommentModal
+                    isOpen={isCommentModalOpen}
+                    onClose={handleCloseCommentModal}
+                    productId={selectedProductForComment?.id}
+                    productTitle={selectedProductForComment?.title}
+                />
+
             </div>
         </>
     );

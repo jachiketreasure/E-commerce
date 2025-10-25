@@ -21,6 +21,11 @@ import WomensProducts from './components/WomenProducts/WomenProducts';
 import CartPage from './components/Pages/CartPage/CartPage';
 import Checkout from './components/Pages/Checkout/Checkout';
 import OrderSuccess from './components/Pages/OrderSuccess/OrderSuccess';
+import Blog from './components/Pages/Blog/Blog';
+import PostLayout from './components/Pages/PostLayout/PostLayout';
+import PrivacyPolicy from './components/Pages/PrivacyPolicy/PrivacyPolicy';
+import Returns from './components/Pages/Returns/Returns';
+import TermsConditions from './components/Pages/TermsConditions/TermsConditions';
 import ProtectedRoute from './components/ProtectedRoute';
 import { useAuth } from './context/AuthContext';
 
@@ -41,6 +46,11 @@ function App() {
         <Route path="/cart" element={<ProtectedRoute><CartPage /></ProtectedRoute>}/>
         <Route path="/checkout" element={<ProtectedRoute><Checkout /></ProtectedRoute>}/>
         <Route path="/order-success/:orderId" element={<ProtectedRoute><OrderSuccess /></ProtectedRoute>}/>
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/layout" element={<PostLayout />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/returns" element={<Returns />} />
+        <Route path="/terms-conditions" element={<TermsConditions />} />
         {/* Catch-all route for SPA routing */}
         <Route path="*" element={<Home />} />
       </Routes> 

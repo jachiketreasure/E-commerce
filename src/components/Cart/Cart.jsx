@@ -134,7 +134,6 @@ export default function Cart() {
           {mensProducts.map((item, index) => (
             <div key={item.id} className="p-2 position-relative">
               <p className='offer'>GET 20% OFF</p>
-              <i className='trash fas fa-trash-can'></i>
               <i
                 className={`heart fas fa-heart ${likedProducts.includes(item.id) ? 'text-danger' : ''}`}
                 onClick={() => toggleLike(item.id)}
@@ -183,7 +182,6 @@ export default function Cart() {
           {womensProducts.map((item, index) => (
             <div key={item.id} className="p-2 col-12 col-sm-6 col-md-4 col-lg-3 position-relative">
               <p className='offer'>GET 20% OFF</p>
-              <i className='trash fas fa-trash-can'></i>
               <i
                 className={`heart fas fa-heart ${likedProducts.includes(item.id) ? 'text-danger' : ''}`}
                 onClick={() => toggleLike(item.id)}

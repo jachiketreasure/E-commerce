@@ -4,7 +4,6 @@ import { authenticateToken } from "../middleware/auth.js";
 
 const router = express.Router();
 
-// Create a new order
 router.post("/", authenticateToken, async (req, res) => {
   try {
     console.log("Order creation request received");

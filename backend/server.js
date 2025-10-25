@@ -8,6 +8,7 @@ import { dirname } from "path";
 
 import authRoutes from "./routes/auth.js";
 import orderRoutes from "./routes/orders.js";
+import commentRoutes from "./routes/comments.js";
 
 
 dotenv.config();
@@ -75,6 +76,7 @@ mongoose.connect(process.env.MONGO_URI, {
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/orders", orderRoutes);
+app.use("/api/comments", commentRoutes);
 
 
 const productSchema = new mongoose.Schema({
@@ -108,12 +110,5 @@ app.get("/api/products", async (req, res) => {
 app.get("/", (req, res) => {
   res.send("Backend is running successfully.");
 });
-
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.get(/.*/, (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
-});
-
 
 app.listen(PORT, () => console.log(`Server running at http://localhost:${PORT}`));

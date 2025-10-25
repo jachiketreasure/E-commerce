@@ -29,7 +29,7 @@ export const fetchWomenShoesProducts = () => {
 export const fetchWomenProducts = () => {
     return fetch('https://dummyjson.com/products/category/womens-dresses')
         .then(res => res.json())
-        .then(data => data.products)
+        .then(data => data.products);
 }
 
 fetch('https://dummyjson.com/products')

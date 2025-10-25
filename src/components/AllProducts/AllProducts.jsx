@@ -7,9 +7,9 @@ import {
 } from '../../api/products';
 import UpNav from '../UpNav/UpNav';
 import Navbar from '../Nav/Nav';
-import Footer from '../Footer/Footer';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../../CartContext/CartContext';
+import CommentModal from '../CommentModal/CommentModal';
 
 export default function AllProducts() {
 
@@ -19,6 +19,8 @@ export default function AllProducts() {
     const [productsShoesWomen, setProductsShoesWomen] = useState([]);
     const [likedProducts, setLikedProducts] = useState([]);
     const [selectedProduct, setSelectedProduct] = useState(null);
+    const [isCommentModalOpen, setIsCommentModalOpen] = useState(false);
+    const [selectedProductForComment, setSelectedProductForComment] = useState(null);
     const navigate = useNavigate();
     const { addToCart } = useCart();
 
@@ -39,7 +41,16 @@ export default function AllProducts() {
                 ? prev.filter(pid => pid !== id)
                 : [...prev, id]
         );
+    const handleCommentClick = (product) => {
+        setSelectedProductForComment(product);
+        setIsCommentModalOpen(true);
     };
+
+    const handleCloseCommentModal = () => {
+        setIsCommentModalOpen(false);
+        setSelectedProductForComment(null);
+    };
+
 
     // Fetch all products
     useEffect(() => {
@@ -75,7 +86,6 @@ export default function AllProducts() {
                     {productsMen.map((item, index) => (
                         <div key={item.id} className="p-2 col-12 col-sm-6 col-md-4 col-lg-3 position-relative">
                             <p className='offer'>GET 20% OFF</p>
-                            <i className='trash fas fa-trash-can'></i>
                             <i
                                 className={`heart fas fa-heart ${likedProducts.includes(item.id) ? 'text-danger' : ''}`}
                                 onClick={() => toggleLike(item.id)}
@@ -114,7 +124,6 @@ export default function AllProducts() {
                     {productsWomen.map((item, index) => (
                         <div key={item.id} className="p-2 col-12 col-sm-6 col-md-4 col-lg-3 position-relative">
                             <p className='offer'>GET 20% OFF</p>
-                            <i className='trash fas fa-trash-can'></i>
                             <i
                                 className={`heart fas fa-heart ${likedProducts.includes(item.id) ? 'text-danger' : ''}`}
                                 onClick={() => toggleLike(item.id)}
@@ -153,7 +162,6 @@ export default function AllProducts() {
                     {productsShoesWomen.map((item, index) => (
                         <div key={item.id} className="p-2 col-12 col-sm-6 col-md-4 col-lg-3 position-relative">
                             <p className='offer'>GET 20% OFF</p>
-                            <i className='trash fas fa-trash-can'></i>
                             <i
                                 className={`heart fas fa-heart ${likedProducts.includes(item.id) ? 'text-danger' : ''}`}
                                 onClick={() => toggleLike(item.id)}
@@ -192,7 +200,6 @@ export default function AllProducts() {
                     {productsAll.map((item, index) => (
                         <div key={item.id} className="p-2 col-12 col-sm-6 col-md-4 col-lg-3 position-relative">
                             <p className='offer'>GET 20% OFF</p>
-                            <i className='trash fas fa-trash-can'></i>
                             <i
                                 className={`heart fas fa-heart ${likedProducts.includes(item.id) ? 'text-danger' : ''}`}
                                 onClick={() => toggleLike(item.id)}
@@ -278,6 +285,14 @@ export default function AllProducts() {
                                             ADD TO CART
                                         </button>
                                         <button
+                                            className="m-1 px-2 py-1 btn-comment-modall"
+                                            type="button"
+                                            onClick={() => handleCommentClick(selectedProduct)}
+                                            style={{ backgroundColor: '#667eea', color: 'white', borderRadius: '10px', fontSize: '15px' }}
+                                        >
+                                            <i className="fas fa-comments"></i> Comments
+                                        </button>
+                                        <button
                                             onClick={() => { setSelectedProduct(null); }}
                                             className="m-1 px-2 py-1 btn-2-modall"
                                             type="button"
@@ -292,8 +307,11 @@ export default function AllProducts() {
                     </>
                 )}
 
-            </div>
-            <Footer />
-        </>
-    )
-}
+
+                {/* Comment Modal */}
+                <CommentModal
+                    isOpen={isCommentModalOpen}
+                    onClose={handleCloseCommentModal}
+                    productId={selectedProductForComment?.id}
+                    productTitle={selectedProductForComment?.title}
+                />

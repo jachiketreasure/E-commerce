@@ -35,7 +35,7 @@ export default function UpNav() {
         <>
             <nav className="navbar upnav navbar-slide">
                 <div className="container-fluid container">
-                    <a className="navbar-brand logo-container"><img src={logo} alt="Logo" className="main-logo" /></a>
+                    <div className="navbar-brand logo-container"></div>
 
                     {isAuthenticated && (
                         <form className="search-group d-flex" role="search" onSubmit={handleSearchSubmit}>

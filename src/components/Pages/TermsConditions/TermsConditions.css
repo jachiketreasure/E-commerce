@@ -1,0 +1,341 @@
+/* Terms & Conditions Page Styles */
+.terms-page {
+    padding: 4rem 0;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    min-height: 100vh;
+}
+
+.terms-header {
+    margin-bottom: 3rem;
+    padding: 2rem 0;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.terms-title {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.terms-subtitle {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 0;
+    font-style: italic;
+}
+
+.terms-content {
+    background: white;
+    border-radius: 20px;
+    padding: 3rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    line-height: 1.8;
+}
+
+.terms-section {
+    margin-bottom: 2.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #eee;
+}
+
+.terms-section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.terms-section h2 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 1rem;
+    position: relative;
+    padding-left: 1rem;
+}
+
+.terms-section h2::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 30px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 2px;
+}
+
+.terms-section h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #555;
+    margin: 1.5rem 0 1rem 0;
+}
+
+.terms-section h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #444;
+    margin: 1rem 0 0.5rem 0;
+}
+
+.terms-section p {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 1rem;
+    text-align: justify;
+}
+
+.terms-section ul, .terms-section ol {
+    margin: 1rem 0;
+    padding-left: 2rem;
+}
+
+.terms-section li {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+}
+
+.terms-section strong {
+    color: #333;
+    font-weight: 600;
+}
+
+.highlight-box {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 2rem;
+    border-radius: 15px;
+    margin: 1.5rem 0;
+}
+
+.highlight-box h3 {
+    color: white;
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+}
+
+.highlight-box p {
+    color: white;
+    margin: 0;
+}
+
+.definitions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.definition-item {
+    background: rgba(102, 126, 234, 0.05);
+    padding: 1.5rem;
+    border-radius: 10px;
+    border-left: 4px solid #667eea;
+}
+
+.definition-item h4 {
+    color: #333;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.definition-item p {
+    margin: 0;
+    color: #666;
+    font-size: 0.95rem;
+}
+
+.order-process {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 2rem 0;
+    padding: 2rem;
+    background: rgba(102, 126, 234, 0.05);
+    border-radius: 15px;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.process-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    flex: 1;
+    min-width: 120px;
+}
+
+.step-number {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+.step-text {
+    font-size: 0.9rem;
+    color: #666;
+    text-align: center;
+    font-weight: 500;
+}
+
+.policy-link {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin: 1rem 0;
+    border: 1px solid #dee2e6;
+}
+
+.policy-link p {
+    margin: 0;
+    font-size: 1rem;
+    color: #555;
+}
+
+.policy-link a {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.policy-link a:hover {
+    text-decoration: underline;
+}
+
+.contact-info {
+    background: rgba(102, 126, 234, 0.05);
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin: 1rem 0;
+}
+
+.contact-info p {
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    color: #555;
+}
+
+.contact-info strong {
+    color: #667eea;
+    font-weight: 600;
+}
+
+.terms-footer {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 2rem;
+    border-radius: 15px;
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.terms-footer p {
+    font-size: 1.1rem;
+    margin: 0;
+    font-weight: 500;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .terms-page {
+        padding: 2rem 0;
+    }
+    
+    .terms-header {
+        padding: 1.5rem 1rem;
+        margin-bottom: 2rem;
+    }
+    
+    .terms-title {
+        font-size: 2.5rem;
+    }
+    
+    .terms-content {
+        padding: 2rem 1.5rem;
+    }
+    
+    .terms-section h2 {
+        font-size: 1.5rem;
+    }
+    
+    .terms-section h3 {
+        font-size: 1.2rem;
+    }
+    
+    .definitions-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .order-process {
+        flex-direction: column;
+        gap: 1.5rem;
+        padding: 1.5rem;
+    }
+    
+    .process-step {
+        min-width: auto;
+    }
+    
+    .highlight-box, .policy-link, .contact-info {
+        padding: 1rem;
+    }
+    
+    .terms-footer {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .terms-title {
+        font-size: 2rem;
+    }
+    
+    .terms-content {
+        padding: 1.5rem 1rem;
+    }
+    
+    .terms-section {
+        margin-bottom: 2rem;
+        padding-bottom: 1.5rem;
+    }
+    
+    .terms-section h2 {
+        font-size: 1.3rem;
+    }
+    
+    .terms-section h3 {
+        font-size: 1.1rem;
+    }
+    
+    .definition-item {
+        padding: 1rem;
+    }
+    
+    .order-process {
+        padding: 1rem;
+    }
+    
+    .step-number {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+    }
+}

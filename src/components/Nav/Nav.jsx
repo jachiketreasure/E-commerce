@@ -7,12 +7,21 @@ import logo from '../images/logo.svg';
 
 export default function Navbar() {
   const [isSticky, setIsSticky] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { cartItems } = useCart();  const { isAuthenticated, user, logout } = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = () => {
     logout();
     navigate("/"); 
+  };
+
+  const handleMobileMenuToggle = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const handleCloseMobileMenu = () => {
+    setIsMobileMenuOpen(false);
   };
 
   useEffect(() => {
@@ -31,19 +40,27 @@ export default function Navbar() {
         <button
           className="navbar-toggler"
           type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNavDropdown"
+          onClick={handleMobileMenuToggle}
           aria-controls="navbarNavDropdown"
-          aria-expanded="false"
+          aria-expanded={isMobileMenuOpen}
           aria-label="Toggle navigation"
         >
           <span className="navbar-toggler-icon"></span>
         </button>
 
-        <div className="collapse navbar-collapse" id="navbarNavDropdown">
+        <div className={`collapse navbar-collapse ${isMobileMenuOpen ? 'show' : ''}`} id="navbarNavDropdown">
+          {/* Close button */}
+          <button 
+            className="mobile-menu-close-btn"
+            onClick={handleCloseMobileMenu}
+            aria-label="Close menu"
+          >
+            ✕
+          </button>
+          
           <ul className="navbar-nav fw-bold d-flex justify-content-center gap-3 align-items-center">
             <li className="nav-item">
-              <Link className="nav-link" to="/">Home ✦</Link>
+              <Link className="nav-link" to="/" onClick={handleCloseMobileMenu}>Home ✦</Link>
             </li>
             
             
@@ -54,27 +71,27 @@ export default function Navbar() {
                     Shop ✦
                   </Link>
                   <ul className="dropdown-menu custom-dropdown-menu ">
-                    <li><Link className="dropdown-item" to="/AllProducts">All</Link></li>
-                    <li><Link className="dropdown-item" to="/MensProducts">Men's Clothing</Link></li>
-                    <li><Link className="dropdown-item" to="/WomensProducts">Women's Clothing</Link></li>
-                    <li><Link className="dropdown-item" to="/terms">Accessories</Link></li>
-                    <li><Link className="dropdown-item" to="/terms"><img src={logo} alt="" /></Link></li>
+                    <li><Link className="dropdown-item" to="/AllProducts" onClick={handleCloseMobileMenu}>All</Link></li>
+                    <li><Link className="dropdown-item" to="/MensProducts" onClick={handleCloseMobileMenu}>Men's Clothing</Link></li>
+                    <li><Link className="dropdown-item" to="/WomensProducts" onClick={handleCloseMobileMenu}>Women's Clothing</Link></li>
+                    <li><Link className="dropdown-item" to="/terms" onClick={handleCloseMobileMenu}>Accessories</Link></li>
+                    <li><Link className="dropdown-item" to="/terms" onClick={handleCloseMobileMenu}><img src={logo} alt="" /></Link></li>
                   </ul>
                 </li>
               </>
             )}
 
             <li className="nav-item">
-              <Link className="nav-link" to="/blog">Blog ✦</Link>
+              <Link className="nav-link" to="/blog" onClick={handleCloseMobileMenu}>Blog ✦</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/layout">PostLayout ✦</Link>
+              <Link className="nav-link" to="/layout" onClick={handleCloseMobileMenu}>PostLayout ✦</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/port">Portfolio ✦</Link>
+              <a className="nav-link" href="https://jachiketreasure.github.io/Treasure-Jachike-Portfolio/" target="_blank" rel="noopener noreferrer" onClick={handleCloseMobileMenu}>Portfolio ✦</a>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/pages">Pages ✦</Link>
+              <Link className="nav-link" to="/Shop" onClick={handleCloseMobileMenu}>Pages ✦</Link>
             </li>
           </ul>
         </div>

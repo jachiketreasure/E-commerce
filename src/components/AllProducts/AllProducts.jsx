@@ -315,3 +315,8 @@ export default function AllProducts() {
                     productId={selectedProductForComment?.id}
                     productTitle={selectedProductForComment?.title}
                 />
+
+            </div>
+        </>
+    )
+}

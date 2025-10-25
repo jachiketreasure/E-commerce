@@ -23,6 +23,13 @@ export default function Register() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     
+    const handleWhatsAppSupport = () => {
+        const phoneNumber = "+2349135663829";
+        const message = "Hello! I need support with my registration/account.";
+        const whatsappUrl = `https://wa.me/${phoneNumber.replace(/\+/g, '')}?text=${encodeURIComponent(message)}`;
+        window.open(whatsappUrl, '_blank');
+    };
+    
       const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value});
@@ -94,8 +101,8 @@ export default function Register() {
             <div className="Register d-flex justify-content-around">
 
                 
-                <div className="floating1-button">
-                    <span className="icon"><i className="fa-solid fa-headphones"></i></span>
+                <div className="floating1-button" onClick={handleWhatsAppSupport} style={{ cursor: 'pointer' }}>
+                    <span className="icon"><i className="fa-brands fa-whatsapp"></i></span>
                     <span className="label">SUPPORT</span>
                 </div>
                 <div className="floating2-button">

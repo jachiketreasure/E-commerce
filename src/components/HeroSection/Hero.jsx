@@ -2,11 +2,18 @@ import image from '../images/pic1.png'
 import './Hero.css'
 
 export default function HeroSection() {
+    const handleWhatsAppSupport = () => {
+        const phoneNumber = "+2349135663829";
+        const message = "Hello! I need support with my order.";
+        const whatsappUrl = `https://wa.me/${phoneNumber.replace(/\+/g, '')}?text=${encodeURIComponent(message)}`;
+        window.open(whatsappUrl, '_blank');
+    };
+
     return (
         <>
             <div className="container">
-                <div className="floating1-button">
-                    <span className="icon"><i className="fa-solid fa-headphones"></i></span>
+                <div className="floating1-button" onClick={handleWhatsAppSupport} style={{ cursor: 'pointer' }}>
+                    <span className="icon"><i className="fa-brands fa-whatsapp"></i></span>
                     <span className="label">SUPPORT</span>
                 </div>
                 <div className="floating2-button">

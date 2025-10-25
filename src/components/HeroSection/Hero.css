@@ -130,8 +130,15 @@
 .floating1-button{
   left: 1rem;
   bottom: 5rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+  background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+  box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
+  transition: all 0.3s ease;
+}
+
+.floating1-button:hover {
+  background: linear-gradient(135deg, #128C7E 0%, #25D366 100%);
+  box-shadow: 0 12px 25px rgba(37, 211, 102, 0.4);
+  transform: translateY(-3px);
 }
 
 .floating2-button{

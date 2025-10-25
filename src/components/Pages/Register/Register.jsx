@@ -98,30 +98,36 @@ export default function Register() {
     return (
         <>
             <Navbar/>
-            <div className="Register d-flex justify-content-around">
-
-                
-                <div className="floating1-button" onClick={handleWhatsAppSupport} style={{ cursor: 'pointer' }}>
+            <div className="Register">
+                {/* Floating buttons - hidden on mobile */}
+                <div className="floating1-button d-none d-md-block" onClick={handleWhatsAppSupport} style={{ cursor: 'pointer' }}>
                     <span className="icon"><i className="fa-brands fa-whatsapp"></i></span>
                     <span className="label">SUPPORT</span>
                 </div>
-                <div className="floating2-button">
+                <div className="floating2-button d-none d-md-block">
                     <span className="icon"><i className="fa-solid fa-headphones"></i></span>
                     <span className="label">BUY NOW</span>
                 </div>
 
-                
-                              <div className='' style={{ width: '50%', }}>
-                                  <div className="imagee">
-                                      <div className='text-image'>
-                                          <h1 className='fw-bold mb-3'>Register</h1>
-                                      </div>
-                                      <img src={registerpng} alt="image" style={{ width: '100%', maxWidth: '550px', height: 'auto' }} />
-              
-                                  </div>
-                              </div>
-                              <div className="box-form " style={{ width: '50%' }}>
-                                   <form className="formm" onSubmit={handleSubmit}>
+                {/* Mobile support button */}
+                <div className="mobile-support-btn d-md-none" onClick={handleWhatsAppSupport}>
+                    <i className="fa-brands fa-whatsapp"></i>
+                </div>
+
+                <div className="register-container">
+                    {/* Image section - hidden on mobile */}
+                    <div className="image-section d-none d-lg-block">
+                        <div className="imagee">
+                            <div className='text-image'>
+                                <h1 className='fw-bold mb-3'>Register</h1>
+                            </div>
+                            <img src={registerpng} alt="Register illustration" className="register-image" />
+                        </div>
+                    </div>
+
+                    {/* Form section */}
+                    <div className="form-section">
+                        <form className="formm" onSubmit={handleSubmit}>
                                       <div className="head">
                                           <h2 className='fw-bold'>Register</h2>
                                           <p style={{ color: 'gray' }}>Fill The Form To Register</p>
@@ -132,60 +138,58 @@ export default function Register() {
                                               {error}
                                           </div>
                                       )}
-                                      <div className="box-group">
-                                          <div className="Name">
-                                              <div className='groupp' >
-                                                  <label htmlFor="" className='input-f-name'>First Name</label>
-                                                  <div className="input input-f-name"><input type="text" name="firstName" value={formData.firstName} onChange={handleChange} placeholder="First Name" disabled={loading} required/></div>
-                                              </div>
-                                              <div className='groupp' >
-                                                  <label htmlFor="" className='input-l-name'>Last Name</label>
-                                                  <div className="input input-l-name"><input type="text" name="lastName" value={formData.lastName} onChange={handleChange} placeholder="Last Name" disabled={loading} required/></div>
-                                              </div>
-                                          </div>
-                                          <div className="email">
-                                              <div className='groupp' style={{ padding: '3% 10%' }}>
-                                                  <label htmlFor=""> Email Address</label>
-                                                  <div className="input"><input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Enter your Email Address" disabled={loading} required/></div>
-                                              </div>
-                                          </div>
-                                          <div className="phone">
-                                              <div className='groupp' style={{ padding: '3% 10%' }}>
-                                                  <label htmlFor="">Phone Number</label>
-                                                  <div className="input"><input type="tel" name="phone" value={formData.phone} onChange={handleChange} placeholder="Enter your Phone Number" disabled={loading}/></div>
-                                              </div>
-                                          </div>
-                                          <div className="pass">
-                                              <div className='groupp' style={{ padding: '3% 10%' }}>
-                                                  <label htmlFor="">Password</label>
-                                                  <div className="input"><input type="password" name="password" value={formData.password} onChange={handleChange} placeholder="Enter your password" disabled={loading} required/>    </div>
-                                              </div>
-                                              <div className='groupp' style={{ padding: '3% 10%' }}>
-                                                  <label htmlFor="">Confirm Password</label>
-                                                  <div className="input"><input type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} placeholder="Re-enter your password" disabled={loading} required/>    
-                                                  </div>
-                                              </div>
-                                          </div>
-                                          <div className="gender">
-                                              <div>
-                                                  <input type="radio" name="gender" value="male" checked={formData.gender === "male"} onChange={handleChange} className='me-1' disabled={loading}/>
-                                                  <label htmlFor="male"> Male</label>
-                                              </div>
-                                              <div>
-                                                  <input type="radio" name="gender" value="female" checked={formData.gender === "female"} onChange={handleChange} className='me-1' disabled={loading} />
-                                                  <label htmlFor="female"> Female</label>
-                                              </div>
-                                          </div>
-                                      </div>
-                                    <div className="buttons fw-medium">
-                                        <button type="submit" className="btn-on" disabled={loading}>
-                                            {loading ? 'REGISTERING...' : 'REGISTER'}
-                                        </button>
+                            <div className="box-group">
+                                <div className="Name">
+                                    <div className='groupp'>
+                                        <label htmlFor="firstName">First Name</label>
+                                        <div className="input"><input type="text" name="firstName" value={formData.firstName} onChange={handleChange} placeholder="First Name" disabled={loading} required/></div>
                                     </div>
-
-                                </form>
+                                    <div className='groupp'>
+                                        <label htmlFor="lastName">Last Name</label>
+                                        <div className="input"><input type="text" name="lastName" value={formData.lastName} onChange={handleChange} placeholder="Last Name" disabled={loading} required/></div>
+                                    </div>
+                                </div>
+                                
+                                <div className='groupp'>
+                                    <label htmlFor="email">Email Address</label>
+                                    <div className="input"><input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Enter your Email Address" disabled={loading} required/></div>
+                                </div>
+                                
+                                <div className='groupp'>
+                                    <label htmlFor="phone">Phone Number</label>
+                                    <div className="input"><input type="tel" name="phone" value={formData.phone} onChange={handleChange} placeholder="Enter your Phone Number" disabled={loading}/></div>
+                                </div>
+                                
+                                <div className='groupp'>
+                                    <label htmlFor="password">Password</label>
+                                    <div className="input"><input type="password" name="password" value={formData.password} onChange={handleChange} placeholder="Enter your password" disabled={loading} required/></div>
+                                </div>
+                                
+                                <div className='groupp'>
+                                    <label htmlFor="confirmPassword">Confirm Password</label>
+                                    <div className="input"><input type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} placeholder="Re-enter your password" disabled={loading} required/></div>
+                                </div>
+                                
+                                <div className="gender">
+                                    <div>
+                                        <input type="radio" name="gender" value="male" checked={formData.gender === "male"} onChange={handleChange} className='me-1' disabled={loading}/>
+                                        <label htmlFor="male"> Male</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" name="gender" value="female" checked={formData.gender === "female"} onChange={handleChange} className='me-1' disabled={loading} />
+                                        <label htmlFor="female"> Female</label>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </>
-                );
-                }
+                            <div className="buttons fw-medium">
+                                <button type="submit" className="btn-on" disabled={loading}>
+                                    {loading ? 'REGISTERING...' : 'REGISTER'}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </>
+    );
+}

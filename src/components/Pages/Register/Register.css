@@ -12,6 +12,8 @@ body {
     margin: auto;
     position: relative;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
 .Register::before {
@@ -27,9 +29,32 @@ body {
     z-index: 1;
 }
 
+/* Register Container Layout */
+.register-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 80px); /* Account for navbar height */
+    padding: 2rem 1rem;
+    position: relative;
+    z-index: 2;
+}
+
+/* Image Section */
+.image-section {
+    flex: 1;
+    max-width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .Register .imagee {
     background-color: beige;
     text-align: center;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     height: 100%;
 }
 
@@ -42,15 +67,31 @@ body {
     padding-top: 3%;
 }
 
+.register-image {
+    width: 100%;
+    max-width: 550px;
+    height: auto;
+    border-radius: 15px;
+}
+
+/* Form Section */
+.form-section {
+    flex: 1;
+    max-width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .Register .formm {
-    margin: auto;
-    margin-top: 10%;
-    width: 70%;
+    width: 100%;
+    max-width: 500px;
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 30px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
     position: relative;
     z-index: 2;
 }
@@ -70,53 +111,59 @@ body {
 
 .Register .formm .box-group .Name {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
 }
 
 .Register .formm .box-group .Name .groupp {
-    width: 40%;
+    flex: 1;
 }
 
-.Register .formm .box-group .Name .groupp .input-f-name {
-    margin-right: 5%;
+.Register .formm .box-group .groupp {
+    margin-bottom: 1.5rem;
 }
 
-.Register .formm .box-group .Name .groupp .input-l-name {
-    margin-left: 5%;
+.Register .formm .box-group .groupp label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #333;
 }
 
 .Register .formm .box-group .groupp .input input {
     width: 100%;
-    padding: 2%;
+    padding: 12px 16px;
     border-radius: 10px;
-    border: 1px solid black;
-    margin-top: 2%;
-}
-
-.Register .formm .box-group .Name .groupp .input-f-name input,
-.Register .formm .box-group .Name .groupp .input-l-name input {
-    padding: 4%;
+    border: 1px solid #ddd;
+    margin-top: 0.5rem;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
 }
 
 .Register .formm .box-group .gender {
     display: flex;
     justify-content: space-evenly;
-    margin: 2% 0;
+    margin: 2rem 0;
+    gap: 1rem;
 }
 
 
 .Register .formm .buttons {
-    margin: auto;
+    margin: 2rem 0;
     text-align: center;
-    margin: 5% 0;
 }
 
 .Register .formm .buttons button {
-
-    width: 50%;
-    padding: 2% 7%;
+    width: 100%;
+    max-width: 300px;
+    padding: 14px 20px;
     border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    cursor: pointer;
 }
 
 .Register .formm .buttons .btn-one {
@@ -136,76 +183,112 @@ body {
 
 
 
+/* Mobile Support Button */
+.mobile-support-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    background: #25D366;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+    cursor: pointer;
+    z-index: 1000;
+    transition: transform 0.3s ease;
+}
+
+.mobile-support-btn:hover {
+    transform: scale(1.1);
+}
+
+.mobile-support-btn i {
+    color: white;
+    font-size: 24px;
+}
+
 /* Responsive Design - Mobile First Approach */
 
 /* Large Desktop (1200px and up) */
 @media (min-width: 1200px) {
+    .register-container {
+        padding: 3rem 2rem;
+    }
+    
     .Register .formm {
-        width: 60%;
         max-width: 600px;
+        padding: 2.5rem;
     }
 }
 
 /* Desktop (992px to 1199px) */
 @media (max-width: 1199px) and (min-width: 992px) {
+    .register-container {
+        padding: 2rem 1.5rem;
+    }
+    
     .Register .formm {
-        width: 70%;
         max-width: 550px;
+        padding: 2rem;
     }
 }
 
 /* Tablet (768px to 991px) */
 @media (max-width: 991px) {
-    .Register {
-        padding: 0;
-        margin: 0;
+    .register-container {
         flex-direction: column;
-        align-items: center;
-        text-align: center;
-        min-height: 100vh;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 1rem;
+        min-height: calc(100vh - 60px);
     }
-
+    
+    .image-section {
+        max-width: 100%;
+        margin-bottom: 2rem;
+    }
+    
+    .form-section {
+        max-width: 100%;
+        width: 100%;
+    }
+    
     .Register .formm {
-        width: 90%;
+        width: 100%;
         max-width: 500px;
-        margin: 2rem auto;
+        margin: 0 auto;
         padding: 1.5rem;
     }
-
+    
     .Register .text-image {
-        padding: 2rem 1rem;
+        padding: 1rem;
         text-align: center;
     }
-
+    
     .Register .formm .box-group .Name {
         flex-direction: column;
         gap: 1rem;
     }
-
+    
     .Register .formm .box-group .Name .groupp {
         width: 100%;
     }
-
-    .Register .formm .box-group .Name .groupp .input-f-name,
-    .Register .formm .box-group .Name .groupp .input-l-name {
-        margin: 0;
-    }
-
+    
     .Register .formm .buttons {
         display: flex;
         flex-direction: column;
         gap: 1rem;
         align-items: center;
     }
-
+    
     .Register .formm .buttons button {
         width: 100%;
         max-width: 300px;
         padding: 12px 20px;
         margin: 0;
     }
-
+    
     .Register .formm .box-group .gender {
         flex-direction: column;
         gap: 1rem;
@@ -215,56 +298,50 @@ body {
 
 /* Mobile (576px to 767px) */
 @media (max-width: 767px) {
-    .Register {
-        padding: 1rem;
-        min-height: 100vh;
+    .register-container {
+        padding: 0.5rem;
+        min-height: calc(100vh - 60px);
     }
-
+    
     .Register .formm {
         width: 100%;
-        margin: 1rem 0;
+        margin: 0.5rem 0;
         padding: 1.5rem;
         border-radius: 20px;
     }
-
+    
     .Register .formm .head {
-        margin-top: 1rem;
+        margin-top: 0;
     }
-
+    
     .Register .formm .head h2 {
         font-size: 1.5rem;
     }
-
+    
     .Register .formm .head p {
         font-size: 0.9rem;
         margin: 0.5rem 0;
     }
-
+    
     .Register .formm .box-group .groupp .input input {
         padding: 12px;
         font-size: 16px; /* Prevents zoom on iOS */
         border-radius: 8px;
     }
-
-    .Register .formm .box-group .Name .groupp .input-f-name input,
-    .Register .formm .box-group .Name .groupp .input-l-name input {
-        padding: 12px;
-        font-size: 16px;
-    }
-
+    
     .Register .formm .buttons button {
         width: 100%;
         padding: 14px 20px;
         font-size: 16px;
         border-radius: 8px;
     }
-
+    
     .Register .formm .box-group .gender {
         flex-direction: column;
         gap: 0.5rem;
         text-align: center;
     }
-
+    
     .Register .formm .box-group .gender label {
         font-size: 0.9rem;
     }
@@ -272,42 +349,48 @@ body {
 
 /* Small Mobile (up to 575px) */
 @media (max-width: 575px) {
-    .Register {
-        padding: 0.5rem;
+    .register-container {
+        padding: 0.25rem;
+        min-height: calc(100vh - 60px);
     }
-
+    
     .Register .formm {
         padding: 1rem;
-        margin: 0.5rem 0;
+        margin: 0.25rem 0;
         border-radius: 15px;
     }
-
+    
     .Register .formm .head h2 {
         font-size: 1.3rem;
     }
-
+    
     .Register .formm .head p {
         font-size: 0.85rem;
     }
-
+    
     .Register .formm .box-group .groupp .input input {
         padding: 10px;
         font-size: 16px;
     }
-
-    .Register .formm .box-group .Name .groupp .input-f-name input,
-    .Register .formm .box-group .Name .groupp .input-l-name input {
-        padding: 10px;
-        font-size: 16px;
-    }
-
+    
     .Register .formm .buttons button {
         padding: 12px 16px;
         font-size: 15px;
     }
-
+    
     .Register .text-image {
-        padding: 1rem 0.5rem;
+        padding: 0.5rem;
+    }
+    
+    .mobile-support-btn {
+        width: 50px;
+        height: 50px;
+        bottom: 15px;
+        right: 15px;
+    }
+    
+    .mobile-support-btn i {
+        font-size: 20px;
     }
 }
 

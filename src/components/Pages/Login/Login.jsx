@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Navbar from '../../Nav/Nav';
 import { useAuth } from "../../../context/AuthContext";
 import axios from "axios";
+import ForgotPasswordModal from '../../ForgotPasswordModal/ForgotPasswordModal';
 
 const BASE = import.meta.env.VITE_API_BASE_URL || "https://ecommerce-backend-bwha.onrender.com";
 
@@ -13,6 +14,7 @@ export default function Login() {
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
+    const [isForgotPasswordOpen, setIsForgotPasswordOpen] = useState(false);
     const auth = useAuth();
     const navigate = useNavigate();
 
@@ -21,6 +23,15 @@ export default function Login() {
         const message = "Hello! I need support with my login/account.";
         const whatsappUrl = `https://wa.me/${phoneNumber.replace(/\+/g, '')}?text=${encodeURIComponent(message)}`;
         window.open(whatsappUrl, '_blank');
+    };
+
+    const handleForgotPasswordClick = (e) => {
+        e.preventDefault();
+        setIsForgotPasswordOpen(true);
+    };
+
+    const handleCloseForgotPassword = () => {
+        setIsForgotPasswordOpen(false);
     };
 
     const handleSubmit = async (e) => {
@@ -65,114 +76,120 @@ export default function Login() {
         <>
             <Navbar />
 
-            <div className="Login d-flex justify-content-around">
-                
-                <div className="floating1-button" onClick={handleWhatsAppSupport} style={{ cursor: 'pointer' }}>
+            <div className="Login">
+                {/* Floating buttons - hidden on mobile */}
+                <div className="floating1-button d-none d-md-block" onClick={handleWhatsAppSupport} style={{ cursor: 'pointer' }}>
                     <span className="icon"><i className="fa-brands fa-whatsapp"></i></span>
                     <span className="label">SUPPORT</span>
                 </div>
-                <div className="floating2-button">
+                <div className="floating2-button d-none d-md-block">
                     <span className="icon"><i className="fa-solid fa-headphones"></i></span>
                     <span className="label">BUY NOW</span>
                 </div>
 
-                
-                <div style={{ width: '50%' }}>
-                    <div className="imagee">
-                        <div className='text-image'>
-                            <h1 className='fw-bold mb-3'>Login</h1>
-                        </div>
-                        <img 
-                            src={loginpng} 
-                            alt="image" 
-                            style={{ width: '100%', maxWidth: '550px', height: 'auto' }} 
-                        />
-                    </div>
+                {/* Mobile support button */}
+                <div className="mobile-support-btn d-md-none" onClick={handleWhatsAppSupport}>
+                    <i className="fa-brands fa-whatsapp"></i>
                 </div>
 
-            
-                <div className="box-form" style={{ width: '50%' }}>
-                    <div className="formm">
-                        <div className="head">
-                            <h2 className='fw-bold'>Login</h2>
-                            <p style={{ color: 'gray' }}>Welcome, Please login to your account</p>
-                        </div>
-
-                        {error && (
-                            <div className="alert alert-danger" role="alert" style={{ margin: '10px', padding: '10px', borderRadius: '5px', backgroundColor: '#f8d7da', color: '#721c24', border: '1px solid #f5c6cb' }}>
-                                {error}
+                <div className="login-container">
+                    {/* Image section - hidden on mobile */}
+                    <div className="image-section d-none d-lg-block">
+                        <div className="imagee">
+                            <div className='text-image'>
+                                <h1 className='fw-bold mb-3'>Login</h1>
                             </div>
-                        )}
-                        
-                        <form onSubmit={handleSubmit}>
-                            <div className="box-group">
-                                
-                                <div className='groupp' style={{ padding: '3% 10%' }}>
-                                    <label>Email Address</label>
-                                    <div className="input">
-                                        <input 
-                                            type="email" 
-                                            placeholder="Email Address" 
-                                            value={email}
-                                            onChange={(e) => setEmail(e.target.value)}
-                                            disabled={loading}
-                                            required
-                                        />
+                            <img 
+                                src={loginpng} 
+                                alt="Login illustration" 
+                                className="login-image"
+                            />
+                        </div>
+                    </div>
+
+                    {/* Form section */}
+                    <div className="form-section">
+                        <div className="formm">
+                            <div className="head">
+                                <h2 className='fw-bold'>Login</h2>
+                                <p style={{ color: 'gray' }}>Welcome, Please login to your account</p>
+                            </div>
+
+                            {error && (
+                                <div className="alert alert-danger" role="alert" style={{ margin: '10px', padding: '10px', borderRadius: '5px', backgroundColor: '#f8d7da', color: '#721c24', border: '1px solid #f5c6cb' }}>
+                                    {error}
+                                </div>
+                            )}
+                            
+                            <form onSubmit={handleSubmit}>
+                                <div className="box-group">
+                                    <div className='groupp'>
+                                        <label>Email Address</label>
+                                        <div className="input">
+                                            <input 
+                                                type="email" 
+                                                placeholder="Email Address" 
+                                                value={email}
+                                                onChange={(e) => setEmail(e.target.value)}
+                                                disabled={loading}
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div className='groupp'>
+                                        <label>Password</label>
+                                        <div className="input">
+                                            <input 
+                                                type="password" 
+                                                placeholder="Password" 
+                                                value={password}
+                                                onChange={(e) => setPassword(e.target.value)}
+                                                disabled={loading}
+                                                required
+                                            />
+                                        </div>
                                     </div>
                                 </div>
 
-                            
-                                <div className='groupp' style={{ padding: '3% 10%' }}>
-                                    <label>Password</label>
-                                    <div className="input">
-                                        <input 
-                                            type="password" 
-                                            placeholder="Password" 
-                                            value={password}
-                                            onChange={(e) => setPassword(e.target.value)}
-                                            disabled={loading}
-                                            required
-                                        />
+                                <div className='check'>
+                                    <label>
+                                        <input type="checkbox" className='me-2' /> Remember Me
+                                    </label>
+                                    <div>
+                                        <p><a href="#" onClick={handleForgotPasswordClick} style={{ color: 'red', cursor: 'pointer' }}>Forgot Password</a></p>
                                     </div>
                                 </div>
-                            </div>
 
-                            
-                            <div className='check d-flex justify-content-between px-4'>
-                                <label>
-                                    <input type="checkbox" className='me-2' /> Remember Me
-                                </label>
-                                <div>
-                                    <p><a href="#" style={{ color: 'red' }}>Forgot Password</a></p>
+                                <div className="buttons fw-medium mt-3">
+                                    <button 
+                                        type="submit" 
+                                        className="btn-two" 
+                                        disabled={loading}
+                                    >
+                                        {loading ? 'SIGNING IN...' : 'SIGN IN'}
+                                    </button>
+                                </div>
+                            </form>
+
+                            <div className="text-center mt-3">
+                                <p style={{ color: 'gray', marginBottom: '8px' }}>Don't have an account? <Link to="/Register" style={{ color: 'red' }}>Register</Link></p>
+                                <div className="buttons fw-medium">
+                                    <Link to="/Register">
+                                        <button className="btn-two">REGISTER</button>
+                                    </Link>
                                 </div>
                             </div>
-
-                            
-                            <div className="buttons fw-medium mt-3">
-                                <button 
-                                    type="submit" 
-                                    className="btn-two" 
-                                    style={{ width: '200px', padding: '8px 0' }}
-                                    disabled={loading}
-                                >
-                                    {loading ? 'SIGNING IN...' : 'SIGN IN'}
-                                </button>
-                            </div>
-                        </form>
-
-                        
-                        <div className="text-center mt-3">
-                            <p style={{ color: 'gray', marginBottom: '8px' }}>Don't have an account? <Link to="/Register" style={{ color: 'red' }}>Register</Link></p>
-                            <div className="buttons fw-medium">
-                                <Link to="/Register">
-                                    <button className="btn-two" style={{ width: '120px', padding: '8px 0' }}>REGISTER</button>
-                                </Link>
-                            </div>
                         </div>
-
                     </div>
                 </div>
             </div>
+            
+            {/* Forgot Password Modal */}
+            <ForgotPasswordModal 
+                isOpen={isForgotPasswordOpen}
+                onClose={handleCloseForgotPassword}
+            />
         </>
     )
 }

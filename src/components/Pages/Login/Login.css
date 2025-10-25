@@ -12,6 +12,8 @@ body {
     margin: auto;
     position: relative;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
 .Login::before {
@@ -27,9 +29,32 @@ body {
     z-index: 1;
 }
 
+/* Login Container Layout */
+.login-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 80px); /* Account for navbar height */
+    padding: 2rem 1rem;
+    position: relative;
+    z-index: 2;
+}
+
+/* Image Section */
+.image-section {
+    flex: 1;
+    max-width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .Login .imagee {
     background-color: beige;
     text-align: center;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 .Login .text-image {
@@ -41,15 +66,31 @@ body {
     padding-top: 3%;
 }
 
+.login-image {
+    width: 100%;
+    max-width: 550px;
+    height: auto;
+    border-radius: 15px;
+}
+
+/* Form Section */
+.form-section {
+    flex: 1;
+    max-width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .Login .formm {
-    margin: auto;
-    margin-top: 10%;
-    width: 70%;
+    width: 100%;
+    max-width: 450px;
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 30px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
     position: relative;
     z-index: 2;
 }
@@ -67,34 +108,50 @@ body {
     word-wrap: break-word;
 }
 
+.Login .formm .box-group .groupp {
+    margin-bottom: 1.5rem;
+}
+
+.Login .formm .box-group .groupp label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #333;
+}
+
 .Login .formm .box-group .groupp .input input {
     width: 100%;
-    padding: 4%;
+    padding: 12px 16px;
     border-radius: 10px;
-    border: 1px solid black;
-    margin-top: 2%;
+    border: 1px solid #ddd;
+    margin-top: 0.5rem;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
 }
 
 .Login .formm .check {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
-    margin-top: 5%;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
 }
 
 .Login .formm .buttons {
-    margin: auto;
+    margin: 2rem 0;
     text-align: center;
-    margin: 5% 0;
 }
 
 .Login .formm .buttons button {
-    
-    width: fit-content;
-    padding: 2% 7%;
+    width: 100%;
+    max-width: 300px;
+    padding: 14px 20px;
     border-radius: 10px;
-    margin: 3%;
-    
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    cursor: pointer;
 }
 
 .Login .formm .buttons .btn-one {
@@ -126,115 +183,143 @@ body {
 }
 
 
+/* Mobile Support Button */
+.mobile-support-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    background: #25D366;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+    cursor: pointer;
+    z-index: 1000;
+    transition: transform 0.3s ease;
+}
+
+.mobile-support-btn:hover {
+    transform: scale(1.1);
+}
+
+.mobile-support-btn i {
+    color: white;
+    font-size: 24px;
+}
+
 /* Responsive Design - Mobile First Approach */
 
 /* Large Desktop (1200px and up) */
 @media (min-width: 1200px) {
+    .login-container {
+        padding: 3rem 2rem;
+    }
+    
     .Login .formm {
-        width: 60%;
         max-width: 500px;
+        padding: 2.5rem;
     }
 }
 
 /* Desktop (992px to 1199px) */
 @media (max-width: 1199px) and (min-width: 992px) {
+    .login-container {
+        padding: 2rem 1.5rem;
+    }
+    
     .Login .formm {
-        width: 70%;
         max-width: 450px;
+        padding: 2rem;
     }
 }
 
 /* Tablet (768px to 991px) */
 @media (max-width: 991px) {
-    .Login {
-        padding: 0;
-        margin: 0;
+    .login-container {
         flex-direction: column;
-        align-items: center;
-        text-align: center;
-        min-height: 100vh;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 1rem;
+        min-height: calc(100vh - 60px);
     }
-
+    
+    .image-section {
+        max-width: 100%;
+        margin-bottom: 2rem;
+    }
+    
+    .form-section {
+        max-width: 100%;
+        width: 100%;
+    }
+    
     .Login .formm {
-        width: 90%;
-        max-width: 400px;
-        margin: 2rem auto;
+        width: 100%;
+        max-width: 500px;
+        margin: 0 auto;
         padding: 1.5rem;
     }
-
+    
     .Login .text-image {
-        padding: 2rem 1rem;
+        padding: 1rem;
         text-align: center;
     }
-
-    .Login .formm .buttons {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-        align-items: center;
-    }
-
-    .Login .formm .buttons button {
-        width: 100%;
-        max-width: 300px;
-        padding: 12px 20px;
-        margin: 0;
-    }
-
+    
     .Login .formm .check {
         flex-direction: column;
         gap: 1rem;
         align-items: center;
+        text-align: center;
     }
 }
 
 /* Mobile (576px to 767px) */
 @media (max-width: 767px) {
-    .Login {
-        padding: 1rem;
-        min-height: 100vh;
+    .login-container {
+        padding: 0.5rem;
+        min-height: calc(100vh - 60px);
     }
-
+    
     .Login .formm {
         width: 100%;
-        margin: 1rem 0;
+        margin: 0.5rem 0;
         padding: 1.5rem;
         border-radius: 20px;
     }
-
+    
     .Login .formm .head {
-        margin-top: 1rem;
+        margin-top: 0;
     }
-
+    
     .Login .formm .head h2 {
         font-size: 1.5rem;
     }
-
+    
     .Login .formm .head p {
         font-size: 0.9rem;
         margin: 0.5rem 0;
     }
-
+    
     .Login .formm .box-group .groupp .input input {
         padding: 12px;
         font-size: 16px; /* Prevents zoom on iOS */
         border-radius: 8px;
     }
-
+    
     .Login .formm .buttons button {
         width: 100%;
         padding: 14px 20px;
         font-size: 16px;
         border-radius: 8px;
     }
-
+    
     .Login .formm .check {
         flex-direction: column;
         gap: 0.5rem;
         text-align: center;
     }
-
+    
     .Login .formm .check label {
         font-size: 0.9rem;
     }
@@ -242,36 +327,48 @@ body {
 
 /* Small Mobile (up to 575px) */
 @media (max-width: 575px) {
-    .Login {
-        padding: 0.5rem;
+    .login-container {
+        padding: 0.25rem;
+        min-height: calc(100vh - 60px);
     }
-
+    
     .Login .formm {
         padding: 1rem;
-        margin: 0.5rem 0;
+        margin: 0.25rem 0;
         border-radius: 15px;
     }
-
+    
     .Login .formm .head h2 {
         font-size: 1.3rem;
     }
-
+    
     .Login .formm .head p {
         font-size: 0.85rem;
     }
-
+    
     .Login .formm .box-group .groupp .input input {
         padding: 10px;
         font-size: 16px;
     }
-
+    
     .Login .formm .buttons button {
         padding: 12px 16px;
         font-size: 15px;
     }
-
+    
     .Login .text-image {
-        padding: 1rem 0.5rem;
+        padding: 0.5rem;
+    }
+    
+    .mobile-support-btn {
+        width: 50px;
+        height: 50px;
+        bottom: 15px;
+        right: 15px;
+    }
+    
+    .mobile-support-btn i {
+        font-size: 20px;
     }
 }
 

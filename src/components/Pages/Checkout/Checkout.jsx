@@ -114,21 +114,55 @@ export default function Checkout() {
 
     try {
       // Validate required fields
-      const requiredFields = ['firstName', 'lastName', 'email', 'address', 'city', 'state', 'zipCode'];
-      const missingFields = requiredFields.filter(field => !shippingInfo[field]);
+      const requiredShippingFields = ['firstName', 'lastName', 'email', 'address', 'city', 'state', 'zipCode', 'country'];
+      const missingShippingFields = requiredShippingFields.filter(field => !shippingInfo[field] || shippingInfo[field].trim() === '');
       
-      if (missingFields.length > 0) {
-        setError(`Please fill in all required fields: ${missingFields.join(', ')}`);
+      if (missingShippingFields.length > 0) {
+        setError(`Please fill in all required shipping fields: ${missingShippingFields.join(', ')}`);
+        setLoading(false);
+        return;
+      }
+
+      // Validate billing info if not same as shipping
+      if (!billingInfo.sameAsShipping) {
+        const requiredBillingFields = ['firstName', 'lastName', 'address', 'city', 'state', 'zipCode', 'country'];
+        const missingBillingFields = requiredBillingFields.filter(field => !billingInfo[field] || billingInfo[field].trim() === '');
+        
+        if (missingBillingFields.length > 0) {
+          setError(`Please fill in all required billing fields: ${missingBillingFields.join(', ')}`);
+          setLoading(false);
+          return;
+        }
+      }
+
+      // Validate payment method
+      if (!paymentInfo.paymentMethod) {
+        setError('Please select a payment method');
         setLoading(false);
         return;
       }
 
       if (paymentInfo.paymentMethod === 'card') {
         const cardFields = ['cardNumber', 'expiryDate', 'cvv', 'cardName'];
-        const missingCardFields = cardFields.filter(field => !paymentInfo[field]);
+        const missingCardFields = cardFields.filter(field => !paymentInfo[field] || paymentInfo[field].trim() === '');
         
         if (missingCardFields.length > 0) {
           setError(`Please fill in all payment fields: ${missingCardFields.join(', ')}`);
+          setLoading(false);
+          return;
+        }
+
+        // Validate card number format (basic validation)
+        const cardNumber = paymentInfo.cardNumber.replace(/\s/g, '');
+        if (cardNumber.length < 13 || cardNumber.length > 19) {
+          setError('Please enter a valid card number');
+          setLoading(false);
+          return;
+        }
+
+        // Validate CVV
+        if (paymentInfo.cvv.length < 3 || paymentInfo.cvv.length > 4) {
+          setError('Please enter a valid CVV');
           setLoading(false);
           return;
         }
@@ -148,11 +182,23 @@ export default function Checkout() {
           fullName: `${shippingInfo.firstName} ${shippingInfo.lastName}`
         },
         billingInfo: billingInfo.sameAsShipping ? {
-          ...shippingInfo,
-          fullName: `${shippingInfo.firstName} ${shippingInfo.lastName}`
+          firstName: shippingInfo.firstName,
+          lastName: shippingInfo.lastName,
+          fullName: `${shippingInfo.firstName} ${shippingInfo.lastName}`,
+          address: shippingInfo.address,
+          city: shippingInfo.city,
+          state: shippingInfo.state,
+          zipCode: shippingInfo.zipCode,
+          country: shippingInfo.country
         } : {
-          ...billingInfo,
-          fullName: `${billingInfo.firstName} ${billingInfo.lastName}`
+          firstName: billingInfo.firstName,
+          lastName: billingInfo.lastName,
+          fullName: `${billingInfo.firstName} ${billingInfo.lastName}`,
+          address: billingInfo.address,
+          city: billingInfo.city,
+          state: billingInfo.state,
+          zipCode: billingInfo.zipCode,
+          country: billingInfo.country
         },
         paymentInfo: {
           method: paymentInfo.paymentMethod,
@@ -173,6 +219,10 @@ export default function Checkout() {
       };
 
       console.log('Creating order:', orderData);
+      console.log('Shipping info:', shippingInfo);
+      console.log('Billing info:', billingInfo);
+      console.log('Payment info:', paymentInfo);
+      console.log('Cart items:', cartItems);
       
       // Validate order data before sending
       if (!orderData.items || orderData.items.length === 0) {

@@ -252,3 +252,4 @@ const CommentModal = ({ isOpen, onClose, productId, productTitle }) => {
 };
 
 export default CommentModal;
+

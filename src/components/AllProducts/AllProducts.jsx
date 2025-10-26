@@ -41,6 +41,8 @@ export default function AllProducts() {
                 ? prev.filter(pid => pid !== id)
                 : [...prev, id]
         );
+    };
+
     const handleCommentClick = (product) => {
         setSelectedProductForComment(product);
         setIsCommentModalOpen(true);
@@ -50,7 +52,6 @@ export default function AllProducts() {
         setIsCommentModalOpen(false);
         setSelectedProductForComment(null);
     };
-
 
     // Fetch all products
     useEffect(() => {
@@ -79,7 +80,7 @@ export default function AllProducts() {
 
             <div className="container">
 
-                {/* Men’s Products */}
+                {/* Men's Products */}
                 <div className="row">
                     <h2 className="fw-bold m-0 text-center ">Men's Collection</h2>
                     <p className="text-muted m-0 text-center mb-3">Stylish and modern outfits for men</p>
@@ -118,7 +119,7 @@ export default function AllProducts() {
                     ))}
                 </div>
 
-                {/* Women’s Clothing */}
+                {/* Women's Clothing */}
                 <div className="row">
                     <h1 className='text-center mt-5'>👗 Women's Clothing</h1>
                     {productsWomen.map((item, index) => (
@@ -156,7 +157,7 @@ export default function AllProducts() {
                     ))}
                 </div>
 
-                {/* Women’s Shoes */}
+                {/* Women's Shoes */}
                 <div className="row">
                     <h1 className='text-center mt-5'>👠 Women's Shoes</h1>
                     {productsShoesWomen.map((item, index) => (
@@ -306,7 +307,6 @@ export default function AllProducts() {
                         </div>
                     </>
                 )}
-
 
                 {/* Comment Modal */}
                 <CommentModal

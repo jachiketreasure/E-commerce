@@ -1,3 +1,8 @@
+/* Hide close button by default on all screens */
+.mobile-menu-close-btn {
+  display: none !important;
+}
+
 /* Mobile Navigation Modal - Side Sliding */
 @media (max-width: 991.98px) {
   .navbar .navbar-collapse {
@@ -66,8 +71,14 @@
     left: 0 !important;
   }
   
-  /* Close button for mobile menu */
+  /* Close button for mobile menu - hidden by default */
   .mobile-menu-close-btn {
+    display: none !important;
+  }
+  
+  /* Show close button only when menu is open on mobile */
+  .navbar-collapse.show .mobile-menu-close-btn {
+    display: flex !important;
     position: absolute !important;
     top: 20px !important;
     right: 20px !important;
@@ -82,12 +93,11 @@
     transition: all 0.3s ease !important;
     width: 45px !important;
     height: 45px !important;
-    display: flex !important;
     align-items: center !important;
     justify-content: center !important;
   }
   
-  .mobile-menu-close-btn:hover {
+  .navbar-collapse.show .mobile-menu-close-btn:hover {
     background: rgba(255, 255, 255, 0.2) !important;
     color: white !important;
     transform: scale(1.1) !important;
@@ -159,6 +169,28 @@
   
   .navbar .navbar-collapse .nav-item.dropdown .dropdown-item:hover::before {
     left: 0 !important;
+  }
+  
+  /* Mobile login/register buttons */
+  .mobile-login-register .mobile-login-btn {
+    background: transparent !important;
+    border: 2px solid rgba(255, 255, 255, 0.5) !important;
+    border-radius: 8px !important;
+    text-align: center !important;
+  }
+  
+  .mobile-login-register .mobile-register-btn {
+    background: rgba(255, 255, 255, 0.2) !important;
+    border: 2px solid rgba(255, 255, 255, 0.5) !important;
+    border-radius: 8px !important;
+    text-align: center !important;
+  }
+  
+  .mobile-login-register .mobile-login-btn:hover,
+  .mobile-login-register .mobile-register-btn:hover {
+    background: rgba(255, 255, 255, 0.3) !important;
+    color: white !important;
+    transform: translateX(8px) !important;
   }
 }
 
@@ -286,6 +318,12 @@
 
 /* ------------------------------------------------------------------------- */
 
+
+.login-register {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
 
 .login-link {
   display: inline-block;
@@ -428,11 +466,31 @@
   flex-shrink: 1;
   max-width: 100%;
   overflow-x: visible;
+  z-index: 10;
+  position: relative;
+}
+
+.Nav {
+  position: relative;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  width: 100% !important;
 }
 
 .iconss i {
   font-size: 20px;
   margin: auto;
+  transition: all 0.3s ease;
+}
+
+.iconss i.fa-magnifying-glass {
+  cursor: pointer;
+}
+
+.iconss i.fa-magnifying-glass:hover {
+  color: #667eea;
+  transform: scale(1.2);
 }
 
 
@@ -461,9 +519,16 @@
 
 @media (max-width: 768px) {
   .login-register {
-    margin-left: auto !important;
-    margin-right: 0 !important;
-    text-align: right;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+  }
+  
+  .login-link,
+  .register-link {
+    font-size: 14px;
+    padding: 6px 14px;
+    width: 100%;
   }
   
   .user-welcome {
@@ -503,10 +568,17 @@
 
 @media (max-width: 576px) {
   .login-register {
-    margin-left: auto !important;
-    margin-right: 0 !important;
-    text-align: right;
-    padding-right: 10px;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+    padding: 0 10px;
+  }
+  
+  .login-link,
+  .register-link {
+    font-size: 13px;
+    padding: 6px 12px;
+    width: 100%;
   }
   
   .user-welcome {

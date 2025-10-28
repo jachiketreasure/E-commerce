@@ -1,0 +1,121 @@
+/* Cart Page Styles */
+.cart-page {
+  min-height: 100vh;
+}
+
+.head-cart-page {
+  padding: 15px 0;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+}
+
+.cart-item {
+  transition: all 0.3s ease;
+}
+
+.cart-item:hover {
+  background-color: #f8f9fa;
+}
+
+.product-img {
+  border-radius: 8px;
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+  .cart-page {
+    padding: 0;
+  }
+
+  .cart-items {
+    padding: 20px 0 !important;
+  }
+
+  .cart-item {
+    padding: 15px 0;
+  }
+
+  /* Adjust text sizes for mobile */
+  .head-cart-page {
+    font-size: 14px;
+  }
+
+  /* Better spacing for mobile */
+  .coupon {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  /* Full width buttons on mobile */
+  .btn-copon {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* Adjust imageee height for mobile */
+  .imageee {
+    height: 200px !important;
+  }
+
+  .hero-title {
+    font-size: 24px !important;
+  }
+
+  .hero-breadcrumb {
+    font-size: 12px !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .cart-items {
+    padding: 10px 0 !important;
+  }
+
+  .product-img {
+    width: 60px !important;
+    height: 60px !important;
+  }
+
+  /* Stack coupon section on very small screens */
+  .row.my-4 > div {
+    margin-bottom: 15px;
+  }
+
+  .coupon button,
+  .coupon input {
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+
+  /* Checkout button full width on mobile */
+  .btn-primary {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 12px !important;
+  }
+
+  /* Adjust hero content for very small screens */
+  .imageee {
+    height: 150px !important;
+  }
+
+  .hero-title {
+    font-size: 20px !important;
+  }
+
+  .hero-breadcrumb {
+    font-size: 11px !important;
+  }
+}
+
+/* Desktop specific styles */
+@media (min-width: 769px) {
+  .hero-title {
+    font-size: 36px;
+  }
+
+  .hero-breadcrumb {
+    font-size: 16px;
+  }
+}
+

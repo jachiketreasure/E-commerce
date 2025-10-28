@@ -163,7 +163,7 @@
 
 .search-results-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 1rem;
 }
 
@@ -251,90 +251,153 @@
     .search-modal {
         width: 95%;
         max-height: 85vh;
-        margin: 1rem;
+        border-radius: 16px;
     }
     
     .search-modal-header {
-        padding: 1rem 1.5rem;
+        padding: 1.25rem 1.5rem;
+        border-radius: 16px 16px 0 0;
     }
     
     .search-modal-header h3 {
-        font-size: 1.3rem;
+        font-size: 1.4rem;
     }
     
     .search-modal-content {
-        padding: 1rem 1.5rem;
+        padding: 1.25rem 1.5rem;
     }
     
+    /* Keep same grid behavior on tablet */
     .search-results-grid {
-        grid-template-columns: 1fr;
-        gap: 0.75rem;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1rem;
     }
     
     .search-result-item {
-        padding: 0.75rem;
+        padding: 0.875rem;
     }
     
     .search-result-image {
-        width: 60px;
-        height: 60px;
-        margin-right: 0.75rem;
+        width: 70px;
+        height: 70px;
+        margin-right: 0.875rem;
     }
     
     .search-result-title {
-        font-size: 0.9rem;
+        font-size: 0.95rem;
     }
     
     .search-result-brand {
-        font-size: 0.8rem;
+        font-size: 0.825rem;
     }
     
     .search-result-price {
-        font-size: 1rem;
+        font-size: 1.05rem;
+    }
+}
+
+/* Small mobile - use full screen layout */
+@media (max-width: 480px) {
+    .search-modal {
+        width: 100%;
+        max-height: 100vh;
+        top: 0;
+        left: 0;
+        transform: none;
+        border-radius: 0;
+    }
+    
+    .search-modal-header {
+        border-radius: 0;
     }
 }
 
 @media (max-width: 576px) {
     .search-modal {
-        width: 98%;
-        max-height: 90vh;
-        margin: 0.5rem;
-        border-radius: 15px;
+        width: 100%;
+        max-height: 100vh;
+        top: 0;
+        left: 0;
+        transform: none;
+        border-radius: 0;
+        box-shadow: none;
+        animation: searchModalSlideInMobile 0.3s ease-out;
+    }
+    
+    @keyframes searchModalSlideInMobile {
+        from {
+            opacity: 0;
+            transform: translateY(-100%);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
     
     .search-modal-header {
-        padding: 0.75rem 1rem;
-        border-radius: 15px 15px 0 0;
+        padding: 1rem 1rem;
+        border-radius: 0;
     }
     
     .search-modal-header h3 {
         font-size: 1.2rem;
     }
     
+    .search-modal-close {
+        width: 36px;
+        height: 36px;
+        font-size: 1.2rem;
+    }
+    
     .search-modal-content {
-        padding: 0.75rem 1rem;
+        padding: 1rem;
+    }
+    
+    /* Simple single-column layout on mobile */
+    .search-results-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 0.625rem;
     }
     
     .search-result-item {
-        padding: 0.5rem;
+        padding: 0.75rem;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        margin-bottom: 0;
     }
     
     .search-result-image {
-        width: 50px;
-        height: 50px;
-        margin-right: 0.5rem;
+        width: 60px;
+        height: 60px;
+        margin-right: 0.75rem;
+        flex-shrink: 0;
+    }
+    
+    .search-result-info {
+        min-width: 0;
     }
     
     .search-result-title {
-        font-size: 0.85rem;
+        font-size: 0.875rem;
+        margin: 0 0 0.25rem 0;
+        -webkit-line-clamp: 1;
     }
     
     .search-result-brand {
         font-size: 0.75rem;
+        margin: 0 0 0.25rem 0;
     }
     
     .search-result-price {
-        font-size: 0.9rem;
+        font-size: 0.95rem;
+        margin: 0 0 0.25rem 0;
+    }
+    
+    .search-result-rating {
+        gap: 0.375rem;
     }
     
     .rating-stars {
@@ -343,6 +406,58 @@
     
     .rating-value {
         font-size: 0.7rem;
+    }
+    
+    .search-results-header {
+        margin-bottom: 0.75rem;
+        padding-bottom: 0.75rem;
+    }
+    
+    .search-results-header p {
+        font-size: 0.875rem;
+    }
+    
+    .search-results-header small {
+        font-size: 0.75rem;
+    }
+    
+    /* Compact state views */
+    .search-loading,
+    .search-error,
+    .search-no-results {
+        padding: 2rem 1rem;
+    }
+    
+    .search-loading i {
+        font-size: 1.75rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .search-loading p {
+        font-size: 0.95rem;
+    }
+    
+    .search-error i {
+        font-size: 1.75rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .search-error p {
+        font-size: 0.95rem;
+    }
+    
+    .search-no-results i {
+        font-size: 2.5rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .search-no-results p {
+        font-size: 1rem;
+        margin: 0 0 0.375rem 0;
+    }
+    
+    .search-no-results small {
+        font-size: 0.85rem;
     }
 }
 
@@ -363,4 +478,37 @@
 
 .search-modal-content::-webkit-scrollbar-thumb:hover {
     background: #a8a8a8;
+}
+
+/* Touch Device Improvements */
+@media (hover: none) and (pointer: coarse) {
+    /* Better touch targets on mobile devices */
+    .search-modal-close {
+        min-width: 44px;
+        min-height: 44px;
+    }
+    
+    .search-result-item {
+        min-height: 70px;
+        -webkit-tap-highlight-color: rgba(102, 126, 234, 0.1);
+    }
+    
+    /* Remove hover effects on touch devices */
+    .search-result-item:hover {
+        transform: none;
+        background: #f8f9fa;
+        box-shadow: none;
+    }
+    
+    .search-result-item:active {
+        background: #dee2e6;
+        transform: scale(0.98);
+    }
+    
+    /* On mobile, ensure proper scrolling */
+    @media (max-width: 576px) {
+        .search-result-item {
+            min-height: 70px;
+        }
+    }
 }

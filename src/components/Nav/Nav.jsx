@@ -3,17 +3,40 @@ import { useAuth } from "../../context/AuthContext";
 import "./Nav.css";
 import { useState, useEffect } from "react";
 import { useCart } from '../../CartContext/CartContext';
+import SearchModal from '../SearchModal/SearchModal';
 import logo from '../images/logo.svg';
 
 export default function Navbar() {
   const [isSticky, setIsSticky] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { cartItems } = useCart();  const { isAuthenticated, user, logout } = useAuth();
+  const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const { cartItems, clearCart } = useCart();
+  const { isAuthenticated, user, logout } = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    logout();
-    navigate("/"); 
+    // Clear all user data
+    clearCart(); // Clear shopping cart
+    logout(); // Clear authentication
+    
+    // Close mobile menu if open
+    if (isMobileMenuOpen) {
+      setIsMobileMenuOpen(false);
+    }
+    
+    // Close search modal if open
+    if (isSearchModalOpen) {
+      setIsSearchModalOpen(false);
+    }
+    
+    // Redirect to home page (replace prevents going back)
+    navigate("/", { replace: true });
+    
+    // Scroll to top of page for clean landing
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 100);
   };
 
   const handleMobileMenuToggle = () => {
@@ -22,6 +45,15 @@ export default function Navbar() {
 
   const handleCloseMobileMenu = () => {
     setIsMobileMenuOpen(false);
+  };
+
+  const handleOpenSearch = () => {
+    setIsSearchModalOpen(true);
+  };
+
+  const handleCloseSearch = () => {
+    setIsSearchModalOpen(false);
+    setSearchQuery('');
   };
 
   useEffect(() => {
@@ -34,8 +66,9 @@ export default function Navbar() {
   }, []);
 
   return (
+    <>
     <nav className={`navbar navbar-expand-lg py-3 navbar-slide ${isSticky ? "sticky-navbar show-navbar" : ""}`}>
-      <div className="container Nav">
+      <div className="container Nav d-flex justify-content-between align-items-center">
 
         <button
           className="navbar-toggler"
@@ -93,52 +126,72 @@ export default function Navbar() {
             <li className="nav-item">
               <Link className="nav-link" to="/Shop" onClick={handleCloseMobileMenu}>Pages ✦</Link>
             </li>
+            
+            {/* Login/Register in mobile menu */}
+            {!isAuthenticated && (
+              <>
+                <li className="nav-item mobile-login-register">
+                  <Link className="nav-link mobile-login-btn" to="/Login" onClick={handleCloseMobileMenu}>Login</Link>
+                </li>
+                <li className="nav-item mobile-login-register">
+                  <Link className="nav-link mobile-register-btn" to="/Register" onClick={handleCloseMobileMenu}>Register</Link>
+                </li>
+              </>
+            )}
           </ul>
         </div>
 
-        
-        <div className="login-register ms-5 mx-5" style={{ color: 'black' }}>
-          {!isAuthenticated ? (
+        <div className="iconss fs-5 d-flex gap-3 align-items-center">
+          {isAuthenticated && (
             <>
-             <Link className="login-link mx-1" to="/Login">Login</Link>
-             <Link className="register-link mx-1" to="/Register">Register</Link>
-            </>
-          ) : (
-            <div className="d-flex align-items-center gap-2">
-              <div className="user-welcome-container">
-                <span className="user-welcome">
-                  <i className="fas fa-user-circle me-2"></i>
-                  Welcome, {user?.firstName || 'User'}!
-                </span>
+              <i 
+                className="fa-solid fa-magnifying-glass" 
+                onClick={handleOpenSearch}
+                style={{ cursor: 'pointer' }}
+                title="Search products"
+              ></i>
+              <i className="fa-regular fa-heart"></i>
+              <div className="position-relative">
+                <i
+                  className="fas fa-cart-shopping"
+                  onClick={() => navigate('/cart')}
+                  style={{ cursor: 'pointer' }}
+                />
+                {cartItems.length > 0 && (
+                  <span
+                    className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                    style={{ fontSize: '10px' }}
+                  >
+                    {cartItems.length}
+                  </span>
+                )}
               </div>
-              <button className="logout-link mx-1" onClick={handleLogout}>Logout</button>
-            </div>
+              <div className="d-flex align-items-center gap-2">
+                {user && (
+                  <span className="user-welcome">
+                    <i className="fas fa-user"></i>
+                    {user.name || user.email}
+                  </span>
+                )}
+                <button onClick={handleLogout} className="logout-link">
+                  Logout
+                </button>
+              </div>
+            </>
           )}
         </div>
 
-        <div className="iconss fs-5 d-flex gap-3">
-          {isAuthenticated && <i className="fa-solid fa-magnifying-glass"></i>}
-          {isAuthenticated && <i className="fa-regular fa-heart"></i>}
-      {isAuthenticated && (
-        <div className="position-relative">
-          <i
-            className="fas fa-cart-shopping"
-            onClick={() => navigate('/cart')}
-            style={{ cursor: 'pointer' }}
-          />
-        {cartItems.length > 0 && (
-          <span
-            className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-            style={{ fontSize: '10px' }}
-          >
-            {cartItems.length}
-          </span>
-        )}
-      </div>
-    )}
-  </div>
-
       </div>
     </nav>
+    
+    {/* Search Modal */}
+    {isSearchModalOpen && (
+      <SearchModal 
+        isOpen={isSearchModalOpen} 
+        onClose={handleCloseSearch}
+        searchQuery={searchQuery}
+      />
+    )}
+  </>
   );
 }

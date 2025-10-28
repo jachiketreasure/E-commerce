@@ -183,7 +183,17 @@ export default function Register() {
                             </div>
                             <div className="buttons fw-medium">
                                 <button type="submit" className="btn-on" disabled={loading}>
-                                    {loading ? 'REGISTERING...' : 'REGISTER'}
+                                    {loading ? (
+                                        <>
+                                            <i className="fas fa-spinner fa-spin me-2"></i>
+                                            REGISTERING...
+                                        </>
+                                    ) : (
+                                        <>
+                                            <i className="fas fa-user-plus me-2"></i>
+                                            REGISTER
+                                        </>
+                                    )}
                                 </button>
                             </div>
                         </form>

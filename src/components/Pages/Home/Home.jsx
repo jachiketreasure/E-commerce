@@ -26,14 +26,6 @@ export default function Home() {
   const [isCommentModalOpen, setIsCommentModalOpen] = useState(false);
   const [selectedProductForComment, setSelectedProductForComment] = useState(null);
 
-  // WhatsApp Support Handler
-  const handleWhatsAppSupport = () => {
-    const phoneNumber = "+2349135663829";
-    const message = "Hello! I need support with my order.";
-    const whatsappUrl = `https://wa.me/${phoneNumber.replace(/\+/g, '')}?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
-  };
-
   const cardColors = [
       'linear-gradient(135deg, #FAD6A5, #FFB6B9)',
       'linear-gradient(135deg, #A0CED9, #C8E4DC)',
@@ -63,28 +55,24 @@ export default function Home() {
       setSelectedProductForComment(null);
   };
 
-  // Fetch all products
   useEffect(() => {
       if (isAuthenticated) {
           fetchAllProducts().then(data => setProductsAll(data));
       }
   }, [isAuthenticated]);
 
-  // Fetch men's products
   useEffect(() => {
       if (isAuthenticated) {
           fetchMenProducts().then(data => setProductsMen(data));
       }
   }, [isAuthenticated]);
 
-  // Fetch women's clothing
   useEffect(() => {
       if (isAuthenticated) {
           fetchWomenProducts().then(data => setProductsWomen(data));
       }
   }, [isAuthenticated]);
 
-  // Fetch women's shoes products 
   useEffect(() => {
       if (isAuthenticated) {
           fetchWomenShoesProducts().then(data => setProductsShoesWomen(data));
@@ -98,7 +86,6 @@ export default function Home() {
       
       {!isAuthenticated ? (
         <div className="advanced-landing-page">
-          {/* Hero Section with Animated Background */}
           <section className="hero-section">
             <div className="hero-background">
               <div className="hero-shapes">
@@ -183,7 +170,6 @@ export default function Home() {
             </div>
           </section>
 
-          {/* Features Section */}
           <section className="features-section">
             <div className="container">
               <div className="section-header text-center mb-5">
@@ -235,7 +221,6 @@ export default function Home() {
             </div>
           </section>
 
-          {/* Categories Preview Section */}
           <section className="categories-section">
             <div className="container">
               <div className="section-header text-center mb-5">
@@ -245,7 +230,7 @@ export default function Home() {
               
               <div className="row g-4">
                 <div className="col-lg-4 col-md-6 col-12">
-                  <div className="category-card">
+                  <Link to="/men" className="category-card">
                     <div className="category-image">
                       <div className="category-overlay">
                         <h3 className="category-name">Men's Collection</h3>
@@ -255,11 +240,11 @@ export default function Home() {
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </Link>
                 </div>
                 
                 <div className="col-lg-4 col-md-6 col-12">
-                  <div className="category-card">
+                  <Link to="/women" className="category-card">
                     <div className="category-image category-women">
                       <div className="category-overlay">
                         <h3 className="category-name">Women's Collection</h3>
@@ -269,11 +254,11 @@ export default function Home() {
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </Link>
                 </div>
                 
                 <div className="col-lg-4 col-md-6 col-12">
-                  <div className="category-card">
+                  <Link to="/accessories" className="category-card">
                     <div className="category-image category-accessories">
                       <div className="category-overlay">
                         <h3 className="category-name">Accessories</h3>
@@ -283,13 +268,12 @@ export default function Home() {
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </Link>
                 </div>
               </div>
             </div>
           </section>
 
-          {/* Testimonials Section */}
           <section className="testimonials-section">
             <div className="container">
               <div className="section-header text-center mb-5">
@@ -373,7 +357,6 @@ export default function Home() {
             </div>
           </section>
 
-          {/* CTA Section */}
           <section className="cta-section">
             <div className="container">
               <div className="cta-content text-center">
@@ -395,13 +378,6 @@ export default function Home() {
         </div>
       ) : (
         <>
-          {/* WhatsApp Floating Button */}
-          <div className="floating1-button" onClick={handleWhatsAppSupport} style={{ cursor: 'pointer' }}>
-            <span className="icon"><i className="fa-brands fa-whatsapp"></i></span>
-            <span className="label">SUPPORT</span>
-          </div>
-
-          {/* Hero Section for Authenticated Users */}
           <div className="home-hero-section">
             <div className="home-hero-overlay">
               <div className="container">
@@ -454,9 +430,7 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Products Section */}
           <div className="container py-4">
-            {/* Men's Products */}
             <div className="row">
             <h2 className="fw-bold m-0 text-center">Men's Collection</h2>
             <p className="text-muted m-0 text-center mb-3">Stylish and modern outfits for men</p>
@@ -495,7 +469,6 @@ export default function Home() {
             ))}
           </div>
 
-          {/* Women's Clothing */}
           <div className="row">
             <h2 className='fw-bold m-0 text-center mt-5'>Women's Collection</h2>
             <p className="text-muted m-0 text-center mb-3">Stylish and modern outfits for women</p>
@@ -534,7 +507,6 @@ export default function Home() {
             ))}
           </div>
 
-          {/* Women's Shoes */}
           <div className="row">
             <h2 className='fw-bold m-0 text-center mt-5'>Women's Shoes</h2>
             <p className="text-muted m-0 text-center mb-3">Step in style with our footwear collection</p>
@@ -573,7 +545,6 @@ export default function Home() {
             ))}
           </div>
 
-          {/* All Products */}
           <div className="row">
             <h2 className='fw-bold m-0 text-center mt-5'>All Products</h2>
             <p className="text-muted m-0 text-center mb-3">Browse our complete collection</p>
@@ -612,7 +583,6 @@ export default function Home() {
             ))}
           </div>
 
-          {/* Modal */}
           {selectedProduct && (
             <>
               <button
@@ -695,7 +665,6 @@ export default function Home() {
             </>
           )}
 
-          {/* Comment Modal */}
           <CommentModal
             isOpen={isCommentModalOpen}
             onClose={handleCloseCommentModal}

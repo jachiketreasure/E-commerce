@@ -18,13 +18,6 @@ export default function Login() {
     const auth = useAuth();
     const navigate = useNavigate();
 
-    const handleWhatsAppSupport = () => {
-        const phoneNumber = "+2349135663829";
-        const message = "Hello! I need support with my login/account.";
-        const whatsappUrl = `https://wa.me/${phoneNumber.replace(/\+/g, '')}?text=${encodeURIComponent(message)}`;
-        window.open(whatsappUrl, '_blank');
-    };
-
     const handleForgotPasswordClick = (e) => {
         e.preventDefault();
         setIsForgotPasswordOpen(true);
@@ -40,7 +33,6 @@ export default function Login() {
         setError('');
         
         try {
-            // Basic validation
             if (!email || !password) {
                 setError('Please fill in all fields');
                 return;
@@ -77,23 +69,12 @@ export default function Login() {
             <Navbar />
 
             <div className="Login">
-                {/* Floating buttons - hidden on mobile */}
-                <div className="floating1-button d-none d-md-block" onClick={handleWhatsAppSupport} style={{ cursor: 'pointer' }}>
-                    <span className="icon"><i className="fa-brands fa-whatsapp"></i></span>
-                    <span className="label">SUPPORT</span>
-                </div>
                 <div className="floating2-button d-none d-md-block">
                     <span className="icon"><i className="fa-solid fa-headphones"></i></span>
                     <span className="label">BUY NOW</span>
                 </div>
 
-                {/* Mobile support button */}
-                <div className="mobile-support-btn d-md-none" onClick={handleWhatsAppSupport}>
-                    <i className="fa-brands fa-whatsapp"></i>
-                </div>
-
                 <div className="login-container">
-                    {/* Image section - hidden on mobile */}
                     <div className="image-section d-none d-lg-block">
                         <div className="imagee">
                             <div className='text-image'>
@@ -107,7 +88,6 @@ export default function Login() {
                         </div>
                     </div>
 
-                    {/* Form section */}
                     <div className="form-section">
                         <div className="formm">
                             <div className="head">
@@ -185,7 +165,6 @@ export default function Login() {
                 </div>
             </div>
             
-            {/* Forgot Password Modal */}
             <ForgotPasswordModal 
                 isOpen={isForgotPasswordOpen}
                 onClose={handleCloseForgotPassword}

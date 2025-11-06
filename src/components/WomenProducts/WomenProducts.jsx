@@ -54,7 +54,6 @@ export default function WomensProducts() {
             <Navbar />
 
             <div className="container">
-                {/* ---------------- Women's Dresses ---------------- */}
                 <div className="row">
                     <h2 className="fw-bold m-0">Women's Collection</h2>
                     <p className="text-muted m-0 mb-3">
@@ -123,7 +122,6 @@ export default function WomensProducts() {
                     ))}
                 </div>
 
-                {/* ---------------- Women's Shoes ---------------- */}
                 <div className="row">
                     <h1 className="text-center mt-5">👠 Women's Shoes</h1>
                     <h2>All Products</h2>
@@ -189,7 +187,6 @@ export default function WomensProducts() {
                     ))}
                 </div>
 
-                {/* ---------------- Modal ---------------- */}
                 {selectedProduct && (
                     <>
                         <button
@@ -296,6 +293,7 @@ export default function WomensProducts() {
                                         <button
                                             className="m-1 px-2 py-1 btn-2-modall"
                                             type="button"
+                                            onClick={() => { setSelectedProduct(null); }}
                                             style={{
                                                 backgroundColor: 'white',
                                                 color: 'black',
@@ -312,7 +310,6 @@ export default function WomensProducts() {
                     </>
                 )}
 
-                {/* Comment Modal */}
                 <CommentModal
                     isOpen={isCommentModalOpen}
                     onClose={handleCloseCommentModal}

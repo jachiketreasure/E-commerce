@@ -14,7 +14,6 @@ export default function ProductDetails() {
                 setLoading(false);
             })
             .catch(err => {
-                console.error("Error fetching product details:", err);
                 setLoading(false);
             });
     }, [id]);

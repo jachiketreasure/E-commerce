@@ -1,7 +1,3 @@
-/* .navbar{
-background-color: beige;
-} */
-
 body {
     overflow-x: hidden;
 }
@@ -29,18 +25,16 @@ body {
     z-index: 1;
 }
 
-/* Register Container Layout */
 .register-container {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: calc(100vh - 80px); /* Account for navbar height */
+    min-height: calc(100vh - 80px);
     padding: 2rem 1rem;
     position: relative;
     z-index: 2;
 }
 
-/* Image Section */
 .image-section {
     flex: 1;
     max-width: 50%;
@@ -74,7 +68,6 @@ body {
     border-radius: 15px;
 }
 
-/* Form Section */
 .form-section {
     flex: 1;
     max-width: 50%;
@@ -142,13 +135,6 @@ body {
     transition: border-color 0.3s ease;
 }
 
-.Register .formm .box-group .gender {
-    display: flex;
-    justify-content: space-evenly;
-    margin: 2rem 0;
-    gap: 1rem;
-}
-
 
 .Register .formm .buttons {
     margin: 2rem 0;
@@ -206,7 +192,6 @@ body {
     box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
 }
 
-/* Ripple effect */
 .Register .formm .buttons .btn-on::after {
     content: '';
     position: absolute;
@@ -225,7 +210,6 @@ body {
     height: 300px;
 }
 
-/* Shine animation effect */
 .Register .formm .buttons .btn-on {
     overflow: hidden;
 }
@@ -243,7 +227,6 @@ body {
     }
 }
 
-/* Loading state animation */
 .Register .formm .buttons .btn-on:disabled {
     opacity: 0.7;
     cursor: not-allowed;
@@ -260,7 +243,6 @@ body {
     }
 }
 
-/* Legacy button class support */
 .Register .formm .buttons .btn-one {
     color: white;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -291,39 +273,6 @@ body {
     box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
 }
 
-
-
-
-/* Mobile Support Button */
-.mobile-support-btn {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 60px;
-    height: 60px;
-    background: #25D366;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
-    cursor: pointer;
-    z-index: 1000;
-    transition: transform 0.3s ease;
-}
-
-.mobile-support-btn:hover {
-    transform: scale(1.1);
-}
-
-.mobile-support-btn i {
-    color: white;
-    font-size: 24px;
-}
-
-/* Responsive Design - Mobile First Approach */
-
-/* Large Desktop (1200px and up) */
 @media (min-width: 1200px) {
     .register-container {
         padding: 3rem 2rem;
@@ -335,7 +284,6 @@ body {
     }
 }
 
-/* Desktop (992px to 1199px) */
 @media (max-width: 1199px) and (min-width: 992px) {
     .register-container {
         padding: 2rem 1.5rem;
@@ -347,7 +295,6 @@ body {
     }
 }
 
-/* Tablet (768px to 991px) */
 @media (max-width: 991px) {
     .register-container {
         flex-direction: column;
@@ -409,7 +356,6 @@ body {
     }
 }
 
-/* Mobile (576px to 767px) */
 @media (max-width: 767px) {
     .register-container {
         padding: 0.5rem;
@@ -438,7 +384,7 @@ body {
     
     .Register .formm .box-group .groupp .input input {
         padding: 12px;
-        font-size: 16px; /* Prevents zoom on iOS */
+        font-size: 16px;
         border-radius: 8px;
     }
     
@@ -461,7 +407,6 @@ body {
     }
 }
 
-/* Small Mobile (up to 575px) */
 @media (max-width: 575px) {
     .register-container {
         padding: 0.25rem;
@@ -497,20 +442,8 @@ body {
     .Register .text-image {
         padding: 0.5rem;
     }
-    
-    .mobile-support-btn {
-        width: 50px;
-        height: 50px;
-        bottom: 15px;
-        right: 15px;
-    }
-    
-    .mobile-support-btn i {
-        font-size: 20px;
-    }
 }
 
-/* Error message styling */
 .Register .formm .error-message {
     background-color: #f8d7da;
     color: #721c24;
@@ -521,37 +454,16 @@ body {
     font-size: 0.9rem;
 }
 
-/* Loading state - General */
 .Register .formm .buttons button:disabled {
     opacity: 0.7;
     cursor: not-allowed;
     pointer-events: none;
 }
 
-/* Focus states for better accessibility */
 .Register .formm .box-group .groupp .input input:focus,
 .Register .formm .box-group .Name .groupp .input-f-name input:focus,
 .Register .formm .box-group .Name .groupp .input-l-name input:focus {
     outline: none;
     border-color: #007bff;
     box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
-}
-
-/* Gender radio buttons styling */
-.Register .formm .box-group .gender input[type="radio"] {
-    margin-right: 8px;
-    transform: scale(1.2);
-}
-
-.Register .formm .box-group .gender label {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    padding: 8px 12px;
-    border-radius: 6px;
-    transition: background-color 0.2s;
-}
-
-.Register .formm .box-group .gender label:hover {
-    background-color: #f8f9fa;
 }

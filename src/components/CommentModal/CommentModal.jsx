@@ -11,14 +11,12 @@ const CommentModal = ({ isOpen, onClose, productId, productTitle }) => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
 
-    // Load comments from API when modal opens
     useEffect(() => {
         if (isOpen && productId) {
             loadComments();
         }
     }, [isOpen, productId]);
 
-    // Load comments for this product from API
     const loadComments = async () => {
         try {
             setError('');
@@ -32,7 +30,6 @@ const CommentModal = ({ isOpen, onClose, productId, productTitle }) => {
             }
         } catch (error) {
             console.error('Error loading comments:', error);
-            // Fallback to localStorage if API is not available
             try {
                 const storedComments = localStorage.getItem(`comments_${productId}`);
                 if (storedComments) {
@@ -50,7 +47,6 @@ const CommentModal = ({ isOpen, onClose, productId, productTitle }) => {
         }
     };
 
-    // Add new comment
     const handleAddComment = async (e) => {
         e.preventDefault();
         
@@ -70,7 +66,6 @@ const CommentModal = ({ isOpen, onClose, productId, productTitle }) => {
             });
 
             if (response.data.success) {
-                // Add the new comment to the list
                 const newCommentData = {
                     _id: response.data.comment.id,
                     userName: response.data.comment.userName,
@@ -80,7 +75,6 @@ const CommentModal = ({ isOpen, onClose, productId, productTitle }) => {
                 
                 setComments(prevComments => [newCommentData, ...prevComments]);
                 
-                // Clear form
                 setNewComment('');
                 setUserName('');
             } else {
@@ -88,7 +82,6 @@ const CommentModal = ({ isOpen, onClose, productId, productTitle }) => {
             }
         } catch (error) {
             console.error('Error adding comment:', error);
-            // Fallback to localStorage if API is not available
             try {
                 const comment = {
                     _id: Date.now(),
@@ -101,10 +94,8 @@ const CommentModal = ({ isOpen, onClose, productId, productTitle }) => {
                 const updatedComments = [comment, ...comments];
                 setComments(updatedComments);
                 
-                // Save to localStorage
                 localStorage.setItem(`comments_${productId}`, JSON.stringify(updatedComments));
                 
-                // Clear form
                 setNewComment('');
                 setUserName('');
                 setError('Comment saved offline (API unavailable)');
@@ -121,7 +112,6 @@ const CommentModal = ({ isOpen, onClose, productId, productTitle }) => {
         }
     };
 
-    // Delete comment
     const handleDeleteComment = async (commentId) => {
         if (window.confirm('Are you sure you want to delete this comment?')) {
             try {
@@ -137,7 +127,6 @@ const CommentModal = ({ isOpen, onClose, productId, productTitle }) => {
                 }
             } catch (error) {
                 console.error('Error deleting comment:', error);
-                // Fallback to localStorage if API is not available
                 try {
                     const updatedComments = comments.filter(comment => comment._id !== commentId);
                     setComments(updatedComments);
@@ -155,7 +144,6 @@ const CommentModal = ({ isOpen, onClose, productId, productTitle }) => {
         }
     };
 
-    // Format timestamp
     const formatTimestamp = (timestamp) => {
         const date = new Date(timestamp);
         return date.toLocaleDateString() + ' ' + date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -174,7 +162,6 @@ const CommentModal = ({ isOpen, onClose, productId, productTitle }) => {
                 </div>
 
                 <div className="comment-modal-body">
-                    {/* Add Comment Form */}
                     <div className="add-comment-section">
                         <h4>Add a Comment</h4>
                         {error && (
@@ -210,7 +197,6 @@ const CommentModal = ({ isOpen, onClose, productId, productTitle }) => {
                         </form>
                     </div>
 
-                    {/* Comments List */}
                     <div className="comments-section">
                         <h4>Comments ({comments.length})</h4>
                         {comments.length === 0 ? (

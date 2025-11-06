@@ -53,22 +53,18 @@ export default function AllProducts() {
         setSelectedProductForComment(null);
     };
 
-    // Fetch all products
     useEffect(() => {
         fetchAllProducts().then(data => setProductsAll(data));
     }, []);
 
-    // Fetch men's products
     useEffect(() => {
         fetchMenProducts().then(data => setProductsMen(data));
     }, []);
 
-    // Fetch women's clothing
     useEffect(() => {
         fetchWomenProducts().then(data => setProductsWomen(data));
     }, []);
 
-    // Fetch women's shoes products 
     useEffect(() => {
         fetchWomenShoesProducts().then(data => setProductsShoesWomen(data));
     }, []);
@@ -80,7 +76,6 @@ export default function AllProducts() {
 
             <div className="container">
 
-                {/* Men's Products */}
                 <div className="row">
                     <h2 className="fw-bold m-0 text-center ">Men's Collection</h2>
                     <p className="text-muted m-0 text-center mb-3">Stylish and modern outfits for men</p>
@@ -119,7 +114,6 @@ export default function AllProducts() {
                     ))}
                 </div>
 
-                {/* Women's Clothing */}
                 <div className="row">
                     <h1 className='text-center mt-5'>👗 Women's Clothing</h1>
                     {productsWomen.map((item, index) => (
@@ -157,7 +151,6 @@ export default function AllProducts() {
                     ))}
                 </div>
 
-                {/* Women's Shoes */}
                 <div className="row">
                     <h1 className='text-center mt-5'>👠 Women's Shoes</h1>
                     {productsShoesWomen.map((item, index) => (
@@ -195,7 +188,6 @@ export default function AllProducts() {
                     ))}
                 </div>
 
-                {/* All Products */}
                 <div className="row">
                     <h1 className='text-center mt-5'>🛍️ All Products</h1>
                     {productsAll.map((item, index) => (
@@ -233,7 +225,6 @@ export default function AllProducts() {
                     ))}
                 </div>
 
-                {/* Modal */}
                 {selectedProduct && (
                     <>
                         <button
@@ -308,7 +299,6 @@ export default function AllProducts() {
                     </>
                 )}
 
-                {/* Comment Modal */}
                 <CommentModal
                     isOpen={isCommentModalOpen}
                     onClose={handleCloseCommentModal}

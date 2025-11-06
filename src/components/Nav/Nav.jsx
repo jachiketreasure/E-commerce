@@ -16,24 +16,19 @@ export default function Navbar() {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    // Clear all user data
-    clearCart(); // Clear shopping cart
-    logout(); // Clear authentication
+    clearCart();
+    logout();
     
-    // Close mobile menu if open
     if (isMobileMenuOpen) {
       setIsMobileMenuOpen(false);
     }
     
-    // Close search modal if open
     if (isSearchModalOpen) {
       setIsSearchModalOpen(false);
     }
     
-    // Redirect to home page (replace prevents going back)
     navigate("/", { replace: true });
     
-    // Scroll to top of page for clean landing
     setTimeout(() => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }, 100);
@@ -82,7 +77,6 @@ export default function Navbar() {
         </button>
 
         <div className={`collapse navbar-collapse ${isMobileMenuOpen ? 'show' : ''}`} id="navbarNavDropdown">
-          {/* Close button */}
           <button 
             className="mobile-menu-close-btn"
             onClick={handleCloseMobileMenu}
@@ -127,7 +121,6 @@ export default function Navbar() {
               <Link className="nav-link" to="/Shop" onClick={handleCloseMobileMenu}>Pages ✦</Link>
             </li>
             
-            {/* Login/Register in mobile menu */}
             {!isAuthenticated && (
               <>
                 <li className="nav-item mobile-login-register">
@@ -184,7 +177,6 @@ export default function Navbar() {
       </div>
     </nav>
     
-    {/* Search Modal */}
     {isSearchModalOpen && (
       <SearchModal 
         isOpen={isSearchModalOpen} 

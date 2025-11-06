@@ -3,7 +3,6 @@ import mongoose from 'mongoose';
 
 const router = express.Router();
 
-// Comment Schema
 const commentSchema = new mongoose.Schema({
     productId: {
         type: Number,
@@ -30,25 +29,23 @@ const commentSchema = new mongoose.Schema({
     timestamps: true
 });
 
-// Index for better query performance
 commentSchema.index({ productId: 1, timestamp: -1 });
 
 const Comment = mongoose.model('Comment', commentSchema);
 
-// GET /api/comments/:productId - Get all comments for a specific product
 router.get('/:productId', async (req, res) => {
     try {
         const productId = parseInt(req.params.productId);
         
         if (isNaN(productId)) {
-            return res.status(400).json({ 
-                success: false, 
-                message: 'Invalid Product ID' 
+            return res.status(400).json({
+                success: false,
+                message: 'Invalid Product ID'
             });
         }
 
         const comments = await Comment.find({ productId })
-            .sort({ timestamp: -1 }) // Most recent first
+            .sort({ timestamp: -1 })
             .select('userName comment timestamp');
 
         res.json({
@@ -57,50 +54,49 @@ router.get('/:productId', async (req, res) => {
         });
     } catch (error) {
         console.error('Error fetching comments:', error);
-        res.status(500).json({ 
-            success: false, 
-            message: 'Failed to fetch comments' 
+        res.status(500).json({
+            success: false,
+            message: 'Failed to fetch comments'
         });
     }
 });
 
-// POST /api/comments - Add a new comment
 router.post('/', async (req, res) => {
     try {
         const { productId, userName, comment } = req.body;
 
         if (!productId || !userName || !comment) {
-            return res.status(400).json({ 
-                success: false, 
-                message: 'Product ID, user name, and comment are required' 
+            return res.status(400).json({
+                success: false,
+                message: 'Product ID, user name, and comment are required'
             });
         }
 
         if (isNaN(parseInt(productId))) {
-            return res.status(400).json({ 
-                success: false, 
-                message: 'Invalid product ID' 
+            return res.status(400).json({
+                success: false,
+                message: 'Invalid product ID'
             });
         }
 
         if (userName.trim().length === 0 || comment.trim().length === 0) {
-            return res.status(400).json({ 
-                success: false, 
-                message: 'User name and comment cannot be empty' 
+            return res.status(400).json({
+                success: false,
+                message: 'User name and comment cannot be empty'
             });
         }
 
         if (userName.length > 100) {
-            return res.status(400).json({ 
-                success: false, 
-                message: 'User name is too long (max 100 characters)' 
+            return res.status(400).json({
+                success: false,
+                message: 'User name is too long (max 100 characters)'
             });
         }
 
         if (comment.length > 1000) {
-            return res.status(400).json({ 
-                success: false, 
-                message: 'Comment is too long (max 1000 characters)' 
+            return res.status(400).json({
+                success: false,
+                message: 'Comment is too long (max 1000 characters)'
             });
         }
 
@@ -124,14 +120,13 @@ router.post('/', async (req, res) => {
         });
     } catch (error) {
         console.error('Error adding comment:', error);
-        res.status(500).json({ 
-            success: false, 
-            message: 'Failed to add comment' 
+        res.status(500).json({
+            success: false,
+            message: 'Failed to add comment'
         });
     }
 });
 
-// DELETE /api/comments/:commentId - Delete a comment
 router.delete('/:commentId', async (req, res) => {
     try {
         const commentId = req.params.commentId;
@@ -139,9 +134,9 @@ router.delete('/:commentId', async (req, res) => {
         const deletedComment = await Comment.findByIdAndDelete(commentId);
         
         if (!deletedComment) {
-            return res.status(404).json({ 
-                success: false, 
-                message: 'Comment not found' 
+            return res.status(404).json({
+                success: false,
+                message: 'Comment not found'
             });
         }
 
@@ -151,14 +146,13 @@ router.delete('/:commentId', async (req, res) => {
         });
     } catch (error) {
         console.error('Error deleting comment:', error);
-        res.status(500).json({ 
-            success: false, 
-            message: 'Failed to delete comment' 
+        res.status(500).json({
+            success: false,
+            message: 'Failed to delete comment'
         });
     }
 });
 
-// GET /api/comments - Get all comments (for admin/moderation)
 router.get('/', async (req, res) => {
     try {
         const { page = 1, limit = 10 } = req.query;

@@ -6,7 +6,7 @@ const ForgotPasswordModal = ({ isOpen, onClose }) => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [success, setSuccess] = useState(false);
-    const [step, setStep] = useState(1); // 1: Email input, 2: Success message
+    const [step, setStep] = useState(1);
 
     useEffect(() => {
         const handleEscapeKey = (e) => {
@@ -39,7 +39,6 @@ const ForgotPasswordModal = ({ isOpen, onClose }) => {
         setLoading(true);
         setError('');
 
-        // Email validation
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
             setError('Please enter a valid email address');
@@ -50,42 +49,14 @@ const ForgotPasswordModal = ({ isOpen, onClose }) => {
         try {
             const BASE = import.meta.env.VITE_API_BASE_URL || "https://ecommerce-backend-bwha.onrender.com";
             
-            console.log('Sending password reset request for:', email);
-            
-            // For demo purposes, we'll simulate the API call
-            // In a real implementation, this would call the backend API
-            console.log('Demo mode: Simulating password reset email...');
-            
-            // Simulate API call with realistic timing
             await new Promise(resolve => setTimeout(resolve, 2000));
             
-            // For demo purposes, we'll show success
-            // In production, you would uncomment the real API call below
             setSuccess(true);
             setStep(2);
             
-            /* 
-            // Real API call (uncomment for production with email service)
-            const response = await fetch(`${BASE}/api/auth/forgot-password`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email }),
-            });
-
-            const data = await response.json();
-
-            if (response.ok) {
-                setSuccess(true);
-                setStep(2);
-            } else {
-                setError(data.message || 'Failed to send reset email. Please try again.');
-            }
-            */
+            
             
         } catch (err) {
-            console.error('Forgot password error:', err);
             setError('Failed to send reset email. Please try again.');
         } finally {
             setLoading(false);
@@ -102,10 +73,8 @@ const ForgotPasswordModal = ({ isOpen, onClose }) => {
 
     return (
         <>
-            {/* Backdrop */}
             <div className="forgot-password-backdrop" onClick={handleClose}></div>
             
-            {/* Modal */}
             <div className="forgot-password-modal">
                 <div className="forgot-password-header">
                     <h3>

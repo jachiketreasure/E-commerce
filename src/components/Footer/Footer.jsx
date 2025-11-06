@@ -62,7 +62,6 @@ export default function Footer() {
             >
                 <div className="container footer-container">
                     <div className="footer-content">
-                        {/* Company Info Section */}
                         <div className='footer-section company-info'>
                             <div className="logo-container">
                                 <img src={logo} alt="Logo" className='footer-logo' />
@@ -87,7 +86,6 @@ export default function Footer() {
                                 </div>
                             </div>
                             
-                            {/* Newsletter Subscription */}
                             <div className="newsletter-section">
                                 <h5>Subscribe to our newsletter</h5>
                                 <form onSubmit={handleSubscribe} className="newsletter-form">
@@ -114,7 +112,6 @@ export default function Footer() {
                             </div>
                         </div>
 
-                        {/* Recent Posts Section */}
                         <div className='footer-section recent-posts'>
                             <h4 className='section-title'>Recent Posts</h4>
                             <div className="posts-list">
@@ -154,7 +151,6 @@ export default function Footer() {
                             </div>
                         </div>
 
-                        {/* Our Stores Section */}
                         <div className='footer-section our-stores'>
                             <h4 className='section-title'>Our Stores</h4>
                             <div className="stores-list">
@@ -172,7 +168,6 @@ export default function Footer() {
                             </div>
                         </div>
 
-                        {/* Useful Links Section */}
                         <div className='footer-section useful-links'>
                             <h4 className='section-title'>Useful Links</h4>
                             <div className="links-list">
@@ -203,7 +198,6 @@ export default function Footer() {
                             </div>
                         </div>
 
-                        {/* Footer Menu Section */}
                         <div className='footer-section footer-menu'>
                             <h4 className='section-title'>Footer Menu</h4>
                             <div className="menu-list">
@@ -222,7 +216,6 @@ export default function Footer() {
                         </div>
                     </div>
 
-                    {/* Footer Bottom */}
                     <div className="footer-bottom">
                         <div className="footer-bottom-content">
                             <div className="copyright">

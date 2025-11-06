@@ -32,7 +32,6 @@ export default function OrderSuccess() {
         setOrder(response.data);
       }
     } catch (error) {
-      console.error('Error fetching order:', error);
       setError('Unable to fetch order details');
     } finally {
       setLoading(false);

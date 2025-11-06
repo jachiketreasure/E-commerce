@@ -9,7 +9,7 @@ import { dirname } from "path";
 import authRoutes from "./routes/auth.js";
 import orderRoutes from "./routes/orders.js";
 import commentRoutes from "./routes/comments.js";
-
+import cartRoutes from "./routes/cart.js";
 
 dotenv.config();
 console.log(" Mongo URI:", process.env.MONGO_URI);
@@ -22,7 +22,6 @@ const PORT = process.env.PORT || 8000;
 
 app.use(express.json());
 
-// Enhanced CORS configuration
 app.use(cors({
   origin: [
     "http://localhost:5173", 
@@ -36,7 +35,6 @@ app.use(cors({
   exposedHeaders: ["Content-Length", "X-Foo", "X-Bar"]
 }));
 
-// Manual CORS headers for additional safety
 app.use((req, res, next) => {
   const allowedOrigins = [
     "http://localhost:5173", 
@@ -73,16 +71,17 @@ mongoose.connect(process.env.MONGO_URI, {
   console.log("💡 Make sure MongoDB is running on your system");
 });
 
-// Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/comments", commentRoutes);
+app.use("/api/cart", cartRoutes);
 
 
 const productSchema = new mongoose.Schema({
   name: { type: String, required: true },
   price: { type: Number, required: true },
-  description: { type: String }
+  description: { type: String },
+  image: { type: String }
 });
 
 const Product = mongoose.model("Product", productSchema);

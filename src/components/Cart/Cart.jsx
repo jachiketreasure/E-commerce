@@ -113,7 +113,6 @@ export default function Cart() {
 
   return (
     <div className="container py-4">
-      {/* 👔 Men's Clothing */}
       <div className="head-sec d-flex justify-content-between">
         <div className='ms-3'>
           <h2 className="fw-bold m-0 ">Men's Collection</h2>
@@ -142,7 +141,7 @@ export default function Cart() {
               <div
                 className="card"
                 style={{
-                  background: cardColors[index % cardColors.length], // لون متغير
+                  background: cardColors[index % cardColors.length],
                   borderRadius: '10px'
                 }}
               >
@@ -168,7 +167,6 @@ export default function Cart() {
 
       )}
 
-      {/* 👗 Women's Clothing */}
       <h2 className="fw-bold m-0 mt-5">Women's Collection</h2>
       <p className="text-muted m-0  mb-3">Stylish and modern outfits for wommen</p>
       {loadingWomens ? (
@@ -190,7 +188,7 @@ export default function Cart() {
               <div
                 className="card"
                 style={{
-                  background: cardColors[index % cardColors.length], // لون متغير
+                  background: cardColors[index % cardColors.length],
                   borderRadius: '10px'
                 }}
               >
@@ -217,14 +215,11 @@ export default function Cart() {
 
       )}
 
-      {/*The modal appears only when selectedProduct is not null. */}
       {selectedProduct && (
         <>
           <button type="button" className="btn-close" aria-label="Close" onClick={() => setSelectedProduct(null)} />
-          {/* the background */}⭐
           <div className="modal-backdrop fade show"></div>
 
-          {/* The modal content */}
           <div className="modal fade show" style={{ display: 'block' }} tabIndex="-1" aria-modal="true" role="dialog">
 
 
@@ -255,7 +250,7 @@ export default function Cart() {
                   <p className='' style={{ fontSize: '20px' }}><strong>Price:</strong> ${selectedProduct.price}</p>
                   <button className="m-1 px-2 py-1 btn-1-modall" type="button" onClick={() => {
                     addToCart(selectedProduct);
-                    setSelectedProduct(null); // close the modal after adding to cart
+                    setSelectedProduct(null);
                   }}
                     style={{ backgroundColor: 'black', color: 'white', borderRadius: '10px', fontSize: '15px' }}>ADD TO CART</button>
                   <button className="m-1 px-2 py-1 btn-2-modall" onClick={()=>{setSelectedProduct(null)}} type="button" style={{ backgroundColor: 'white', color: 'black', borderRadius: '10px', fontSize: '15px' }}>Close</button>

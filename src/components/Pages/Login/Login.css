@@ -1,7 +1,3 @@
-/* .navbar{
-background-color: beige;
-} */
-/* Horizontal scrolling is prevented on the entire page. */
 body {
     overflow-x: hidden;
 }
@@ -29,18 +25,16 @@ body {
     z-index: 1;
 }
 
-/* Login Container Layout */
 .login-container {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: calc(100vh - 80px); /* Account for navbar height */
+    min-height: calc(100vh - 80px);
     padding: 2rem 1rem;
     position: relative;
     z-index: 2;
 }
 
-/* Image Section */
 .image-section {
     flex: 1;
     max-width: 50%;
@@ -73,7 +67,6 @@ body {
     border-radius: 15px;
 }
 
-/* Form Section */
 .form-section {
     flex: 1;
     max-width: 50%;
@@ -182,37 +175,6 @@ body {
     border-color: #667eea;
 }
 
-
-/* Mobile Support Button */
-.mobile-support-btn {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 60px;
-    height: 60px;
-    background: #25D366;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
-    cursor: pointer;
-    z-index: 1000;
-    transition: transform 0.3s ease;
-}
-
-.mobile-support-btn:hover {
-    transform: scale(1.1);
-}
-
-.mobile-support-btn i {
-    color: white;
-    font-size: 24px;
-}
-
-/* Responsive Design - Mobile First Approach */
-
-/* Large Desktop (1200px and up) */
 @media (min-width: 1200px) {
     .login-container {
         padding: 3rem 2rem;
@@ -224,7 +186,6 @@ body {
     }
 }
 
-/* Desktop (992px to 1199px) */
 @media (max-width: 1199px) and (min-width: 992px) {
     .login-container {
         padding: 2rem 1.5rem;
@@ -236,7 +197,6 @@ body {
     }
 }
 
-/* Tablet (768px to 991px) */
 @media (max-width: 991px) {
     .login-container {
         flex-direction: column;
@@ -274,7 +234,6 @@ body {
     }
 }
 
-/* Mobile (576px to 767px) */
 @media (max-width: 767px) {
     .login-container {
         padding: 0.5rem;
@@ -303,7 +262,7 @@ body {
     
     .Login .formm .box-group .groupp .input input {
         padding: 12px;
-        font-size: 16px; /* Prevents zoom on iOS */
+        font-size: 16px;
         border-radius: 8px;
     }
     
@@ -325,7 +284,6 @@ body {
     }
 }
 
-/* Small Mobile (up to 575px) */
 @media (max-width: 575px) {
     .login-container {
         padding: 0.25rem;
@@ -359,20 +317,8 @@ body {
     .Login .text-image {
         padding: 0.5rem;
     }
-    
-    .mobile-support-btn {
-        width: 50px;
-        height: 50px;
-        bottom: 15px;
-        right: 15px;
-    }
-    
-    .mobile-support-btn i {
-        font-size: 20px;
-    }
 }
 
-/* Error message styling */
 .Login .formm .error-message {
     background-color: #f8d7da;
     color: #721c24;
@@ -383,13 +329,11 @@ body {
     font-size: 0.9rem;
 }
 
-/* Loading state */
 .Login .formm .buttons button:disabled {
     opacity: 0.6;
     cursor: not-allowed;
 }
 
-/* Focus states for better accessibility */
 .Login .formm .box-group .groupp .input input:focus {
     outline: none;
     border-color: #007bff;

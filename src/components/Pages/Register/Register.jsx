@@ -17,18 +17,10 @@ export default function Register() {
         phone: "",
         password: "",
         confirmPassword: "",
-        gender: "",
     });
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
-    
-    const handleWhatsAppSupport = () => {
-        const phoneNumber = "+2349135663829";
-        const message = "Hello! I need support with my registration/account.";
-        const whatsappUrl = `https://wa.me/${phoneNumber.replace(/\+/g, '')}?text=${encodeURIComponent(message)}`;
-        window.open(whatsappUrl, '_blank');
-    };
     
       const handleChange = (e) => {
         const { name, value } = e.target;
@@ -39,7 +31,6 @@ export default function Register() {
         setLoading(true);
         setError("");
 
-        // Validation
         if (!formData.firstName || !formData.lastName || !formData.email || !formData.password) {
             setError("Please fill in all required fields");
             setLoading(false);
@@ -64,7 +55,6 @@ export default function Register() {
             email: formData.email,
             phone: formData.phone,
             password: formData.password,
-            gender: formData.gender,
         };
 
         try {
@@ -99,25 +89,14 @@ export default function Register() {
         <>
             <Navbar/>
             <div className="Register">
-                {/* Floating buttons - hidden on mobile */}
-                <div className="floating1-button d-none d-md-block" onClick={handleWhatsAppSupport} style={{ cursor: 'pointer' }}>
-                    <span className="icon"><i className="fa-brands fa-whatsapp"></i></span>
-                    <span className="label">SUPPORT</span>
-                </div>
                 <div className="floating2-button d-none d-md-block">
                     <span className="icon"><i className="fa-solid fa-headphones"></i></span>
                     <span className="label">BUY NOW</span>
                 </div>
 
-                {/* Mobile support button */}
-                <div className="mobile-support-btn d-md-none" onClick={handleWhatsAppSupport}>
-                    <i className="fa-brands fa-whatsapp"></i>
-                </div>
-
                 <div className="register-container">
-                    {/* Image section - hidden on mobile */}
                     <div className="image-section d-none d-lg-block">
-                        <div className="imagee">
+                        <div className='imagee'>
                             <div className='text-image'>
                                 <h1 className='fw-bold mb-3'>Register</h1>
                             </div>
@@ -125,7 +104,6 @@ export default function Register() {
                         </div>
                     </div>
 
-                    {/* Form section */}
                     <div className="form-section">
                         <form className="formm" onSubmit={handleSubmit}>
                                       <div className="head">
@@ -170,16 +148,6 @@ export default function Register() {
                                     <div className="input"><input type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} placeholder="Re-enter your password" disabled={loading} required/></div>
                                 </div>
                                 
-                                <div className="gender">
-                                    <div>
-                                        <input type="radio" name="gender" value="male" checked={formData.gender === "male"} onChange={handleChange} className='me-1' disabled={loading}/>
-                                        <label htmlFor="male"> Male</label>
-                                    </div>
-                                    <div>
-                                        <input type="radio" name="gender" value="female" checked={formData.gender === "female"} onChange={handleChange} className='me-1' disabled={loading} />
-                                        <label htmlFor="female"> Female</label>
-                                    </div>
-                                </div>
                             </div>
                             <div className="buttons fw-medium">
                                 <button type="submit" className="btn-on" disabled={loading}>
@@ -196,6 +164,9 @@ export default function Register() {
                                     )}
                                 </button>
                             </div>
+                            <p className="login-link-text">
+                                Already have an account? <Link to="/Login">Login</Link>
+                            </p>
                         </form>
                     </div>
                 </div>

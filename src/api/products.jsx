@@ -1,4 +1,3 @@
-// Fetch All Products
 export const fetchAllProducts = () => {
     return fetch('https://dummyjson.com/products?limit=100')
         .then(res => res.json())
@@ -7,7 +6,6 @@ export const fetchAllProducts = () => {
 
 
 
-// Men's Products Only
 export const fetchMenProducts = () => {
     return fetch('https://dummyjson.com/products/category/mens-shirts?limit=100')
         .then(res => res.json())
@@ -16,7 +14,6 @@ export const fetchMenProducts = () => {
 
 
 
-// Women's Shoes Products Only
 export const fetchWomenShoesProducts = () => {
     return fetch('https://dummyjson.com/products/category/womens-shoes?limit=30')
         .then(res => res.json())
@@ -25,7 +22,6 @@ export const fetchWomenShoesProducts = () => {
 
 
 
-// Women's Products Only
 export const fetchWomenProducts = () => {
     return fetch('https://dummyjson.com/products/category/womens-dresses')
         .then(res => res.json())

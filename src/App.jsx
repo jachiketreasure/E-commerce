@@ -28,10 +28,18 @@ import Returns from './components/Pages/Returns/Returns';
 import TermsConditions from './components/Pages/TermsConditions/TermsConditions';
 import ProtectedRoute from './components/ProtectedRoute';
 import { useAuth } from './context/AuthContext';
+import './App.css';
 
 function App() {
   const { isAuthenticated } = useAuth();
   
+  const handleWhatsAppSupport = () => {
+    const phoneNumber = "+2349135663829";
+    const message = "Hello! I need support with my order.";
+    const whatsappUrl = `https://wa.me/${phoneNumber.replace(/\+/g, '')}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+  };
+
   return (
     <>
       <Routes>
@@ -51,10 +59,13 @@ function App() {
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/returns" element={<Returns />} />
         <Route path="/terms-conditions" element={<TermsConditions />} />
-        {/* Catch-all route for SPA routing */}
         <Route path="*" element={<Home />} />
       </Routes> 
       {isAuthenticated && <Footer/>}
+      <div className="floating1-button" onClick={handleWhatsAppSupport} style={{ cursor: 'pointer' }}>
+        <span className="icon"><i className="fa-brands fa-whatsapp"></i></span>
+        <span className="label">SUPPORT</span>
+      </div>
     </>
   );
 }

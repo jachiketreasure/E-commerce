@@ -8,69 +8,48 @@ import axios from 'axios';
 
 const BASE = import.meta.env.VITE_API_BASE_URL || "https://ecommerce-backend-bwha.onrender.com";
 
-// US States data
-const US_STATES = [
-  'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware',
-  'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas',
-  'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota',
-  'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey',
-  'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon',
-  'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas',
-  'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
+const NIGERIAN_STATES = [
+  'Abia', 'Adamawa', 'Akwa Ibom', 'Anambra', 'Bauchi', 'Bayelsa', 'Benue', 'Borno', 'Cross River', 'Delta', 'Ebonyi', 'Edo', 'Ekiti', 'Enugu', 'Gombe', 'Imo', 'Jigawa', 'Kaduna', 'Kano', 'Katsina', 'Kebbi', 'Kogi', 'Kwara', 'Lagos', 'Nasarawa', 'Niger', 'Ogun', 'Ondo', 'Osun', 'Oyo', 'Plateau', 'Rivers', 'Sokoto', 'Taraba', 'Yobe', 'Zamfara', 'Federal Capital Territory'
 ];
 
-// Popular cities by state (simplified version)
-const CITY_BY_STATE = {
-  'Alabama': ['Birmingham', 'Montgomery', 'Mobile', 'Huntsville', 'Tuscaloosa'],
-  'Alaska': ['Anchorage', 'Fairbanks', 'Juneau', 'Sitka', 'Wasilla'],
-  'Arizona': ['Phoenix', 'Tucson', 'Mesa', 'Chandler', 'Scottsdale'],
-  'Arkansas': ['Little Rock', 'Fort Smith', 'Fayetteville', 'Springdale', 'Jonesboro'],
-  'California': ['Los Angeles', 'San Diego', 'San Jose', 'San Francisco', 'Oakland', 'Sacramento', 'Fresno', 'Long Beach', 'Anaheim', 'Riverside'],
-  'Colorado': ['Denver', 'Colorado Springs', 'Aurora', 'Fort Collins', 'Lakewood'],
-  'Connecticut': ['Bridgeport', 'New Haven', 'Hartford', 'Stamford', 'Waterbury'],
-  'Delaware': ['Wilmington', 'Dover', 'Newark', 'Middletown', 'Smyrna'],
-  'Florida': ['Jacksonville', 'Miami', 'Tampa', 'Orlando', 'St. Petersburg', 'Fort Lauderdale', 'Tallahassee', 'Port St. Lucie'],
-  'Georgia': ['Atlanta', 'Augusta', 'Columbus', 'Savannah', 'Athens'],
-  'Hawaii': ['Honolulu', 'Hilo', 'Kailua', 'Kaneohe', 'Waipahu'],
-  'Idaho': ['Boise', 'Nampa', 'Meridian', 'Idaho Falls', 'Pocatello'],
-  'Illinois': ['Chicago', 'Aurora', 'Rockford', 'Joliet', 'Naperville'],
-  'Indiana': ['Indianapolis', 'Fort Wayne', 'Evansville', 'South Bend', 'Carmel'],
-  'Iowa': ['Des Moines', 'Cedar Rapids', 'Davenport', 'Sioux City', 'Iowa City'],
-  'Kansas': ['Wichita', 'Overland Park', 'Kansas City', 'Topeka', 'Olathe'],
-  'Kentucky': ['Louisville', 'Lexington', 'Bowling Green', 'Owensboro', 'Covington'],
-  'Louisiana': ['New Orleans', 'Baton Rouge', 'Shreveport', 'Lafayette', 'Lake Charles'],
-  'Maine': ['Portland', 'Lewiston', 'Bangor', 'South Portland', 'Auburn'],
-  'Maryland': ['Baltimore', 'Frederick', 'Rockville', 'Gaithersburg', 'Bowie'],
-  'Massachusetts': ['Boston', 'Worcester', 'Springfield', 'Lowell', 'Cambridge'],
-  'Michigan': ['Detroit', 'Grand Rapids', 'Warren', 'Sterling Heights', 'Ann Arbor'],
-  'Minnesota': ['Minneapolis', 'St. Paul', 'Rochester', 'Duluth', 'Bloomington'],
-  'Mississippi': ['Jackson', 'Gulfport', 'Southaven', 'Hattiesburg', 'Biloxi'],
-  'Missouri': ['Kansas City', 'St. Louis', 'Springfield', 'Columbia', 'Independence'],
-  'Montana': ['Billings', 'Missoula', 'Great Falls', 'Bozeman', 'Butte'],
-  'Nebraska': ['Omaha', 'Lincoln', 'Bellevue', 'Grand Island', 'Kearney'],
-  'Nevada': ['Las Vegas', 'Henderson', 'Reno', 'North Las Vegas', 'Sparks'],
-  'New Hampshire': ['Manchester', 'Nashua', 'Concord', 'Derry', 'Rochester'],
-  'New Jersey': ['Newark', 'Jersey City', 'Paterson', 'Elizabeth', 'Edison'],
-  'New Mexico': ['Albuquerque', 'Las Cruces', 'Rio Rancho', 'Santa Fe', 'Roswell'],
-  'New York': ['New York City', 'Buffalo', 'Rochester', 'Albany', 'Syracuse', 'Bronx', 'Brooklyn', 'Queens'],
-  'North Carolina': ['Charlotte', 'Raleigh', 'Greensboro', 'Durham', 'Winston-Salem'],
-  'North Dakota': ['Fargo', 'Bismarck', 'Grand Forks', 'Minot', 'West Fargo'],
-  'Ohio': ['Columbus', 'Cleveland', 'Cincinnati', 'Toledo', 'Akron'],
-  'Oklahoma': ['Oklahoma City', 'Tulsa', 'Norman', 'Broken Arrow', 'Lawton'],
-  'Oregon': ['Portland', 'Eugene', 'Salem', 'Gresham', 'Hillsboro'],
-  'Pennsylvania': ['Philadelphia', 'Pittsburgh', 'Allentown', 'Erie', 'Reading'],
-  'Rhode Island': ['Providence', 'Warwick', 'Cranston', 'Pawtucket', 'East Providence'],
-  'South Carolina': ['Charleston', 'Columbia', 'North Charleston', 'Mount Pleasant', 'Rock Hill'],
-  'South Dakota': ['Sioux Falls', 'Rapid City', 'Aberdeen', 'Brookings', 'Watertown'],
-  'Tennessee': ['Memphis', 'Nashville', 'Knoxville', 'Chattanooga', 'Clarksville'],
-  'Texas': ['Houston', 'San Antonio', 'Dallas', 'Austin', 'Fort Worth', 'El Paso', 'Arlington', 'Corpus Christi'],
-  'Utah': ['Salt Lake City', 'West Valley City', 'Provo', 'West Jordan', 'Orem'],
-  'Vermont': ['Burlington', 'Essex', 'South Burlington', 'Colchester', 'Rutland'],
-  'Virginia': ['Virginia Beach', 'Norfolk', 'Richmond', 'Newport News', 'Chesapeake'],
-  'Washington': ['Seattle', 'Spokane', 'Tacoma', 'Vancouver', 'Bellevue'],
-  'West Virginia': ['Charleston', 'Huntington', 'Parkersburg', 'Wheeling', 'Morgantown'],
-  'Wisconsin': ['Milwaukee', 'Madison', 'Green Bay', 'Kenosha', 'Racine'],
-  'Wyoming': ['Cheyenne', 'Casper', 'Laramie', 'Gillette', 'Rock Springs']
+const LGA_BY_STATE = {
+  'Abia': [`Aba North`, `Aba South`, `Arochukwu`, `Bende`, `Ikwuano`, `Isiala Ngwa North`, `Isiala Ngwa South`, `Isuikwuato`, `Obi Ngwa`, `Ohafia`, `Osisioma Ngwa`, `Ugwunagbo`, `Ukwa East`, `Ukwa West`, `Umuahia North`, `Umuahia South`, `Umu Nneochi`],
+  'Adamawa': [`Demsa`, `Fufore`, `Ganye`, `Girei`, `Gombi`, `Guyuk`, `Hong`, `Jada`, `Lamurde`, `Madagali`, `Maiha`, `Mayo-Belwa`, `Michika`, `Mubi North`, `Mubi South`, `Numan`, `Shelleng`, `Song`, `Toungo`, `Yola North`, `Yola South`],
+  'Akwa Ibom': [`Abak`, `Eastern Obolo`, `Eket`, `Esit Eket`, `Essien Udim`, `Etim Ekpo`, `Etinan`, `Ibeno`, `Ibesikpo Asutan`, `Ibiono-Ibom`, `Ika`, `Ikono`, `Ikot Abasi`, `Ikot Ekpene`, `Ini`, `Itu`, `Mbo`, `Mkpat-Enin`, `Nsit-Atai`, `Nsit-Ibom`, `Nsit-Ubium`, `Obot Akara`, `Okobo`, `Onna`, `Oron`, `Oruk Anam`, `Udung-Uko`, `Ukanafun`, `Uruan`, `Urue-Offong/Oruko`, `Uyo`],
+  'Anambra': [`Aguata`, `Anambra East`, `Anambra West`, `Anaocha`, `Awka North`, `Awka South`, `Ayamelum`, `Dunukofia`, `Ekwusigo`, `Idemili North`, `Idemili South`, `Ihiala`, `Njikoka`, `Nnewi North`, `Nnewi South`, `Ogbaru`, `Onitsha North`, `Onitsha South`, `Orumba North`, `Orumba South`, `Oyi`],
+  'Bauchi': [`Alkaleri`, `Bauchi`, `Bogoro`, `Damban`, `Darazo`, `Dass`, `Gamawa`, `Ganjuwa`, `Giade`, `Itas/Gadau`, `Jama'are`, `Katagum`, `Kirfi`, `Misau`, `Ningi`, `Shira`, `Tafawa Balewa`, `Toro`, `Warji`, `Zaki`],
+  'Bayelsa': [`Brass`, `Ekeremor`, `Kolokuma/Opokuma`, `Nembe`, `Ogbia`, `Sagbama`, `Southern Ijaw`, `Yenagoa`],
+  'Benue': [`Ado`, `Agatu`, `Apa`, `Buruku`, `Gboko`, `Guma`, `Gwer East`, `Gwer West`, `Katsina-Ala`, `Konshisha`, `Kwande`, `Logo`, `Makurdi`, `Obi`, `Ogbadibo`, `Ohimini`, `Oju`, `Okpokwu`, `Oturkpo`, `Tarka`, `Ukum`, `Ushongo`, `Vandeikya`],
+  'Borno': [`Abadam`, `Askira/Uba`, `Bama`, `Bayo`, `Biu`, `Chibok`, `Damboa`, `Dikwa`, `Gubio`, `Guzamala`, `Gwoza`, `Hawul`, `Jere`, `Kaga`, `Kala/Balge`, `Konduga`, `Kukawa`, `Kwaya Kusar`, `Mafa`, `Magumeri`, `Maiduguri`, `Marte`, `Mobbar`, `Monguno`, `Ngala`, `Nganzai`, `Shani`],
+  'Cross River': [`Abi`, `Akamkpa`, `Akpabuyo`, `Bakassi`, `Bekwarra`, `Biase`, `Boki`, `Calabar Municipal`, `Calabar South`, `Etung`, `Ikom`, `Obanliku`, `Obubra`, `Obudu`, `Odukpani`, `Ogoja`, `Yakuur`, `Yala`],
+  'Delta': [`Aniocha North`, `Aniocha South`, `Bomadi`, `Burutu`, `Ethiope East`, `Ethiope West`, `Ika North East`, `Ika South`, `Isoko North`, `Isoko South`, `Ndokwa East`, `Ndokwa West`, `Okpe`, `Oshimili North`, `Oshimili South`, `Patani`, `Sapele`, `Udu`, `Ughelli North`, `Ughelli South`, `Ukwuani`, `Uvwie`, `Warri North`, `Warri South`, `Warri South West`],
+  'Ebonyi': [`Abakaliki`, `Afikpo North`, `Afikpo South (Edda)`, `Ezza North`, `Ezza South`, `Ikwo`, `Ishielu`, `Ivo`, `Izzi`, `Ohaozara`, `Ohaukwu`, `Onicha`],
+  'Edo': [`Akoko-Edo`, `Egor`, `Esan Central`, `Esan North-East`, `Esan South-East`, `Esan West`, `Etsako Central`, `Etsako East`, `Etsako West`, `Ighebuzor`, `Ikpoba-Okha`, `Orhionmwon`, `Ovia North-East`, `Ovia South-West`, `Owan East`, `Owan West`, `Uhunmwonde`],
+  'Ekiti': [`Ado-Ekiti`, `Efon`, `Ekiti East`, `Ekiti South-West`, `Ekiti West`, `Emure`, `Ido-Osi`, `Ijero`, `Ikere`, `Ikole`, `Ilejemeje`, `Ire Ekiti`, `Moba`, `Oye`, `Gbonyin`, `Ise/Orun`, `Oye-Ekiti`],
+  'Enugu': [`Aninri`, `Awgu`, `Enugu East`, `Enugu North`, `Enugu South`, `Ezeagu`, `Igbo Etiti`, `Igbo Eze North`, `Igbo Eze South`, `Isi-Uzo`, `Nkanu East`, `Nkanu West`, `Nasukka`, `Oji River`, `Udenu`, `Udi`, `Uzo-Uwani`],
+  'Gombe': [`Akko`, `Balanga`, `Billiri`, `Dukku`, `Funakaye`, `Gombe`, `Kaltungo`, `Kwami`, `Nafada`, `Shongom`, `Yamaltu/Deba`],
+  'Imo': [`Aboh Mbaise`, `Ahiazu Mbaise`, `Ehime Mbano`, `Ezinihitte`, `Ideato North`, `Ideato South`, `Ikeduru`, `Isiala Mbano`, `Isu`, `Mbaitoli`, `Ngor Okpala`, `Njaba`, `Nkwerre`, `Nwangele`, `Obowo`, `Oguta`, `Ohaji/Egbema`, `Okigwe`, `Orlu`, `Orsu`, `Oru East`, `Oru West`, `Owerri Municipal`, `Owerri North`, `Owerri West`],
+  'Jigawa': [`Auyo`, `Babura`, `Biriniwa`, `Birnin Kudu`, `Buji`, `Dutse`, `Gagarawa`, `Garki`, `Gumel`, `Guri`, `Gwaram`, `Hadejia`, `Jahun`, `Kafin Hausa`, `Kaugama`, `Kazaure`, `Kiri Kasama`, `Kiyawa`, `Kudai`, `Maigatari`, `Malam Madori`, `Miga`, `Ringim`, `Roni`, `Sule Tankarkar`, `Taura`, `Yankwashi`],
+  'Kaduna': [`Birnin Gwari`, `Chikun`, `Giwa`, `Igabi`, `Ikara`, `Jaba`, `Jema'a`, `Kachia`, `Kaduna North`, `Kaduna South`, `Kagarko`, `Kajuru`, `Kaura`, `Kauru`, `Kubau`, `Kudan`, `Lere`, `Makarfi`, `Sabon Gari`, `Sanga`, `Soba`, `Zangon Kataf`, `Zaria`],
+  'Kano': [`Ajingi`, `Albasu`, `Bagwai`, `Bebeji`, `Bichi`, `Bunkure`, `Dala`, `Dambatta`, `Dawakin Kudu`, `Dawakin Tofa`, `Doguwa`, `Fagge`, `Gabasawa`, `Garko`, `Garun Mallam`, `Gaya`, `Gezawa`, `Gwale`, `Gwarzo`, `Kabasa`, `Kano Municipal`, `Karaye`, `Kibiya`, `Kiru`, `Kumbotso`, `Kunchi`, `Kura`, `Madobi`, `Makoda`, `Minjibir`, `Nasarawa`, `Rano`, `Rimin Gado`, `Rogo`, `Shanono`, `Sumaila`, `Takai`, `Tarauni`, `Tofa`, `Tsanyawa`, `Tudun Wada`, `Ungogo`, `Warawa`, `Wudil`],
+  'Katsina': [`Bakori`, `Batagarawa`, `Batsari`, `Baure`, `Bindawa`, `Charanchi`, `Dan Musa`, `Dandume`, `Danja`, `Daura`, `Dutsi`, `Dutsin-Ma`, `Faskari`, `Funtua`, `Ingawa`, `Jibia`, `Kafur`, `Kaita`, `Kankara`, `Kankia`, `Katsina`, `Kurfi`, `Kusada`, `Mai'adua`, `Malumfashi`, `Mani`, `Mashi`, `Matazu`, `Musawa`, `Rimi`, `Sabuwa`, `Safana`, `Sandamu`, `Zango`],
+  'Kebbi': [`Aleiro`, `Arewa Dandi`, `Argungu`, `Augie`, `Bagudo`, `Birnin Kebbi`, `Bunza`, `Dandi`, `Fakai`, `Gwandu`, `Jega`, `Kalgo`, `Koko/Besse`, `Maiyama`, `Ngaski`, `Sakaba`, `Shanga`, `Suru`, `Wasagu/Danko`, `Yauri`, `Zuru`],
+  'Kogi': [`Adavi`, `Ajaokuta`, `Ankpa`, `Bassa`, `Dekina`, `Ibaji`, `Idah`, `Igalamela Odolu`, `Ijumu`, `Kabba/Bunu`, `Kogi`, `Lokoja`, `Mopa-Muro`, `Ofu`, `Ogori/Magongo`, `Okehi`, `Okene`, `Olamaboro`, `Omala`, `Yagba East`, `Yagba West`],
+  'Kwara': [`Asa`, `Baruten`, `Edu`, `Ekiti`, `Ifelodun`, `Ilorin East`, `Ilorin South`, `Ilorin West`, `Isin`, `Kaiama`, `Moro`, `Offa`, `Oke Ero`, `Oyun`, `Pategi`],
+  'Lagos': [`Agege`, `Ajeromi-Ifelodun`, `Alimosho`, `Amuwo-Odofin`, `Apapa`, `Badagry`, `Epe`, `Eti-Osa`, `Ibeju-Lekki`, `Ifako-Ijaiye`, `Ikeja`, `Ikorodu`, `Kosofe`, `Lagos Island`, `Lagos Mainland`, `Mushin`, `Ojo`, `Oshodi-Isolo`, `Shomolu`, `Surulere`],
+  'Nasarawa': [`Akwanga`, `Awe`, `Doma`, `Karun`, `Keana`, `Keffi`, `Kokona`, `Lafia`, `Nasarawa`, `Nasarawa Eggon`, `Obi`, `Toto`, `Wamba`],
+  'Niger': [`Agaie`, `Agwara`, `Bida`, `Borgu`, `d/Kogi`, `Gbako`, `Gurara`, `Katcha`, `Kontagora`, `Lapai`, `Lavun`, `Magama`, `Mariga`, `Mashegu`, `Mokwa`, `Munba`, `Paikoro`, `Rafi`, `Rijau`, `Shiroro`, `Suleja`, `Tafa`, `Wushishi`],
+  'Ogun': [`Abeokuta North`, `Abeokuta South`, `Ado-Odo/Ota`, `Egbado North`, `Egbado South`, `Ewekoro`, `Ijebu North`, `Ijebu East`, `Ijebu Ode`, `Ikenne`, `Imeko Afon`, `Ipokia`, `Obafemi Owode`, `Odeda`, `Odogbolu`, `Ogun Waterside`, `Remo North`, `Sagamu`, `Yewa North`, `Yewa South`],
+  'Ondo': [`Akoko North East`, `Akoko North West`, `Akoko South Akure East`, `Akoko South West`, `Akure North`, `Akure South`, `Ese Odo`, `Idanre`, `Ifedore`, `Ilaje`, `Ile Oluji/Okeigbo`, `Irele`, `Odigbo`, `Okitipupa`, `Ondo East`, `Ondo West`, `Ose`, `Owo`],
+  'Osun': [`Aiyedaade`, `Aiyedire`, `Atakumosa East`, `Atakumosa West`, `Bolawaduro`, `Boripe`, `Ede North`, `Ede South`, `Egbedore`, `Ejigbo`, `Ife Central`, `Ife East`, `Ife North`, `Ife South`, `Ifedayo`, `Ifelodun`, `Ila`, `Ilesa East`, `Ilesa West`, `Irepodun`, `Irewole`, `Isokan`, `Iwo`, `Obokun`, `Odo Otin`, `Ola Oluwa`, `Olorunda`, `Oriade`, `Orolu`, `Osogbo`],
+  'Oyo': [`Akinyele`, `Atiba`, `Atisbo`, `Egbeda`, `Ibadan North`, `Ibadan North-East`, `Ibadan North-West`, `Ibadan South-East`, `Ibadan South-West`, `Ibarapa Central`, `Ibarapa East`, `Ibarapa North`, `Ido`, `Ifedayo`, `Irepo`, `Iseyin`, `Itesiwaju`, `Iwajowa`, `Kajola`, `Lagelu`, `Ogbomosho North`, `Ogbomosho South`, `Ogo Oluwa`, `Olorunsogo`, `Oluyole`, `Ona Ara`, `Oorelope`, `Ori Ire`, `Oyo West`, `Oyo East`, `Saki East`, `Saki West`, `Surulere`],
+  'Plateau': [`Barkin Ladi`, `Bassa`, `Bokkos`, `Jos East`, `Jos North`, `Jos South`, `Kanam`, `Kanke`, `Langtang North`, `Langtang South`, `Mangu`, `Mikang`, `Pankshin`, `Qua'an Pan`, `Riyom`, `Shendam`, `Wase`],
+  'Rivers': [`Abua/Odual`, `Ahoada East`, `Ahoada West`, `Akuku-Toru`, `Andoni`, `Asari-Toru`, `Bonny`, `Degema`, `Eleme`, `Emuoha`, `Etche`, `Gokana`, `Ikwerre`, `Khana`, `Obio/Akpor`, `Ogba/Egbema/Ndoni`, `Ogu/Bolo`, `Okrika`, `Omuma`, `Opobo/Nkoro`, `Oyigbo`, `Port Harcourt`, `Tai`],
+  'Sokoto': [`Binji`, `Bodinga`, `Dange Shuni`, `Goronyo`, `Gada`, `Illela`, `Kebbe`, `Kware`, `Rabah`, `Sabon Birni`, `Shagari`, `Silame`, `Sokoto North`, `Sokoto South`, `Tambuwal`, `Tangaza`, `Tureta`, `Wamako`, `Wurno`, `Yabo`],
+  'Taraba': [`Ardo Kola`, `Bali`, `Donga`, `Gashaka`, `Gassol`, `Ibi`, `Jalingo`, `Karim Lamido`, `Kaufai`, `Lau`, `Sardauna`, `Takum`, `Ussa`, `Wukari`, `Yorro`, `Zing`],
+  'Yobe': [`Bade`, `Bursari`, `Damaturu`, `Fika`, `Fune`, `Geidam`, `Gogaram`, `Gulani`, `Gujba`, `Gulani`, `Jakusko`, `Karasuwa`, `Machina`, `Nangere`, `Nguru`, `Potiskum`, `Tarmuwa`, `Yunusari`, `Yusufari`],
+  'Zamfara': [`Anka`, `Bakura`, `Birnin Magaji/Kiyaw`, `Bukkuyum`, `Bungudu`, `Gummi`, `Gusau`, `Kaura Namoda`, `Maradun`, `Maru`, `Shinkafi`, `Talata Mafara`, `Tsafe`, `Zurmi`],
+  'Federal Capital Territory': [`Abaji`, `Abuja Municipal`, `Bwari`, `Gwagwalada`, `Kuje`, `Kwali`]
 };
 
 export default function Checkout() {
@@ -87,7 +66,6 @@ export default function Checkout() {
     window.scrollTo(0, 0);
   }, []);
 
-  // Form states
   const [shippingInfo, setShippingInfo] = useState({
     firstName: user?.firstName || '',
     lastName: user?.lastName || '',
@@ -97,7 +75,7 @@ export default function Checkout() {
     city: '',
     state: '',
     zipCode: '',
-    country: 'United States'
+    country: 'Nigeria'
   });
 
   const [paymentInfo, setPaymentInfo] = useState({
@@ -116,20 +94,18 @@ export default function Checkout() {
     city: '',
     state: '',
     zipCode: '',
-    country: 'United States'
+    country: 'Nigeria'
   });
 
-  // Calculate totals
   const subtotal = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
   const shipping = subtotal > 50 ? 0 : 9.99;
-  const tax = subtotal * 0.08; // 8% tax
+  const tax = subtotal * 0.08;
   const total = subtotal + shipping + tax;
 
   const handleInputChange = (e, section) => {
     const { name, value } = e.target;
     if (section === 'shipping') {
       setShippingInfo(prev => ({ ...prev, [name]: value }));
-      // If state changes, reset city
       if (name === 'state') {
         setShippingInfo(prev => ({ ...prev, city: '' }));
       }
@@ -137,7 +113,6 @@ export default function Checkout() {
       setPaymentInfo(prev => ({ ...prev, [name]: value }));
     } else if (section === 'billing') {
       setBillingInfo(prev => ({ ...prev, [name]: value }));
-      // If state changes, reset city
       if (name === 'state') {
         setBillingInfo(prev => ({ ...prev, city: '' }));
       }
@@ -190,7 +165,6 @@ export default function Checkout() {
     setError('');
 
     try {
-      // Validate required fields
       const requiredShippingFields = ['firstName', 'lastName', 'email', 'address', 'city', 'state', 'zipCode', 'country'];
       const missingShippingFields = requiredShippingFields.filter(field => !shippingInfo[field] || String(shippingInfo[field]).trim() === '');
       
@@ -200,7 +174,6 @@ export default function Checkout() {
         return;
       }
 
-      // Validate billing info if not same as shipping
       if (!billingInfo.sameAsShipping) {
         const requiredBillingFields = ['firstName', 'lastName', 'address', 'city', 'state', 'zipCode', 'country'];
         const missingBillingFields = requiredBillingFields.filter(field => !billingInfo[field] || String(billingInfo[field]).trim() === '');
@@ -212,7 +185,6 @@ export default function Checkout() {
         }
       }
 
-      // Validate payment method
       if (!paymentInfo.paymentMethod) {
         setError('Please select a payment method');
         setLoading(false);
@@ -229,7 +201,6 @@ export default function Checkout() {
           return;
         }
 
-        // Validate card number format (basic validation)
         const cardNumber = paymentInfo.cardNumber.replace(/\s/g, '');
         if (cardNumber.length < 13 || cardNumber.length > 19 || !/^\d+$/.test(cardNumber)) {
           setError('Please enter a valid card number (13-19 digits)');
@@ -237,14 +208,12 @@ export default function Checkout() {
           return;
         }
 
-        // Validate expiry date format (MM/YY)
         if (!/^\d{2}\/\d{2}$/.test(paymentInfo.expiryDate)) {
           setError('Please enter a valid expiry date (MM/YY)');
           setLoading(false);
           return;
         }
 
-        // Validate CVV
         if (!/^\d{3,4}$/.test(paymentInfo.cvv)) {
           setError('Please enter a valid CVV (3-4 digits)');
           setLoading(false);
@@ -252,7 +221,6 @@ export default function Checkout() {
         }
       }
 
-      // Create order data
       const orderData = {
         items: cartItems.map(item => ({
           productId: item.id,
@@ -308,7 +276,6 @@ export default function Checkout() {
       console.log('Payment info:', paymentInfo);
       console.log('Cart items:', cartItems);
       
-      // Validate order data before sending
       if (!orderData.items || orderData.items.length === 0) {
         setError('No items in cart. Please add items before checking out.');
         setLoading(false);
@@ -321,8 +288,6 @@ export default function Checkout() {
         return;
       }
 
-      // For demo purposes, we'll simulate a successful payment
-      // In a real app, you'd integrate with Stripe, PayPal, etc.
       const response = await axios.post(`${BASE}/api/orders`, orderData, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -335,7 +300,6 @@ export default function Checkout() {
         setOrderSuccess(true);
         clearCart();
         
-        // Redirect to success page after 3 seconds
         setTimeout(() => {
           navigate(`/order-success/${response.data.orderId}`);
         }, 3000);
@@ -419,7 +383,6 @@ export default function Checkout() {
       <div className="checkout-page">
         <div className="container py-4">
           <div className="row">
-            {/* Order Summary - shown second on mobile */}
             <div className="col-12 col-lg-4 order-2 mb-4 mb-lg-0">
               <div className="order-summary">
                 <h4 className="mb-4">Order Summary</h4>
@@ -465,7 +428,6 @@ export default function Checkout() {
                   </div>
                 )}
 
-                {/* Complete Order Button */}
                 <div className="order-summary-actions">
                   <button
                     type="submit"
@@ -489,7 +451,6 @@ export default function Checkout() {
               </div>
             </div>
 
-            {/* Checkout Form - shown first on mobile */}
             <div className="col-12 col-lg-8 order-1">
               <div className="checkout-form">
                 <h2 className="mb-4">Checkout</h2>
@@ -501,7 +462,6 @@ export default function Checkout() {
                 )}
 
                 <form id="checkout-form" onSubmit={handlePayment}>
-                  {/* Shipping Information */}
                   <div className="checkout-form-section">
                     <div className="section-header">
                       <div className="section-icon">
@@ -574,7 +534,7 @@ export default function Checkout() {
                           className="input-field"
                         >
                           <option value="">Select a state</option>
-                          {US_STATES.map(state => (
+                          {NIGERIAN_STATES.map(state => (
                             <option key={state} value={state}>{state}</option>
                           ))}
                         </select>
@@ -590,7 +550,7 @@ export default function Checkout() {
                           disabled={!shippingInfo.state}
                         >
                           <option value="">Select a city</option>
-                          {shippingInfo.state && CITY_BY_STATE[shippingInfo.state]?.map(city => (
+                          {shippingInfo.state && LGA_BY_STATE[shippingInfo.state]?.map(city => (
                             <option key={city} value={city}>{city}</option>
                           ))}
                         </select>
@@ -609,7 +569,6 @@ export default function Checkout() {
                     </div>
                   </div>
 
-                  {/* Payment Information */}
                   <div className="checkout-form-section">
                     <div className="section-header">
                       <div className="section-icon">
@@ -695,7 +654,6 @@ export default function Checkout() {
                     </div>
                   </div>
 
-                  {/* Billing Information */}
                   <div className="checkout-form-section">
                     <div className="section-header">
                       <div className="section-icon">
@@ -757,7 +715,7 @@ export default function Checkout() {
                             className="input-field"
                           >
                             <option value="">Select a state</option>
-                            {US_STATES.map(state => (
+                            {NIGERIAN_STATES.map(state => (
                               <option key={state} value={state}>{state}</option>
                             ))}
                           </select>
@@ -772,7 +730,7 @@ export default function Checkout() {
                             disabled={!billingInfo.state}
                           >
                             <option value="">Select a city</option>
-                            {billingInfo.state && CITY_BY_STATE[billingInfo.state]?.map(city => (
+                            {billingInfo.state && LGA_BY_STATE[billingInfo.state]?.map(city => (
                               <option key={city} value={city}>{city}</option>
                             ))}
                           </select>

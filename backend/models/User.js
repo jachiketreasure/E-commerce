@@ -8,7 +8,16 @@ const userSchema = new mongoose.Schema({
   email:     { type: String, required: true, unique: true },
   phone:     { type: String },
   password:  { type: String, required: true },
-  gender:    { type: String }
+  gender:    { type: String },
+  cart:      [
+    {
+      productId: { type: mongoose.Schema.Types.ObjectId, ref: 'Product', required: true },
+      name:      { type: String, required: true },
+      image:     { type: String },
+      price:     { type: Number, required: true },
+      quantity:  { type: Number, required: true, default: 1 }
+    }
+  ]
 }, { timestamps: true });
 
 

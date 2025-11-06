@@ -35,6 +35,14 @@ body {
     z-index: 2;
 }
 
+.login-container .text-center a {
+    color: #667eea !important;
+}
+
+.login-container .text-center a:hover {
+    text-decoration: underline;
+}
+
 .image-section {
     flex: 1;
     max-width: 50%;

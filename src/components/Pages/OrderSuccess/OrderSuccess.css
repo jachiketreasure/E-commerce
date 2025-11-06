@@ -1,4 +1,9 @@
-/* Order Success Page Styles */
+.order-success-page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 .order-success {
   min-height: 100vh;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -302,7 +307,7 @@
   transform: translateY(-2px);
 }
 
-/* Print Styles */
+
 @media print {
   .order-success {
     background: white !important;
@@ -325,7 +330,6 @@
   }
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
   .order-success {
     padding: 1rem 0;

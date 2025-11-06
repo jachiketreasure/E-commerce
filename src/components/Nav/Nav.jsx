@@ -93,17 +93,8 @@ export default function Navbar() {
             
             {isAuthenticated && (
               <>
-                <li className="nav-item dropdown custom-dropdown">
-                  <Link className="nav-link" role="button">
-                    Shop ✦
-                  </Link>
-                  <ul className="dropdown-menu custom-dropdown-menu ">
-                    <li><Link className="dropdown-item" to="/AllProducts" onClick={handleCloseMobileMenu}>All</Link></li>
-                    <li><Link className="dropdown-item" to="/MensProducts" onClick={handleCloseMobileMenu}>Men's Clothing</Link></li>
-                    <li><Link className="dropdown-item" to="/WomensProducts" onClick={handleCloseMobileMenu}>Women's Clothing</Link></li>
-                    <li><Link className="dropdown-item" to="/terms" onClick={handleCloseMobileMenu}>Accessories</Link></li>
-                    <li><Link className="dropdown-item" to="/terms" onClick={handleCloseMobileMenu}><img src={logo} alt="" /></Link></li>
-                  </ul>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/order-history" onClick={handleCloseMobileMenu}>Order History ✦</Link>
                 </li>
               </>
             )}
@@ -116,9 +107,6 @@ export default function Navbar() {
             </li>
             <li className="nav-item">
               <a className="nav-link" href="https://jachiketreasure.github.io/Treasure-Jachike-Portfolio/" target="_blank" rel="noopener noreferrer" onClick={handleCloseMobileMenu}>Portfolio ✦</a>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/Shop" onClick={handleCloseMobileMenu}>Pages ✦</Link>
             </li>
             
             {!isAuthenticated && (

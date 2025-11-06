@@ -153,12 +153,7 @@ export default function Login() {
                             </form>
 
                             <div className="text-center mt-3">
-                                <p style={{ color: 'gray', marginBottom: '8px' }}>Don't have an account? <Link to="/Register" style={{ color: 'red' }}>Register</Link></p>
-                                <div className="buttons fw-medium">
-                                    <Link to="/Register">
-                                        <button className="btn-two">REGISTER</button>
-                                    </Link>
-                                </div>
+                                <p style={{ color: 'gray', marginBottom: '8px' }}>Don't have an account? <Link to="/Register">Register</Link></p>
                             </div>
                         </div>
                     </div>

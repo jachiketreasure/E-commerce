@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import Navbar from '../../Nav/Nav';
 import './OrderSuccess.css';
 import axios from 'axios';
@@ -9,15 +9,19 @@ const BASE = import.meta.env.VITE_API_BASE_URL || "https://ecommerce-backend-bwh
 export default function OrderSuccess() {
   const { orderId } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
   useEffect(() => {
-    if (orderId) {
+    if (location.state?.order) {
+      setOrder(location.state.order);
+      setLoading(false);
+    } else if (orderId) {
       fetchOrderDetails();
     }
-  }, [orderId]);
+  }, [orderId, location.state]);
 
   const fetchOrderDetails = async () => {
     try {
@@ -39,6 +43,7 @@ export default function OrderSuccess() {
   };
 
   const formatDate = (dateString) => {
+    if (!dateString) return 'N/A';
     return new Date(dateString).toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'long',
@@ -50,7 +55,7 @@ export default function OrderSuccess() {
 
   if (loading) {
     return (
-      <>
+      <div className="order-success-page-wrapper">
         <Navbar />
         <div className="order-success">
           <div className="container py-5 text-center">
@@ -60,13 +65,13 @@ export default function OrderSuccess() {
             <p className="mt-3">Loading order details...</p>
           </div>
         </div>
-      </>
+      </div>
     );
   }
 
   if (error) {
     return (
-      <>
+      <div className="order-success-page-wrapper">
         <Navbar />
         <div className="order-success">
           <div className="container py-5 text-center">
@@ -83,12 +88,35 @@ export default function OrderSuccess() {
             </button>
           </div>
         </div>
-      </>
+      </div>
+    );
+  }
+
+  if (!order) {
+    return (
+      <div className="order-success-page-wrapper">
+        <Navbar />
+        <div className="order-success">
+          <div className="container py-5 text-center">
+            <div className="error-icon">
+              <i className="fas fa-exclamation-triangle"></i>
+            </div>
+            <h2>Order Not Found</h2>
+            <p>The order details could not be loaded. Please try again or contact support.</p>
+            <button 
+              className="btn btn-primary"
+              onClick={() => navigate('/shop')}
+            >
+              Continue Shopping
+            </button>
+          </div>
+        </div>
+      </div>
     );
   }
 
   return (
-    <>
+    <div className="order-success-page-wrapper">
       <Navbar />
       <div className="order-success">
         <div className="container py-5">
@@ -108,71 +136,67 @@ export default function OrderSuccess() {
                   Order Details
                 </h3>
                 
-                {order && (
-                  <>
-                    <div className="order-info">
-                      <div className="info-row">
-                        <span className="label">Order ID:</span>
-                        <span className="value">{order._id}</span>
-                      </div>
-                      <div className="info-row">
-                        <span className="label">Order Date:</span>
-                        <span className="value">{formatDate(order.createdAt)}</span>
-                      </div>
-                      <div className="info-row">
-                        <span className="label">Status:</span>
-                        <span className={`status status-${order.status}`}>
-                          {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
-                        </span>
-                      </div>
-                      <div className="info-row">
-                        <span className="label">Payment Method:</span>
-                        <span className="value">
-                          {order.paymentInfo.method === 'card' ? 'Credit/Debit Card' : 
-                           order.paymentInfo.method === 'paypal' ? 'PayPal' : 
-                           order.paymentInfo.method === 'apple' ? 'Apple Pay' : 
-                           order.paymentInfo.method}
-                        </span>
-                      </div>
-                    </div>
+                <div className="order-info">
+                  <div className="info-row">
+                    <span className="label">Order ID:</span>
+                    <span className="value">{order.id || order._id}</span>
+                  </div>
+                  <div className="info-row">
+                    <span className="label">Order Date:</span>
+                    <span className="value">{formatDate(order.createdAt)}</span>
+                  </div>
+                  <div className="info-row">
+                    <span className="label">Status:</span>
+                    <span className={`status status-${order.status}`}>
+                      {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
+                    </span>
+                  </div>
+                  <div className="info-row">
+                    <span className="label">Payment Method:</span>
+                    <span className="value">
+                      {order.paymentInfo.method === 'card' ? 'Credit/Debit Card' :
+                       order.paymentInfo.method === 'paypal' ? 'PayPal' :
+                       order.paymentInfo.method === 'apple' ? 'Apple Pay' :
+                       order.paymentInfo.method}
+                    </span>
+                  </div>
+                </div>
 
-                    <div className="shipping-info mt-4">
-                      <h4>
-                        <i className="fas fa-shipping-fast me-2"></i>
-                        Shipping Information
-                      </h4>
-                      <div className="address-card">
-                        <p><strong>{order.shippingInfo.fullName}</strong></p>
-                        <p>{order.shippingInfo.address}</p>
-                        <p>{order.shippingInfo.city}, {order.shippingInfo.state} {order.shippingInfo.zipCode}</p>
-                        <p>{order.shippingInfo.country}</p>
-                        {order.shippingInfo.phone && <p>Phone: {order.shippingInfo.phone}</p>}
-                        <p>Email: {order.shippingInfo.email}</p>
-                      </div>
-                    </div>
+                <div className="shipping-info mt-4">
+                  <h4>
+                    <i className="fas fa-shipping-fast me-2"></i>
+                    Shipping Information
+                  </h4>
+                  <div className="address-card">
+                    <p><strong>{order.shippingInfo.fullName}</strong></p>
+                    <p>{order.shippingInfo.address}</p>
+                    <p>{order.shippingInfo.city}, {order.shippingInfo.state} {order.shippingInfo.zipCode}</p>
+                    <p>{order.shippingInfo.country}</p>
+                    {order.shippingInfo.phone && <p>Phone: {order.shippingInfo.phone}</p>}
+                    <p>Email: {order.shippingInfo.email}</p>
+                  </div>
+                </div>
 
-                    <div className="order-items mt-4">
-                      <h4>
-                        <i className="fas fa-shopping-bag me-2"></i>
-                        Items Ordered
-                      </h4>
-                      <div className="items-list">
-                        {order.items.map((item, index) => (
-                          <div key={index} className="order-item">
-                            <div className="item-image">
-                              <img src={item.image} alt={item.productName} />
-                            </div>
-                            <div className="item-details">
-                              <h6>{item.productName}</h6>
-                              <p>Quantity: {item.quantity}</p>
-                              <p className="item-price">${(item.price * item.quantity).toFixed(2)}</p>
-                            </div>
-                          </div>
-                        ))}
+                <div className="order-items mt-4">
+                  <h4>
+                    <i className="fas fa-shopping-bag me-2"></i>
+                    Items Ordered
+                  </h4>
+                  <div className="items-list">
+                    {order.items.map((item, index) => (
+                      <div key={index} className="order-item">
+                        <div className="item-image">
+                          <img src={item.image || item.thumbnail} alt={item.productName || item.title} />
+                        </div>
+                        <div className="item-details">
+                          <h6>{item.productName || item.title}</h6>
+                          <p>Quantity: {item.quantity}</p>
+                          <p className="item-price">${(item.price * item.quantity).toFixed(2)}</p>
+                        </div>
                       </div>
-                    </div>
-                  </>
-                )}
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -180,72 +204,68 @@ export default function OrderSuccess() {
               <div className="order-summary">
                 <h4 className="mb-4">Order Summary</h4>
                 
-                {order && (
-                  <>
-                    <div className="summary-totals">
-                      <div className="total-row">
-                        <span>Subtotal:</span>
-                        <span>${order.pricing.subtotal.toFixed(2)}</span>
-                      </div>
-                      <div className="total-row">
-                        <span>Shipping:</span>
-                        <span>{order.pricing.shipping === 0 ? 'FREE' : `$${order.pricing.shipping.toFixed(2)}`}</span>
-                      </div>
-                      <div className="total-row">
-                        <span>Tax:</span>
-                        <span>${order.pricing.tax.toFixed(2)}</span>
-                      </div>
-                      <div className="total-row total-final">
-                        <span>Total:</span>
-                        <span>${order.pricing.total.toFixed(2)}</span>
-                      </div>
-                    </div>
+                <div className="summary-totals">
+                  <div className="total-row">
+                    <span>Subtotal:</span>
+                    <span>${order.pricing.subtotal.toFixed(2)}</span>
+                  </div>
+                  <div className="total-row">
+                    <span>Shipping:</span>
+                    <span>{order.pricing.shipping === 0 ? 'FREE' : `$${order.pricing.shipping.toFixed(2)}`}</span>
+                  </div>
+                  <div className="total-row">
+                    <span>Tax:</span>
+                    <span>${order.pricing.tax.toFixed(2)}</span>
+                  </div>
+                  <div className="total-row total-final">
+                    <span>Total:</span>
+                    <span>${order.pricing.total.toFixed(2)}</span>
+                  </div>
+                </div>
 
-                    <div className="next-steps">
-                      <h5>What's Next?</h5>
-                      <div className="steps-list">
-                        <div className="step">
-                          <i className="fas fa-envelope"></i>
-                          <span>Confirmation email sent</span>
-                        </div>
-                        <div className="step">
-                          <i className="fas fa-box"></i>
-                          <span>Order being prepared</span>
-                        </div>
-                        <div className="step">
-                          <i className="fas fa-truck"></i>
-                          <span>Shipped within 2-3 business days</span>
-                        </div>
-                        <div className="step">
-                          <i className="fas fa-home"></i>
-                          <span>Delivered to your address</span>
-                        </div>
-                      </div>
+                <div className="next-steps">
+                  <h5>What's Next?</h5>
+                  <div className="steps-list">
+                    <div className="step">
+                      <i className="fas fa-envelope"></i>
+                      <span>Confirmation email sent</span>
                     </div>
+                    <div className="step">
+                      <i className="fas fa-box"></i>
+                      <span>Order being prepared</span>
+                    </div>
+                    <div className="step">
+                      <i className="fas fa-truck"></i>
+                      <span>Shipped within 2-3 business days</span>
+                    </div>
+                    <div className="step">
+                      <i className="fas fa-home"></i>
+                      <span>Delivered to your address</span>
+                    </div>
+                  </div>
+                </div>
 
-                    <div className="action-buttons">
-                      <button 
-                        className="btn btn-primary w-100 mb-2"
-                        onClick={() => navigate('/shop')}
-                      >
-                        <i className="fas fa-shopping-bag me-2"></i>
-                        Continue Shopping
-                      </button>
-                      <button 
-                        className="btn btn-outline-primary w-100"
-                        onClick={() => window.print()}
-                      >
-                        <i className="fas fa-print me-2"></i>
-                        Print Receipt
-                      </button>
-                    </div>
-                  </>
-                )}
+                <div className="action-buttons">
+                  <button 
+                    className="btn btn-primary w-100 mb-2"
+                    onClick={() => navigate('/shop')}
+                  >
+                    <i className="fas fa-shopping-bag me-2"></i>
+                    Continue Shopping
+                  </button>
+                  <button 
+                    className="btn btn-outline-primary w-100"
+                    onClick={() => window.print()}
+                  >
+                    <i className="fas fa-print me-2"></i>
+                    Print Receipt
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

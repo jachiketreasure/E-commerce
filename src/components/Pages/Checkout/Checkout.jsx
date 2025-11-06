@@ -221,7 +221,10 @@ export default function Checkout() {
         }
       }
 
+      const generatedOrderNumber = `ORD-${Date.now()}`;
+
       const orderData = {
+        orderNumber: generatedOrderNumber,
         items: cartItems.map(item => ({
           productId: item.id,
           productName: item.title,
@@ -296,12 +299,27 @@ export default function Checkout() {
       });
 
       if (response.status === 201) {
-        setOrderId(response.data.orderId);
+        const newOrderId = response.data.orderId;
+        setOrderId(newOrderId);
         setOrderSuccess(true);
         clearCart();
         
         setTimeout(() => {
-          navigate(`/order-success/${response.data.orderId}`);
+          navigate(`/order-success/${newOrderId}`, {
+            state: {
+              order: {
+                id: newOrderId,
+                orderNumber: generatedOrderNumber,
+                items: cartItems,
+                shippingInfo: shippingInfo,
+                billingInfo: billingInfo.sameAsShipping ? { ...shippingInfo, sameAsShipping: true } : billingInfo,
+                paymentInfo: paymentInfo,
+                pricing: { subtotal, shipping, tax, total },
+                status: 'pending',
+                createdAt: new Date().toISOString(),
+              }
+            }
+          });
         }, 3000);
       }
 
